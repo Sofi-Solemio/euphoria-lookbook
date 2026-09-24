@@ -1,0 +1,296 @@
+<title>Лукбук — Ningbo Felicity (Angelina) — часть 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:14px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.send{margin-top:8px;align-items:center}
+.send a.chip{text-decoration:none}
+#who{min-width:150px}
+dialog{border:0;border-radius:14px;padding:0;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:420px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brow">
+    <h1>Ningbo Felicity (Angelina) — часть 3</h1>
+    <div class="sub">81 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+  </div>
+  <div class="status" id="status">Оценки сохраняются автоматически.</div>
+  <div class="tools send">
+    <a class="chip" href="index.html">← Все фабрики</a>
+    <input id="who" placeholder="ваше имя" autocomplete="name">
+    <button class="chip" id="copy">Скопировать выбор</button>
+    <button class="chip" id="dl">Скачать файл выбора</button>
+    <a class="chip" id="mail" href="#">Отправить Софии</a>
+  </div>
+</header>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
+</div>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
+<script>
+const MODELS = [{"id": "ningbofeli-0180", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex", "price": "USD15", "web": "img/ningbofeli-0180.jpg", "frames": 1, "description": "015 | Halter Neck Dance Sports Set (Top + Shorts + Sheer Skirt) | Nylon80% Spandex20% | Pink, Black, White, Blue | XS, S, M, L | 13.4 | 500 | 125 | =G20-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against"}, {"id": "ningbofeli-0181", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex", "price": "USD15", "web": "img/ningbofeli-0181.jpg", "frames": 2, "description": "016 | Back Cutout Racerback Sports Bra | Nylon80% Spandex20% | Black, Gray, White, Red | XS, S, M, L | 5.8 | 500 | 125 | =G21-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai"}, {"id": "ningbofeli-0182", "factory": "Ningbo Felicity (Angelina)", "type": "шорты", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0182.jpg", "frames": 1, "description": "017 | Nylon-spandex cloud-feel fabric， Tennis/Golf Sports (Top ) | Nylon 80% Spandex 20% | XS, S, M, L | 5.1 | 500 | 125 | =G22-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shangh"}, {"id": "ningbofeli-0183", "factory": "Ningbo Felicity (Angelina)", "type": "юбка-шорты", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0183.jpg", "frames": 1, "description": "018 | Nylon-spandex cloud-feel fabric，Tennis/Golf Sports Shorts | Nylon 80% Spandex 20% | XS, S, M, L | 3.518 | 500 | 125 | =G23-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shang"}, {"id": "ningbofeli-0184", "factory": "Ningbo Felicity (Angelina)", "type": "юбка-шорты", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0184.jpg", "frames": 1, "description": "019 | Ruched Skort | Nylon 80% Spandex 20% | Brown, Black, Khaki, Gray | XS, S, M, L | 9.33 | 500 | 125 | =G24-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 4 size"}, {"id": "ningbofeli-0185", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0185.jpg", "frames": 1, "description": "020 | Halter Neck Top | Nylon 80% Spandex 20% | Brown, Black, Khaki, Gray | XS, S, M, L | 500 | 125 | =G25-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 4 sizes pe"}, {"id": "ningbofeli-0186", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0186.jpg", "frames": 2, "description": "021 | Cross Back Strappy Sports Bra | Nylon 80% Spandex 20% | Black, Nude, White, Red | XS, S, M, L | 4.5 | 500 | 125 | =G26-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai "}, {"id": "ningbofeli-0187", "factory": "Ningbo Felicity (Angelina)", "type": "шорты", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0187.jpg", "frames": 1, "description": "022 | Side pockets | Nylon 80% Spandex 20% | XS, S, M, L | 6.45 | 500 | 125 | =G27-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 4 sizes per color, 125pcs per size"}, {"id": "ningbofeli-0188", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0188.jpg", "frames": 1, "description": "023 | Biker Shorts | Nylon 80% Spandex 20% | Light Green, White, Pink, Blue | XS, S, M, L | 4.8 | 500 | 125 | =G28-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 4 "}, {"id": "ningbofeli-0189", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0189.jpg", "frames": 1, "description": "024 | Top bra | Nylon 80% Spandex 20% | Light Green, White, Pink, Blue | XS, S, M, L | 4.65 | 500 | 125 | =G29-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 4 size"}, {"id": "ningbofeli-0190", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0190.jpg", "frames": 1, "description": "025 | V bra | Nylon 80% Spandex 20% | Navy, Black, Gray, White | XS, S, M, L | 4.3 | 500 | 125 | =G30-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 4 sizes per col"}, {"id": "ningbofeli-0191", "factory": "Ningbo Felicity (Angelina)", "type": "брюки", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0191.jpg", "frames": 1, "description": "026 | Flare Leg Pants | Nylon 80% Spandex 20% | Navy, Black, Gray, White | XS, S, M, L | 5.66 | 500 | 125 | =G31-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 4 si"}, {"id": "ningbofeli-0192", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0192.jpg", "frames": 1, "description": "027 | High Waisted Athletic Jogger Pants | Nylon 80% Spandex 20% | Light Gray, Black, Navy, Green | XS, S, M, L | 6.66 | 500 | 125 | =G32-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | "}, {"id": "ningbofeli-0193", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0193.jpg", "frames": 2, "description": "028 | Strappy Back Sports Bra | Nylon 80% Spandex 20% | Black, Dark Gray, Nude, White | XS, S, M, L | 4.14 | 500 | 125 | =G33-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai"}, {"id": "ningbofeli-0194", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0194.jpg", "frames": 2, "description": "029 | Fabric finished:Brushed Shorts:High-waist design eliminates the awkward hip line; peach-shaped hip contour design. | Nylon 80% Spandex 20% | XS, S, M, L | 5 | 500 | 125 | =G34-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in"}, {"id": "ningbofeli-0195", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0195.jpg", "frames": 1, "description": "030 | Bra:Wider shoulder strap design, openwork stitching, and removable chest pad design. Contrast Trim Sports Bra | Nylon 80% Spandex 20% | XS, S, M, L | 4.89 | 500 | 125 | =G35-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in a"}, {"id": "ningbofeli-0196", "factory": "Ningbo Felicity (Angelina)", "type": "юбка-шорты", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0196.jpg", "frames": 1, "description": "031 | TOP | Nylon 80% Spandex 20% | Beige, Khaki, Black, White | XS, S, M, L | 6 | 500 | 125 | =G36-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 4 sizes per color"}, {"id": "ningbofeli-0197", "factory": "Ningbo Felicity (Angelina)", "type": "юбка-шорты", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0197.jpg", "frames": 1, "description": "032 | Pleated Tennis Skort | Nylon 80% Spandex 20% | Beige, Khaki, Black, White | XS, S, M, L | 6 | 500 | 125 | =G37-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | "}, {"id": "ningbofeli-0198", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0198.jpg", "frames": 1, "description": "033 | Crisscross Back Sports Bra | Nylon 80% Spandex 20% | Black, Nude, White, Red | XS, S, M, L | 4.258 | 500 | 125 | =G38-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai /"}, {"id": "ningbofeli-0199", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0199.jpg", "frames": 1, "description": "034 | High Waisted Athletic Shorts | Nylon 80% Spandex 20% | Light Green, White, Pink, Blue | XS, S, M, L | 4.78 | 500 | 125 | =G39-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Sh"}, {"id": "ningbofeli-0200", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0200.jpg", "frames": 1, "description": "035 | Square Neck Sports bra | Nylon 80% Spandex 20% | Off White, White, Light Gray, Black | XS, S, M, L | 4.9 | 500 | 125 | =G40-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shan"}, {"id": "ningbofeli-0201", "factory": "Ningbo Felicity (Angelina)", "type": "платье", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0201.jpg", "frames": 2, "description": "036 | Square Neck Sports High Waisted Leggings | Nylon 80% Spandex 20% | Off White, White, Light Gray, Black | XS, S, M, L | 5.4 | 500 | 125 | =G41-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy"}, {"id": "ningbofeli-0202", "factory": "Ningbo Felicity (Angelina)", "type": "платье", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0202.jpg", "frames": 2, "description": "037 | Nylon-spandex naked-feel fabric,Half-zip design / Built-in undergarment coverage with 3D stitching,Tennis Dress with Built-in Shorts | Nylon 80% Spandex 20% | XS, S, M, L | 9.166 | 500 | 125 | =G42-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample con"}, {"id": "ningbofeli-0203", "factory": "Ningbo Felicity (Angelina)", "type": "платье", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0203.jpg", "frames": 3, "description": "038 | Nylon-spandex naked-feel fabric,Standing collar with half-zip design, A-line skirt design, and built-in undergarments to prevent exposure.Tennis Dress with Built-in Shorts | Nylon 80% Spandex 20% | XS, S, M, L | 9.166 | 500 | 125 | =G43-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Day"}, {"id": "ningbofeli-0204", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0204.jpg", "frames": 3, "description": "039 | Bra-NU/Nuls Comfortable shoulder straps – gentle and non-strict; moisture-wicking, breathable fabric. | Nylon 80% Spandex 20% | XS, S, M, L | 5.8 | 500 | 125 | =G44-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 7"}, {"id": "ningbofeli-0205", "factory": "Ningbo Felicity (Angelina)", "type": "леггинсы", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0205.jpg", "frames": 1, "description": "040 | Leggings-NU/Nuls Comfortable shoulder straps – gentle and non-strict; moisture-wicking, breathable fabric. | Nylon 80% Spandex 20% | XS, S, M, L | 5.75 | 500 | 125 | =G45-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in adva"}, {"id": "ningbofeli-0206", "factory": "Ningbo Felicity (Angelina)", "type": "леггинсы", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0206.jpg", "frames": 1, "description": "041 | High Waisted Leggings with Pocket | Nylon 80% Spandex 20% | Coral, Pink, Beige, Gray | XS, S, M, L | 6.55 | 500 | 125 | =G46-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Sha"}, {"id": "ningbofeli-0207", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex ", "price": "USD15", "web": "img/ningbofeli-0207.jpg", "frames": 1, "description": "042 | Color Block Sports Leggings | Nylon 80% Spandex 20% | Gray, White, Black, Light Green | XS, S, M, L | 5.5 | 500 | 125 | =G47-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Sha"}, {"id": "ningbofeli-0208", "factory": "Ningbo Felicity (Angelina)", "type": "леггинсы", "item_no": "", "fabric": "80% Spandex", "price": "USD15", "web": "img/ningbofeli-0208.jpg", "frames": 1, "description": "Item No. | Product Image | Product Description | Material Composition | Available Colors | Size Options | Unit Price (FOB) - 500pcs/Color | Total Qty per Color | Qty per Size (500pcs/Color) | Unit Price (FOB) - 1000pcs/Color | Total Qty per Color | Qty per Size (1000pcs/Color) | Sample Fee | Samplin"}, {"id": "ningbofeli-0209", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex", "price": "USD15", "web": "img/ningbofeli-0209.jpg", "frames": 1, "description": "001 | High Waisted Leggings with Ruched Skirt Overlay | Nylon80% Spandex20% | Khaki | XS, S, M, L | 5.5 | 500 | 125 | =G6-0.5 | 1000 | 250 | USD15-35 per style per color | 7-10 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / "}, {"id": "ningbofeli-0210", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex", "price": "USD15", "web": "img/ningbofeli-0210.jpg", "frames": 1, "description": "002 | Cutout Front Sports Bra | Nylon80% Spandex20% | Light Green | XS, S, M, L | 5.8 | 500 | 125 | =G7-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 4 sizes per c"}, {"id": "ningbofeli-0211", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "80% Spandex", "price": "USD15", "web": "img/ningbofeli-0211.jpg", "frames": 1, "description": "003 | Racerback Back Sports Bra | Nylon80% Spandex20% | Light Pink | XS, S, M, L | 5.55 | 500 | 125 | =G8-0.5 | 1000 | 250 | USD15-35 per style per color | 5-7 Days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 4 sizes per"}, {"id": "ningbofeli-0216", "factory": "Ningbo Felicity (Angelina)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0216.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0217", "factory": "Ningbo Felicity (Angelina)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0217.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0218", "factory": "Ningbo Felicity (Angelina)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0218.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0222", "factory": "Ningbo Felicity (Angelina)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0222.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0223", "factory": "Ningbo Felicity (Angelina)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0223.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0225", "factory": "Ningbo Felicity (Angelina)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0225.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0228", "factory": "Ningbo Felicity (Angelina)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0228.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0229", "factory": "Ningbo Felicity (Angelina)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0229.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0230", "factory": "Ningbo Felicity (Angelina)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0230.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0233", "factory": "Ningbo Felicity (Angelina)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0233.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0234", "factory": "Ningbo Felicity (Angelina)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0234.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0235", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0235.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0237", "factory": "Ningbo Felicity (Angelina)", "type": "лонгслив", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0237.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0240", "factory": "Ningbo Felicity (Angelina)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0240.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0241", "factory": "Ningbo Felicity (Angelina)", "type": "ветровка / куртка", "item_no": "", "fabric": "70% balance ", "price": "", "web": "img/ningbofeli-0241.jpg", "frames": 1, "description": "004 | mid jacket | TrackingTP | XS, S, M, L | 500pcs | 16.9 | 1000pcs | 15.3 | 200 | After fabric approved 5-7 working days | 20-30 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 005 | leggings | TrackingTP | XS, S, M, L | 500pcs |"}, {"id": "ningbofeli-0242", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "70% balance ", "price": "", "web": "img/ningbofeli-0242.jpg", "frames": 1, "description": "005 | leggings | TrackingTP | XS, S, M, L | 500pcs | 7.6 | 1000pcs | 6.97 | 50 | After fabric approved 5-7 working days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 006 | shorts | TrackingTP | XS, S, M, L | 500pcs | 5.66 "}, {"id": "ningbofeli-0243", "factory": "Ningbo Felicity (Angelina)", "type": "бра", "item_no": "", "fabric": "70% balance ", "price": "", "web": "img/ningbofeli-0243.jpg", "frames": 1, "description": "006 | shorts | TrackingTP | XS, S, M, L | 500pcs | 5.66 | 1000pcs | =G11-0.5 | 50 | After fabric approved 5-7 working days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 007 | bra | TrackingTP | XS, S, M, L | 500pcs | 9.65 "}, {"id": "ningbofeli-0246", "factory": "Ningbo Felicity (Angelina)", "type": "ветровка / куртка", "item_no": "", "fabric": "70% balance ", "price": "", "web": "img/ningbofeli-0246.jpg", "frames": 1, "description": "Item No. | Product Image | Product Description | Material Composition | Size Options | MOQ pcs | Estimate USD (FOB)unit price | MOQ pcs | Estimate USD (FOB)unit price | Sample Fee | Sampling Lead Time | Bulk Production Lead Time | Payment method | Shipping Term | Remarks | 001 | 2.5L-jacket | Tracki"}, {"id": "ningbofeli-0247", "factory": "Ningbo Felicity (Angelina)", "type": "ветровка / куртка", "item_no": "", "fabric": "70% balance ", "price": "", "web": "img/ningbofeli-0247.jpg", "frames": 1, "description": "001 | 2.5L-jacket | TrackingTP | XS, S, M, L | 500pcs | 52 | 1000pcs | 46 | 200 | After fabric approved 5-7 working days | 20-30 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 002 | hiking skirt-short | TrackingTP | XS, S, M, L | 5"}, {"id": "ningbofeli-0248", "factory": "Ningbo Felicity (Angelina)", "type": "ветровка / куртка", "item_no": "", "fabric": "70% balance ", "price": "", "web": "img/ningbofeli-0248.jpg", "frames": 1, "description": "002 | hiking skirt-short | TrackingTP | XS, S, M, L | 500pcs | 12.69 | 1000pcs | 13.8 | 100 | After fabric approved 5-7 working days | 20-25 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 003 | hiking pant | TrackingTP | XS, S, M, "}, {"id": "ningbofeli-0249", "factory": "Ningbo Felicity (Angelina)", "type": "ветровка / куртка", "item_no": "", "fabric": "70% balance ", "price": "", "web": "img/ningbofeli-0249.jpg", "frames": 1, "description": "003 | hiking pant | TrackingTP | XS, S, M, L | 500pcs | 30.89 | 1000pcs | 27.46 | 200 | After fabric approved 5-7 working days | 20-30 working Days after sample confirmation | 30% T/T in advance, 70% balance against copy of B/L | FOB Shanghai / EXW | 004 | mid jacket | TrackingTP | XS, S, M, L | 500"}, {"id": "ningbofeli-0001", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0001.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0002", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0002.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0003", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0003.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0004", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0004.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0005", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0005.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0006", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0006.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0008", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0008.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0009", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0009.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0013", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0013.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0014", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0014.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0018", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0018.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0020", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0020.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0021", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0021.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0212", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0212.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0213", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0213.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0214", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0214.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0215", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0215.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0219", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0219.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0220", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0220.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0221", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0221.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0224", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0224.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0226", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0226.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0227", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0227.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0231", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0231.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0232", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0232.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0236", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0236.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0238", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0238.jpg", "frames": 1, "description": ""}, {"id": "ningbofeli-0239", "factory": "Ningbo Felicity (Angelina)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ningbofeli-0239.jpg", "frames": 1, "description": ""}];
+const PAGE_ID = "ningbo-felicity-angelina-chast-3";
+const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
+let db=null, uid=null;
+
+const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
+const key = id => id+"__"+(uid||"local");
+
+function localLoad(){ try{ return JSON.parse(localStorage.getItem("votes:"+PAGE_ID)||"{}"); }catch(e){ return {}; } }
+function localSave(){ try{ localStorage.setItem("votes:"+PAGE_ID, JSON.stringify(state.mine)); }catch(e){} }
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.textContent = "";
+  const q = state.q.trim().toLowerCase();
+  let shown = 0;
+  for(const m of MODELS){
+    const v = state.mine[m.id] || {};
+    if(state.filter==="new" && (v.like || v.stars)) continue;
+    if(state.filter==="like" && !v.like) continue;
+    if(state.type && m.type !== state.type) continue;
+    if(q && !((m.item_no+" "+m.fabric+" "+m.description).toLowerCase().includes(q))) continue;
+    grid.appendChild(card(m, v)); shown++;
+  }
+  document.getElementById("empty").hidden = shown>0;
+  const rated = MODELS.filter(m=>{const v=state.mine[m.id]||{}; return v.like||v.stars;}).length;
+  document.getElementById("bar").style.width = (100*rated/MODELS.length).toFixed(1)+"%";
+  document.getElementById("cnt").textContent = `оценено ${rated} из ${MODELS.length}`;
+}
+
+function card(m, v){
+  const c = el("div","card"+(v.like?" liked":""));
+  const ph = el("div","ph"); ph.tabIndex = 0;
+  const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
+  img.src = m.web; img.style.width = (m.frames*100)+"%";
+  const dots = el("div","dots");
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
+  const meta = el("div","meta");
+  meta.appendChild(el("div","type", m.type));
+  if(m.item_no) meta.appendChild(el("div","art", m.item_no));
+  if(m.fabric) meta.appendChild(el("div","fab", m.fabric));
+  if(m.price) meta.appendChild(el("div","price", m.price));
+  const acts = el("div","acts");
+  const heart = el("button","heart"+(v.like?" on":""),"♥");
+  heart.title = "Нравится"; heart.setAttribute("aria-pressed", v.like?"true":"false");
+  heart.onclick = ()=> save(m, {like: !(state.mine[m.id]||{}).like});
+  acts.appendChild(heart);
+  const others = state.others[m.id]||0;
+  if(others) acts.appendChild(el("span","others","+"+others));
+  const stars = el("div","stars");
+  for(let i=1;i<=5;i++){
+    const s = el("button","star"+((v.stars||0)>=i?" on":""),"★");
+    s.title = i+" из 5";
+    s.onclick = ()=> save(m, {stars: (state.mine[m.id]||{}).stars===i ? 0 : i});
+    stars.appendChild(s);
+  }
+  acts.appendChild(stars);
+  c.append(ph, meta, acts);
+  return c;
+}
+
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
+function openBig(m){
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
+}
+document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+async function save(m, patch){
+  const cur = state.mine[m.id] || {like:false, stars:0};
+  const next = Object.assign({}, cur, patch);
+  state.mine[m.id] = next; localSave(); render();
+  if(!db) return;
+  try{
+    await db.doc("votes/"+key(m.id)).set({
+      model:m.id, page:PAGE_ID, factory:m.factory, type:m.type, item_no:m.item_no||"",
+      like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
+    });
+  }catch(e){
+    document.getElementById("status").textContent = "Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе");
+  }
+}
+
+function picked(){
+  const out = [];
+  for(const m of MODELS){
+    const v = state.mine[m.id]; if(!v || (!v.like && !v.stars)) continue;
+    out.push({id:m.id, factory:m.factory, type:m.type, item:m.item_no||"", like:!!v.like, stars:v.stars||0});
+  }
+  return {page:PAGE_ID, who:(document.getElementById("who").value||"").trim(), at:new Date().toISOString(), picks:out};
+}
+document.getElementById("who").value = localStorage.getItem("who")||"";
+document.getElementById("who").oninput = e => { try{ localStorage.setItem("who", e.target.value); }catch(err){} };
+document.getElementById("copy").onclick = async ()=>{
+  const data = picked();
+  try{ await navigator.clipboard.writeText(JSON.stringify(data));
+       document.getElementById("status").textContent = `Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`; }
+  catch(e){ document.getElementById("status").textContent = "Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."; }
+};
+document.getElementById("dl").onclick = ()=>{
+  const data = picked();
+  const blob = new Blob([JSON.stringify(data, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `выбор-ningbo-felicity-angelina-chast-3-${data.who||"без-имени"}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
+};
+document.getElementById("mail").onclick = e => {
+  const data = picked();
+  const body = data.picks.map(p=>`${p.factory} · ${p.type} ${p.item} — ${p.like?"нравится":""} ${p.stars?p.stars+"/5":""}`).join("\n");
+  e.currentTarget.href = "mailto:privery.prod@euphoria.fit?subject=" +
+    encodeURIComponent("Выбор моделей: "+PAGE_ID) + "&body=" + encodeURIComponent((data.who?data.who+"\n\n":"")+body);
+};
+
+document.getElementById("f-all").onclick = ()=> setFilter("all");
+document.getElementById("f-new").onclick = ()=> setFilter("new");
+document.getElementById("f-like").onclick = ()=> setFilter("like");
+function setFilter(f){
+  state.filter=f;
+  for(const [id,val] of [["f-all","all"],["f-new","new"],["f-like","like"]])
+    document.getElementById(id).setAttribute("aria-pressed", String(val===f));
+  render();
+}
+const types = [...new Set(MODELS.map(m=>m.type))].sort();
+const sel = document.getElementById("f-type");
+for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
+sel.onchange = e => { state.type = e.target.value; render(); };
+document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+state.mine = localLoad();
+render();
+
+(async ()=>{
+  const user = await window.claude?.use?.("user");
+  uid = user ? await user.id() : null;
+  db = await window.claude?.use?.("db");
+  if(!db){ document.getElementById("status").textContent = "Общая база недоступна — оценки сохраняются только в этом браузере."; return; }
+  document.getElementById("status").textContent = "Оценки сохраняются автоматически и видны коллегам.";
+  db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
+    const mine={}, others={};
+    for(const d of snap.docs){
+      const v = d.data()||{};
+      if(uid && v.by===uid){ mine[v.model]={like:!!v.like, stars:v.stars||0}; }
+      else if(v.like){ others[v.model]=(others[v.model]||0)+1; }
+    }
+    if(Object.keys(mine).length || Object.keys(others).length){
+      state.mine = Object.keys(mine).length ? mine : state.mine;
+      state.others = others; localSave(); render();
+    }
+  }, err => { document.getElementById("status").textContent = "Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."; });
+})();
+</script>

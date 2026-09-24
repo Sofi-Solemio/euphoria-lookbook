@@ -57,7 +57,13 @@ select,input[type=search]{border:1px solid var(--line);background:var(--panel);c
 #who{min-width:150px}
 dialog{border:0;border-radius:14px;padding:0;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 dialog::backdrop{background:rgba(10,16,13,.7)}
-.big{display:block;max-width:100%;max-height:78vh}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
 .dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
 button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media (max-width:420px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}}
@@ -89,7 +95,15 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
 </div>
-<dialog id="dlg"><img class="big" id="bigimg" alt=""><div class="dlgbar"><span class="sub" id="dlgcap"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div></dialog>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
 <script>
 const MODELS = [{"id": "yiwujarsol-0013", "factory": "Yiwu Jarso (Landy)", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0013.jpg", "frames": 3, "description": "系列 正面图片 背面面图片 货号 产品名称 工艺 材料 克重 尺码表 颜色顺序 1 2 3 4 5 6 套装网球裙 SL329 撞色鸡心领背心网球 裙套装 无缝 90%锦纶+10%氨纶 【机包+全消光】 白撞绿/黑撞 白/黄撞白 套装网球裙 TK222 翻领工字背网球裙套 装 无缝 90%锦纶+10%氨纶 上装:S144.7 M155.6 L172.2 下装:S185.6 M197.7 L210 棕色/本白/ 黑色 套装网球裙 TK223＋TK236 撞色条纹背心网球百 褶裙套装 无缝 90%锦纶+10%氨纶 S127.7+274.7 M140.6+283 L155.5+292 漂白/黑色/ "}, {"id": "yiwujarsol-0014", "factory": "Yiwu Jarso (Landy)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0014.jpg", "frames": 3, "description": "品类 正面图片 背面图片 货号 产品名称 工艺 材料 重量/kg 尺码表 颜色顺序 颜色图 阔腿裤 ZT001 高腰瑜伽直筒裤 有缝 75%锦纶+25% 氨纶 S185 M200 L215 黑色/灰色 加绒裤 XY066 加绒长裤 无缝 90%锦纶+10% 氨纶 黑色/灰色/咖啡色"}, {"id": "yiwujarsol-0015", "factory": "Yiwu Jarso (Landy)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0015.jpg", "frames": 3, "description": "Yiwu Jarso Fitness Co.,Ltd Add:No.19 Dongshan Road, Jiangdong District, Yiwu City, Jinhua City, Zhejiang, China. Email:landy@jarsofitness.com www.jarsoyogawear.com Tel:+86-18268873206 Quotation Buyer: euphoria.fit NO. JARSO-0917 Add:/ Tel:+7 918 891 4151 Seller Yiwu Jarso Fitness Date: 17th/Sep/2026"}, {"id": "yiwujarsol-0016", "factory": "Yiwu Jarso (Landy)", "type": "бра", "item_no": "", "fabric": "75% nylon 25% spandex · 230GSM", "price": "", "web": "img/yiwujarsol-0016.jpg", "frames": 3, "description": "Shorts 225-230GSM； 75% nylon 25% spandex. ￥29.00 Bra 225-230GSM； 75% nylon 25% spandex. ￥36.00 CONDITIONS: 1.Payment Terms: 40% deposit; 60% balance pay before shipment. 2.The payment within 7 working days will be regarded as the contract quotation valid. 3. Loading: Yiwu, China 4.Delivery Time: Wit"}, {"id": "yiwujarsol-0001", "factory": "Yiwu Jarso (Landy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0001.jpg", "frames": 1, "description": "运动文胸/背心 正面图片 背面面图片 货号 产品名称 工艺 材料 克重 尺码表 颜色顺序 1 2 3 4 5 6 7 8 9 10 11 12 运动长袖/文胸 cp181 露背长袖+交叉美背文胸两件 套 无缝 90%锦纶+10%氨纶 莫奈粉/咖啡豆/黑色 /灰蓝/午夜蓝 运动文胸/背心 TK241 机包挂脖露背文胸 【品牌爆款同款】 无缝 90%锦纶+10%氨纶 S89.2 M97.2 L108.6 粉色/深灰色/藏蓝 色/本白/安哥拉红 /黑色 运动文胸/背心 ZS009-1 无缝细带交叉扭结文胸 无缝 90%锦纶+10%氨纶 柠檬黄/粉色/丁香 紫/墨水蓝 运动文胸/背心 XY647 无缝"}, {"id": "yiwujarsol-0002", "factory": "Yiwu Jarso (Landy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0002.jpg", "frames": 1, "description": "系列 正面图片 背面面图片 货号 产品名称 工艺 材料 克重 尺码表 颜色顺序 套装 cp208长袖 cp209喇叭 裤 法式系带长袖+ 七分微喇裤无缝 套装 无缝 90%锦纶+10%氨纶 黑色/可露棕/ 橄榄绿 长袖 有缝 89%锦+11%氨 套装 有缝 80%锦+20%氨 连体服 cp186 无缝 90%锦纶+10%氨纶 黑色/电光蓝/新 冬莓/浓咖啡/蘑 菇灰 文胸 柔软高冲击力文胸 有缝 75%锦+25%氨 背心 cp163 动态扭结背心 无缝 黑色/深灰/藏青 /斯嘉丽红 套装 HL03文胸 无缝 HL03短裤 无缝 套装 cp182套装 有缝 75%锦+25%氨 文胸 cp176 "}, {"id": "yiwujarsol-0003", "factory": "Yiwu Jarso (Landy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0003.jpg", "frames": 1, "description": "套装 bd002bd003 有缝 文胸 cp172 有缝 cp173 有缝 文胸 bd010 波点系带背心七 分裤 有缝 长袖 cp171 有缝 文胸 cp178 有缝 中裤 cp156 有缝 套装 cp136 有缝 背心 cp165 小碎花文胸背心 无缝 90%锦纶+10%氨纶 短裤 cp165 小碎花瑜伽4分 骑行裤 无缝 90%锦纶+10%氨纶 文胸 bd005 无缝 90%锦纶+10%氨纶 短裤 TK198 瑜伽短裤-亚马逊T 无缝 90%锦纶+10%氨纶 M143.2 黑白扎漂/红色扎染 短裤 XY487 叉腰头蜜桃臀五分 无缝 90%锦纶+10%氨纶157M169L18 深灰色 短"}, {"id": "yiwujarsol-0004", "factory": "Yiwu Jarso (Landy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0004.jpg", "frames": 1, "description": "束脚裤 CK2505 提臀瑜伽长裤-双侧 有缝 75%尼龙+25%莱卡M183N192X 可可色 束脚裤 CK2513 提臀瑜伽长裤-右侧 有缝 75%尼龙+25%莱卡M166N177X 亚麻灰 长裤 XY2305 腰T线蜜桃臀瑜伽束脚有缝 92%涤纶+8%氨纶M179 L204 /藏青/酒红/棕色/ 长裤 XY512 高腰塑形显瘦瑜伽裤 无缝 90%锦纶+10%氨纶198M214L231 黑色/深蓝/深灰/浅 深蓝 深灰 浅灰 长裤 TK10 无缝提臀运动裤 无缝 90%锦纶+10%氨纶 色/灰色/玫红/燕 长裤 001 缝蜜桃臀透气女瑜伽 无缝 锦纶+35涤纶+5氨176M191L20 薄"}, {"id": "yiwujarsol-0005", "factory": "Yiwu Jarso (Landy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0005.jpg", "frames": 1, "description": "短袖 DX2503 休闲运动短袖 有缝 91%锦纶+9%氨纶100M110L12 麻灰色/白色 运动长袖 CX2501 长袖侧腰抽绳运动上 有缝 93%莫代尔+7%氨纶M152N177X 白蛋白/轻柔粉 运动长袖 CX2503 运动健身POLO衫 有缝 75%尼龙+25%莱卡M232L254X 白色 运动长袖 CX2502 透气罩衫瑜伽服 有缝 65%人棉+35%涤纶M105L111XL 白色/麻灰色 运动外套 JK2303 立领拉链长袖夹克 有缝 92%涤纶+8%氨纶 白灰/橘色/杏色/紫 运动外套 WT2501 领拉链短款瑜伽外 有缝 75%尼龙+25%莱卡 0.35 奶昔白/黑色 运动外"}, {"id": "yiwujarsol-0008", "factory": "Yiwu Jarso (Landy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0008.jpg", "frames": 1, "description": "系列 正面图片 背面面图片 货号 产品名称 工艺 材料 克重 尺码表 颜色顺序 短裤 TK198短裤 机包拼腰蜜桃臀瑜伽 短裤- 【亚马逊TK爆款】 无缝 90%锦纶+10%氨纶 S129.4 M143.2 L154.0 黑色/粉色/深灰/安 哥拉红/浅紫/玫红/ 灰色/黄色/摩卡棕/ 藏蓝/斯嘉丽红/车 里紫/靛蓝/雪原白/ 冰川蓝/冰荷绿/绿 短裤 TK198短裤-3d 豹纹 机包拼腰蜜桃臀瑜伽 短裤- 【亚马逊TK爆款】 无缝 90%锦纶+10%氨纶 【机包+全消光】 短裤 XY478 拼腰蜜桃臀瑜伽短裤 无缝 90%锦纶+10%氨纶 S136 M142 L158 黑色/深灰/浅灰/粉色"}, {"id": "yiwujarsol-0009", "factory": "Yiwu Jarso (Landy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0009.jpg", "frames": 1, "description": "系列 正面图片 背面面图片 货号 产品名称 工艺 材料 克重 尺码表 颜色顺序 颜色图 cp149 吊带短裤连体衣 无缝 90%锦纶+10%氨纶 黑色/摩卡棕 /藏青色/baby 蓝 cp150 dfyne同款秋冬长袖连体露背短 裤 无缝 90%锦纶+10%氨纶 黑色/电光蓝 /新冬莓/浓 咖啡/蘑菇灰 四季款 CP003 撞色肩带喇叭裤连体服 无缝 90%锦纶+10%氨纶 安哥拉红/藏蓝色/黑 色/粉色 四季款 XY417 圆领撞色吊带连体蜜桃臀长裤 无缝 90%锦纶+10%氨纶 XS265 S279 M300 L328 浅粉色/黑色/棕色/深 蓝色 四季款 SL315 豹纹印花肩带交叉美背"}, {"id": "yiwujarsol-0010", "factory": "Yiwu Jarso (Landy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0010.jpg", "frames": 1, "description": "春夏款 CP048连体 服 撞色交叉挂脖露背微喇连体裤 有缝 75%锦纶+25%氨纶 黑色/酒红色/藏蓝 色/安哥拉红/粉色/ 徽章蓝 秋冬款 SSL1 方领长袖长裤连体衣 无缝 90%锦纶+10%氨纶 XS335 S375 M383 L433 XL473 黑色/水蓝色/咖啡色/ 玫红色/紫色/蓝色/粉 色/橘色/米肤色/71灰 秋冬款 SSL1-1 长袖瑜伽吊带连体衣 无缝 90%锦纶+10%氨纶 黑色 秋冬款 SSL1-2 无缝一体式带腰带运动瑜伽连体 衣 无缝 90%锦纶+10%氨纶 黑色 秋冬款 S402 拉链可调节长袖长裤连体衣 无缝 90%锦纶+10%氨纶 银色/咖啡色/蓝色 秋冬"}, {"id": "yiwujarsol-0011", "factory": "Yiwu Jarso (Landy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0011.jpg", "frames": 1, "description": "系列 正面图片 背面面图片 货号 产品名称 工艺 材料 克重 尺码表 颜色顺序 颜色图 套装 bd008 拼色波点背心微喇裤套装 有缝 78%锦纶+22%氨纶 芭蕾粉/黑天鹅/高 级灰 套装 cp097wx 无缝双层贴合文胸 无缝 90%锦纶+10%氨纶 森林绿/莫奈粉/咖啡 豆/黑色/灰蓝/午夜蓝 cp096CK 无缝经典提臀收腰蜂窝长裤 无缝 90%锦纶+10%氨纶 森林绿/莫奈粉/咖啡 豆/黑色/灰蓝/午夜蓝 套装 WX016文胸 +ZT016喇叭 裤 系带挂脖文胸下翻腰头喇叭裤套 装 有缝 80%锦纶+20%氨纶 皮粉色/黑色/浓咖啡/ 香草白 套装 cp153短袖 cp152长裤 s"}, {"id": "yiwujarsol-0012", "factory": "Yiwu Jarso (Landy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/yiwujarsol-0012.jpg", "frames": 1, "description": "四季款 336 工字背拉链文胸系带高腰瑜伽裤 套装 无缝 90%锦纶+10%氨纶 文胸 S123 M131 L149 长裤 s221 橘色 四季款 SL180 撞色肩带瑜伽文胸交叉腰头喇叭 裤套装 无缝 90%锦纶+10%氨纶 文胸S102 M116 L121.5 喇叭裤 S287.8 M325.6 淡粉色/黑色/漂白色 四季款 XY203 普拉提瑜伽文胸提臀高腰运动长 裤 无缝 90%锦纶+10%氨纶 S313 M348 L378 黑色 春夏款 8812背心短裤 撞色背心撞色交叉腰头短裤套装 有缝 78%锦纶＋22%氨纶 XS212 S224 M243 L262 黑色/粉色/蓝灰/棕色 /白"}];
 const PAGE_ID = "yiwu-jarso-landy";
@@ -126,14 +140,11 @@ function card(m, v){
   const ph = el("div","ph"); ph.tabIndex = 0;
   const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
   img.src = m.web; img.style.width = (m.frames*100)+"%";
-  let frame = 0;
   const dots = el("div","dots");
   for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
-  const flip = ()=>{ frame=(frame+1)%m.frames; img.style.transform=`translateX(${-frame*(100/m.frames)}%)`;
-    [...dots.children].forEach((b,i)=>b.className = i===frame?"on":""); };
-  ph.addEventListener("click", e=>{ if(e.shiftKey || m.frames===1) return openBig(m); flip(); });
-  ph.addEventListener("keydown", e=>{ if(e.key==="Enter") flip(); });
-  ph.append(img, dots); if(m.frames>1) ph.append();
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
   const meta = el("div","meta");
   meta.appendChild(el("div","type", m.type));
   if(m.item_no) meta.appendChild(el("div","art", m.item_no));
@@ -158,13 +169,45 @@ function card(m, v){
   return c;
 }
 
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
 function openBig(m){
-  const d=document.getElementById("dlg");
-  document.getElementById("bigimg").src = m.web;
-  document.getElementById("dlgcap").textContent = [m.factory, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
-  d.showModal();
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
 }
 document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
 
 async function save(m, patch){
   const cur = state.mine[m.id] || {like:false, stars:0};

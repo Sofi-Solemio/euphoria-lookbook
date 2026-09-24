@@ -57,7 +57,13 @@ select,input[type=search]{border:1px solid var(--line);background:var(--panel);c
 #who{min-width:150px}
 dialog{border:0;border-radius:14px;padding:0;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 dialog::backdrop{background:rgba(10,16,13,.7)}
-.big{display:block;max-width:100%;max-height:78vh}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
 .dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
 button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media (max-width:420px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}}
@@ -89,7 +95,15 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
 </div>
-<dialog id="dlg"><img class="big" id="bigimg" alt=""><div class="dlgbar"><span class="sub" id="dlgcap"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div></dialog>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
 <script>
 const MODELS = [{"id": "gztitsport-0002", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0002.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0003", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0003.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0004", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0004.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0005", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0005.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0006", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0006.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0007", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0007.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0008", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0008.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0009", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0009.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0010", "factory": "GZTIT Sportswear", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0010.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0011", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0011.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0012", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0012.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0013", "factory": "GZTIT Sportswear", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0013.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0014", "factory": "GZTIT Sportswear", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0014.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0016", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0016.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0017", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0017.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0018", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0018.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0019", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0019.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0020", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0020.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0021", "factory": "GZTIT Sportswear", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0021.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0022", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0022.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0023", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0023.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0024", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0024.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0025", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0025.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0026", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0026.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0027", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0027.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0028", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0028.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0029", "factory": "GZTIT Sportswear", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0029.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0030", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0030.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0031", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0031.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0032", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0032.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0033", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0033.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0035", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0035.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0036", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0036.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0037", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0037.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0038", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0038.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0039", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0039.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0040", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0040.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0041", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0041.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0042", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0042.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0043", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0043.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0044", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0044.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0045", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0045.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0046", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0046.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0047", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0047.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0048", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0048.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0049", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0049.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0050", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0050.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0051", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0051.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0052", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0052.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0053", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0053.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0054", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0054.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0055", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0055.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0056", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0056.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0057", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0057.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0058", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0058.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0060", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0060.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0061", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0061.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0062", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0062.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0063", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0063.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0064", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0064.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0065", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0065.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0066", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0066.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0067", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0067.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0068", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0068.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0069", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0069.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0070", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0070.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0071", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0071.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0072", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0072.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0073", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0073.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0074", "factory": "GZTIT Sportswear", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0074.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0001", "factory": "GZTIT Sportswear", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0001.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0015", "factory": "GZTIT Sportswear", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0015.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0034", "factory": "GZTIT Sportswear", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0034.jpg", "frames": 1, "description": ""}, {"id": "gztitsport-0059", "factory": "GZTIT Sportswear", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/gztitsport-0059.jpg", "frames": 1, "description": ""}];
 const PAGE_ID = "gztit-sportswear";
@@ -126,14 +140,11 @@ function card(m, v){
   const ph = el("div","ph"); ph.tabIndex = 0;
   const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
   img.src = m.web; img.style.width = (m.frames*100)+"%";
-  let frame = 0;
   const dots = el("div","dots");
   for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
-  const flip = ()=>{ frame=(frame+1)%m.frames; img.style.transform=`translateX(${-frame*(100/m.frames)}%)`;
-    [...dots.children].forEach((b,i)=>b.className = i===frame?"on":""); };
-  ph.addEventListener("click", e=>{ if(e.shiftKey || m.frames===1) return openBig(m); flip(); });
-  ph.addEventListener("keydown", e=>{ if(e.key==="Enter") flip(); });
-  ph.append(img, dots); if(m.frames>1) ph.append();
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
   const meta = el("div","meta");
   meta.appendChild(el("div","type", m.type));
   if(m.item_no) meta.appendChild(el("div","art", m.item_no));
@@ -158,13 +169,45 @@ function card(m, v){
   return c;
 }
 
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
 function openBig(m){
-  const d=document.getElementById("dlg");
-  document.getElementById("bigimg").src = m.web;
-  document.getElementById("dlgcap").textContent = [m.factory, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
-  d.showModal();
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
 }
 document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
 
 async function save(m, patch){
   const cur = state.mine[m.id] || {like:false, stars:0};

@@ -1,0 +1,296 @@
+<title>Лукбук — Rion Sports (Bruce, Emma) — часть 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:14px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.send{margin-top:8px;align-items:center}
+.send a.chip{text-decoration:none}
+#who{min-width:150px}
+dialog{border:0;border-radius:14px;padding:0;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:420px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brow">
+    <h1>Rion Sports (Bruce, Emma) — часть 1</h1>
+    <div class="sub">58 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+  </div>
+  <div class="status" id="status">Оценки сохраняются автоматически.</div>
+  <div class="tools send">
+    <a class="chip" href="index.html">← Все фабрики</a>
+    <input id="who" placeholder="ваше имя" autocomplete="name">
+    <button class="chip" id="copy">Скопировать выбор</button>
+    <button class="chip" id="dl">Скачать файл выбора</button>
+    <a class="chip" id="mail" href="#">Отправить Софии</a>
+  </div>
+</header>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
+</div>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
+<script>
+const MODELS = [{"id": "rionsports-0001", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-FW1497", "fabric": "80%Recycled  · 225GSM", "price": "USD 5.10", "web": "img/rionsports-0001.jpg", "frames": 2, "description": "Style No.: RS-FW1497 Fabric: 80%Recycled PES 20%EL 225GSM. Price: USD 5.10/pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: with shorts inside, for ladies."}, {"id": "rionsports-0002", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "QP80008-533", "fabric": "80%recycled  · 225gsm", "price": "USD 7.31", "web": "img/rionsports-0002.jpg", "frames": 2, "description": "Style No.: QP80008-533 Fabric: 12eB229, 80%recycled PES 20%EL, 225gsm. Price: USD 7.31/pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: with inner shorts, for girls."}, {"id": "rionsports-0004", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "QP80020-533", "fabric": "80%recycled  · 225gsm", "price": "", "web": "img/rionsports-0004.jpg", "frames": 2, "description": "Style No.: QP80020-533 Fabric: main, 12eB229, 80%recycled PES 20%EL, 225gsm. mesh, 92%PES 8%EL, 135gsm. Price: USD /pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: for girls."}, {"id": "rionsports-0005", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "QP110159-300", "fabric": "34%recycled  · 155gsm", "price": "USD 5.40", "web": "img/rionsports-0005.jpg", "frames": 2, "description": "Style No.:QP110159-300 Fabric: 66%CO 34%recycled PES, 155gsm. Price: USD 5.40/pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: for men."}, {"id": "rionsports-0006", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "QP110175-588", "fabric": "92%recycled  · 150gsm", "price": "USD 5.40", "web": "img/rionsports-0006.jpg", "frames": 2, "description": "Style No.: QP110175-588 Fabric: mesh, HFT230773, 92%recycled PES 8%EL , 150gsm. Price: USD 5.40 /pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: for men."}, {"id": "rionsports-0007", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "QP110177-733", "fabric": "92%recycled  · 150gsm", "price": "USD 5.40", "web": "img/rionsports-0007.jpg", "frames": 2, "description": "Style No.: QP110177-733 Fabric: mesh, HFT230773, 92%recycled PES 8%EL , 150gsm. Price: USD 5.40 /pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: for men."}, {"id": "rionsports-0008", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "QP110169-300", "fabric": "92%recycled  · 150gsm", "price": "USD 5.90", "web": "img/rionsports-0008.jpg", "frames": 2, "description": "Style No.: QP110169-300 Fabric: mesh, HFT230773, 92%recycled PES 8%EL , 150gsm. Price: USD 5.90 /pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: for men."}, {"id": "rionsports-0009", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-PM1802", "fabric": "63%Nylon 37%spandex  · 200GSM", "price": "USD 9.40", "web": "img/rionsports-0009.jpg", "frames": 3, "description": "Style No.: RS-PM1802 Fabric: 63%Nylon 37%spandex 200GSM. Price: USD 9.40/pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: for men."}, {"id": "rionsports-0010", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-FW1825", "fabric": "225GSM", "price": "USD 5.60", "web": "img/rionsports-0010.jpg", "frames": 2, "description": "Style No.:RS-FW1825 Fabric: 80% REC NYLON 20% EL JSY 225GSM Price: USD 5.60 /pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark: for ladies."}, {"id": "rionsports-0011", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-FW1753", "fabric": "88%polyester12%spandex  · 240GSM", "price": "USD 5.50", "web": "img/rionsports-0011.jpg", "frames": 2, "description": "Style No.: RS-FW1753 Fabric: outer layer, 88%polyester12%spandex inside brief：78%polyester22%spandex Interlock 240GSM Price: USD 5.50/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark: with shorts inside, for ladies."}, {"id": "rionsports-0012", "factory": "Rion Sports (Bruce, Emma)", "type": "комплект", "item_no": "QP180068-711", "fabric": "80%recycled  · 225gsm", "price": "USD 12.50", "web": "img/rionsports-0012.jpg", "frames": 3, "description": "Style No.: QP180068-711 Fabric: main, 12eB229, 80%recycled PES 20%EL, 225gsm mesh, HFT230773, 92%recycled PES 8%EL , 150gsm Price: USD 12.50/set, FOB XIAMEN MOQ: 1000pcs/color/style. Remark: for ladies."}, {"id": "rionsports-0013", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "QP80018-711", "fabric": "225gsm", "price": "USD 7.31", "web": "img/rionsports-0013.jpg", "frames": 2, "description": "Style No.:QP80018-711 Fabric: 12eB229, 80%PES 20%EL, 225gsm Price: USD 7.31/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark: with inner shorts, for girls."}, {"id": "rionsports-0014", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "QP80014-711", "fabric": "115gsm", "price": "USD 7.00", "web": "img/rionsports-0014.jpg", "frames": 3, "description": "Style No.: QP80014-711 Fabric: out, woven fabric, ZY-SZ04, 89%PES 11%EL, 115gsm. inner, 12eB229, 80%PES 20%EL, 225gsm. Price: USD 7.00/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark: for girls, 2 in 1 shorts."}, {"id": "rionsports-0015", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "QP80013-733", "fabric": "115gsm", "price": "USD 8.40", "web": "img/rionsports-0015.jpg", "frames": 2, "description": "Style No.:QP80013-733 Fabric: woven fabric, ZY-SZ04, 89%PES 11%EL, 115gsm. Price: USD 8.40 /pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: no inner, for boys."}, {"id": "rionsports-0016", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "QP100033-711", "fabric": "115gsm", "price": "USD 6.31", "web": "img/rionsports-0016.jpg", "frames": 2, "description": "Style No.:QP100033-711 Fabric: woven fabric, ZY-SZ04, 89%PES 11%EL, 115gsm. Price: USD 6.31 /pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: no inner, for men."}, {"id": "rionsports-0017", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "QP100020-711", "fabric": "80%recycled  · 115gsm", "price": "USD 8.60", "web": "img/rionsports-0017.jpg", "frames": 2, "description": "Style No.: QP100020-711 Fabric: out, woven fabric, ZY-SZ04, 89%PES 11%EL, 115gsm. inner, 12eB229, 80%recycled PES 20%EL, 225gsm. Price: USD 8.60 /pc, FOB XIAMEN. MOQ: 1000pcs/color/style. Remark: 2 in 1 shorts, for ladies."}, {"id": "rionsports-0018", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW1775", "fabric": "79%polyester21%spandex  · 220GSM", "price": "USD 4.68", "web": "img/rionsports-0018.jpg", "frames": 2, "description": "Style No.: RS-UW1775 Fabric: 79%polyester21%spandex 220GSM. Price: USD 4.68/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark:"}, {"id": "rionsports-0019", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW1667", "fabric": "76%Nylon 24%spandex  · 220gsm", "price": "USD 8.60", "web": "img/rionsports-0019.jpg", "frames": 2, "description": "Style No.:RS-UW1667 Fabric: 76%Nylon 24%spandex 220gsm. Price: USD 8.60/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark:"}, {"id": "rionsports-0020", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW1640", "fabric": "83%polyester 17%spandex  · 265gsm", "price": "USD 9.80", "web": "img/rionsports-0020.jpg", "frames": 2, "description": "Style No.:RS-UW1640 Fabric: 83%polyester 17%spandex 265gsm. Price: USD 9.80/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark:"}, {"id": "rionsports-0021", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW1585", "fabric": "80%Nylon 220% spandex  · 250gsm", "price": "USD 8.10", "web": "img/rionsports-0021.jpg", "frames": 2, "description": "Style No.:RS-UW1585 Fabric: 80%Nylon 220% spandex 250gsm. Price: USD 8.10/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark:"}, {"id": "rionsports-0022", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW1582", "fabric": "76%Nylon 24% spandex  · 250gsm", "price": "USD 7.60", "web": "img/rionsports-0022.jpg", "frames": 2, "description": "Style No.:RS-UW1582 Fabric: 76%Nylon 24% spandex 250gsm. Price: USD 7.60/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark:"}, {"id": "rionsports-0023", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-UW1108", "fabric": "63%polyamide 37%spandex", "price": "USD 6.60", "web": "img/rionsports-0023.jpg", "frames": 2, "description": "Style No.:RS-UW1108 Fabric: 180g 63%polyamide 37%spandex. Price: USD 6.60/pc, FOB XIAMEN MOQ: 2000pcs/color/style. Remark:"}, {"id": "rionsports-0024", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW885", "fabric": "20% ammonia", "price": "USD 5.90", "web": "img/rionsports-0024.jpg", "frames": 2, "description": "Style No.:RS-UW885 Fabric: 195g 85%/20% ammonia. Price: USD 5.90/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark:"}, {"id": "rionsports-0025", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW888", "fabric": "88%polyester12%spandex", "price": "USD 4.30", "web": "img/rionsports-0025.jpg", "frames": 2, "description": "Style No.:RS-UW888 Fabric: 240g 88%polyester12%spandex. Price: USD 4.30/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark:"}, {"id": "rionsports-0026", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW735", "fabric": "85%polyester 15% spandex", "price": "USD 4.70", "web": "img/rionsports-0026.jpg", "frames": 2, "description": "Style No.:RS-UW735 Fabric: single jersey, 240g 85%polyester 15% spandex. Price: USD 4.70/pc, FOB XIAMEN MOQ: 1000pcs/color/style. Remark:"}, {"id": "rionsports-0027", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW1667", "fabric": "76%Nylon 24%spandex  · 220gsm", "price": "USD 8.60", "web": "img/rionsports-0027.jpg", "frames": 3, "description": "Style No.: RS-UW1667 • 76%Nylon 24%spandex 220gsm. • Bonding bra with laser cut hole. • MOQ: 1000pcs/color/style. • USD 8.60/pc, FOB XIAMEN, CHINA Sports Bra"}, {"id": "rionsports-0028", "factory": "Rion Sports (Bruce, Emma)", "type": "платье", "item_no": "RS-FW1901", "fabric": "75%Nylon 25%spandex  · 220gsm", "price": "USD 9.20", "web": "img/rionsports-0028.jpg", "frames": 2, "description": "Style No.: RS-FW1901 • 75%Nylon 25%spandex 220gsm. • MOQ: 1000pcs/color/style. • USD 9.20/pc, FOB XIAMEN, CHINA Yoga Jumpsuit"}, {"id": "rionsports-0029", "factory": "Rion Sports (Bruce, Emma)", "type": "платье", "item_no": "RS-JW1881", "fabric": "85%Nylon 15%spandex  · 140gsm", "price": "USD 7.80", "web": "img/rionsports-0029.jpg", "frames": 2, "description": "Style No.: RS-JW1881 • 85%Nylon 15%spandex 140gsm. • MOQ: 1000pcs/color/style. • USD 7.80/pc, FOB XIAMEN, CHINA Casual Jumpsuit"}, {"id": "rionsports-0030", "factory": "Rion Sports (Bruce, Emma)", "type": "футболка / топ", "item_no": "RS-FW1925", "fabric": "75%Nylon 25%spandex  · 220gsm", "price": "USD 4.50", "web": "img/rionsports-0030.jpg", "frames": 2, "description": "Style No.: RS-FW1925 • 75%Nylon 25%spandex 220gsm 90%polyester 10%spandex 185gsm. • MOQ: 1000pcs/color/style. • USD 4.50/pc, FOB XIAMEN, CHINA . Tank Top"}, {"id": "rionsports-0031", "factory": "Rion Sports (Bruce, Emma)", "type": "футболка / топ", "item_no": "RS-FW960", "fabric": "93% polyester 7%spandex ", "price": "USD 2.95", "web": "img/rionsports-0031.jpg", "frames": 2, "description": "Style No.: RS-FW960 • 160g 93% polyester 7%spandex • Cross front bottom hem. • MOQ: 1000pcs/color/style. • USD 2.95/pc, FOB XIAMEN, CHINA Tank Top"}, {"id": "rionsports-0032", "factory": "Rion Sports (Bruce, Emma)", "type": "футболка / топ", "item_no": "RS-FW1826", "fabric": "62% Recycled  · 150GSM", "price": "USD 3.50", "web": "img/rionsports-0032.jpg", "frames": 3, "description": "Style No.: RS-FW1826 • 62% Recycled polyester 38%Polyester 150GSM. • Jacquard fabric. • MOQ: 1000pcs/color/style. • USD 3.50/pc, FOB XIAMEN, CHINA Jacquard T-shirt"}, {"id": "rionsports-0033", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-PM1789", "fabric": "79%Nylon 21%spandex  · 170GSM", "price": "USD 10.50", "web": "img/rionsports-0033.jpg", "frames": 3, "description": "Style No.: RS-PM1789 • 79%Nylon 21%spandex 170GSM. • Bonding collar / placket / pocket / hem. • MOQ: 1000pcs/color/style. • USD 10.50/pc, FOB XIAMEN, CHINA Bonded Polo"}, {"id": "rionsports-0034", "factory": "Rion Sports (Bruce, Emma)", "type": "платье", "item_no": "RS-PM1672", "fabric": "100%polyester  · 140gsm", "price": "USD 7.80", "web": "img/rionsports-0034.jpg", "frames": 3, "description": "Style No.: RS-PM1672 • 100%polyester 140gsm. • Bonding collar / placket / hem. • MOQ: 1000pcs/color/style. • USD 7.80/pc, FOB XIAMEN, CHINA Bonded Polo"}, {"id": "rionsports-0035", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-PM1671", "fabric": "88%Nylon 12%spandex  · 180gsm", "price": "USD 11.20", "web": "img/rionsports-0035.jpg", "frames": 3, "description": "Style No.: RS-PM1671 • 88%Nylon 12%spandex 180gsm. • Bonded collar / placket / pocket / hem. • Laser cut hole at side for ventlation. • MOQ: 1000pcs/color/style. • USD 11.20/pc, FOB XIAMEN, CHINA Bonded Polo"}, {"id": "rionsports-0036", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-FM1029", "fabric": "85% nylon 15%spandex ", "price": "USD 7.85", "web": "img/rionsports-0036.jpg", "frames": 3, "description": "Style No.: RS-FM1029 • 85% nylon 15%spandex 170g. • Bonding and laser cut collar. • Jacquard fabric. • MOQ: 1000pcs/color/style. • USD 7.85/pc, FOB XIAMEN, CHINA Jacquard Polo"}, {"id": "rionsports-0037", "factory": "Rion Sports (Bruce, Emma)", "type": "юбка-шорты", "item_no": "RS-FM1031", "fabric": "75% Nylon, 25% spandex, ", "price": "USD 8.85", "web": "img/rionsports-0037.jpg", "frames": 3, "description": "Style No.: RS-FM1031 • 75% Nylon, 25% spandex, 165g • Bonding and laser cut collar. • Embossed fabric. • MOQ: 1000pcs/color/style. • USD 8.85/pc, FOB XIAMEN, CHINA Embossed Polo"}, {"id": "rionsports-0038", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW1102", "fabric": "75%nylon 25%spandex  · 220GSM", "price": "USD 6.47", "web": "img/rionsports-0038.jpg", "frames": 3, "description": "Style No.: RS-UW1102 • 75%nylon 25%spandex 220GSM • Contrast color on stripe. • MOQ: 1000pcs/color/style. • USD 6.47/pc, FOB XIAMEN, CHINA Sports Bra"}, {"id": "rionsports-0039", "factory": "Rion Sports (Bruce, Emma)", "type": "худи / кофта на молнии", "item_no": "RS-FM1240", "fabric": "47%polyester 47%modal 6%spandex  · 255GSM", "price": "USD 14.50", "web": "img/rionsports-0039.jpg", "frames": 3, "description": "Style No.: RS-FM1240 • 47%polyester 47%modal 6%spandex 255GSM • super soft hand feeling. • MOQ: 1000pcs/color/style. • USD 14.50/pc, FOB XIAMEN, CHINA Casual Hoodie"}, {"id": "rionsports-0040", "factory": "Rion Sports (Bruce, Emma)", "type": "брюки", "item_no": "RS-FM1239", "fabric": "56%modal 38%polyester 6%spandex  · 255GSM", "price": "USD 8.30", "web": "img/rionsports-0040.jpg", "frames": 2, "description": "Style No.: RS-FM1239 • 56%modal 38%polyester 6%spandex 255GSM • super soft hand feeling. • MOQ: 1000pcs/color/style. • USD 8.30/pc, FOB XIAMEN, CHINA Casual Pant"}, {"id": "rionsports-0041", "factory": "Rion Sports (Bruce, Emma)", "type": "худи / кофта на молнии", "item_no": "RS-FW1620", "fabric": "88%polyester 12%spandex  · 130gsm", "price": "USD 7.20", "web": "img/rionsports-0041.jpg", "frames": 3, "description": "Style No.: RS-FW1620 • 88%polyester 12%spandex 130gsm. • MOQ: 1000pcs/color/style. • USD 7.20/pc, FOB XIAMEN, CHINA Casual Hoodie"}, {"id": "rionsports-0042", "factory": "Rion Sports (Bruce, Emma)", "type": "брюки", "item_no": "RS-FW1619", "fabric": "88%polyester 12%spandex  · 130gsm", "price": "USD 6.50", "web": "img/rionsports-0042.jpg", "frames": 2, "description": "Style No.: RS-FW1619 • 88%polyester 12%spandex 130gsm. • MOQ: 1000pcs/color/style. • USD 6.50/pc, FOB XIAMEN, CHINA Casual Pant"}, {"id": "rionsports-0043", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-FW1616", "fabric": "88%Nylon 12%spandex  · 130gsm", "price": "USD 3.80", "web": "img/rionsports-0043.jpg", "frames": 3, "description": "Style No.: RS-FW1616 • 88%Nylon 12%spandex 130gsm. • MOQ: 1000pcs/color/style. • USD 3.80/pc, FOB XIAMEN, CHINA Casual Short"}, {"id": "rionsports-0044", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-FW1614", "fabric": "88%polyester 12%spandex  · 130gsm", "price": "USD 4.50", "web": "img/rionsports-0044.jpg", "frames": 3, "description": "Style No.: RS-FW1614 • 88%polyester 12%spandex 130gsm. • MOQ: 1000pcs/color/style. • USD 4.50/pc, FOB XIAMEN, CHINA 2in1 Short"}, {"id": "rionsports-0045", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "RS-FW436", "fabric": "41%Modal 53%polyester 6%spandex  · 300gsm", "price": "USD 6.50", "web": "img/rionsports-0045.jpg", "frames": 3, "description": "Style No.: RS-FW436 • 41%Modal 53%polyester 6%spandex 300gsm • Scuba fabric. • MOQ: 1000pcs/color/style. • USD 6.50/pc, FOB XIAMEN, CHINA Casual Short"}, {"id": "rionsports-0046", "factory": "Rion Sports (Bruce, Emma)", "type": "брюки", "item_no": "RS-FW1771", "fabric": "50%cotton 45% polyester 5% spandex  · 250gsm", "price": "USD 8.50", "web": "img/rionsports-0046.jpg", "frames": 2, "description": "Style No.: RS-FW1771 • 50%cotton 45% polyester 5% spandex 250gsm. • MOQ: 1000pcs/color/style. • USD 8.50/pc, FOB XIAMEN, CHINA Casual Pant"}, {"id": "rionsports-0047", "factory": "Rion Sports (Bruce, Emma)", "type": "брюки", "item_no": "RS-RW1072", "fabric": "80% nylon 20% spandex ", "price": "USD 8.50", "web": "img/rionsports-0047.jpg", "frames": 2, "description": "Style No.: RS-RW1072 • 240g 80% nylon 20% spandex • MOQ: 1000pcs/color/style. • USD 8.50/pc, FOB XIAMEN, CHINA Jogger"}, {"id": "rionsports-0048", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW1101", "fabric": "80% polyester 20% spandex  · 250GSM", "price": "USD 7.67", "web": "img/rionsports-0048.jpg", "frames": 3, "description": "Style No.: RS-UW1101 • main: 80% polyester 20% spandex 250GSM mesh:90% polyester 10% spandex 180GSM lining:86% polyester 14%spandex 130GSM • Adjustable back. • MOQ: 1000pcs/color/style. • USD 7.67/pc, FOB XIAMEN, CHINA Sports Bra"}, {"id": "rionsports-0049", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW934", "fabric": "83% polyester 17% Spandex", "price": "USD 4.83", "web": "img/rionsports-0049.jpg", "frames": 3, "description": "Style No.: RS-UW934 • 265g 83% polyester 17% Spandex. • MOQ: 1000pcs/color/style. • USD 4.83/pc, FOB XIAMEN, CHINA Sports Bra"}, {"id": "rionsports-0050", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "RS-UW1910", "fabric": "80%Recycled  · 230gsm", "price": "USD 5.47", "web": "img/rionsports-0050.jpg", "frames": 2, "description": "Style No.: RS-UW1910 • 80%Recycled polyester 20%spandex 230gsm • All over printing. • With inner bra. • MOQ: 1000pcs/color/style. • USD 5.47/pc, FOB XIAMEN, CHINA Sports Bra"}, {"id": "rionsports-0051", "factory": "Rion Sports (Bruce, Emma)", "type": "леггинсы", "item_no": "RS-FW1820", "fabric": "73%polyester 23%spandex  · 270GSM", "price": "USD 6.46", "web": "img/rionsports-0051.jpg", "frames": 2, "description": "Style No.: RS-FW1820 • 73%polyester 23%spandex 270GSM • Metallic foil all over printing. • MOQ: 1000pcs/color/style. • USD 6.46/pc, FOB XIAMEN, CHINA Yoga Tight"}, {"id": "rionsports-0052", "factory": "Rion Sports (Bruce, Emma)", "type": "леггинсы", "item_no": "RS-FW1900", "fabric": "78%polyester 22%spandex  · 230gsm", "price": "USD 5.15", "web": "img/rionsports-0052.jpg", "frames": 2, "description": "Style No.: RS-FW1900 • 78%polyester 22%spandex 230gsm • Cross waist band. • MOQ: 1000pcs/color/style. • USD 5.15/pc, FOB XIAMEN, CHINA Yoga Tight"}, {"id": "rionsports-0053", "factory": "Rion Sports (Bruce, Emma)", "type": "леггинсы", "item_no": "RS-FW1630", "fabric": "72%Nylon 28%spandex  · 240gsm", "price": "USD 8.80", "web": "img/rionsports-0053.jpg", "frames": 2, "description": "Style No.: RS-FW1630 • 72%Nylon 28%spandex 240gsm • Acid all over printing. • MOQ: 1000pcs/color/style. • USD 8.80/pc, FOB XIAMEN, CHINA Yoga Tight"}, {"id": "rionsports-0054", "factory": "Rion Sports (Bruce, Emma)", "type": "леггинсы", "item_no": "RS-FW999", "fabric": "79% Recycled ", "price": "USD 6.70", "web": "img/rionsports-0054.jpg", "frames": 2, "description": "Style No.: RS-FW999 • 240g 79% Recycled polyester 21% spandex • Special design on bottom hem. • MOQ: 1000pcs/color/style. • USD 6.70/pc, FOB XIAMEN, CHINA Yoga Tight"}, {"id": "rionsports-0056", "factory": "Rion Sports (Bruce, Emma)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/rionsports-0056.jpg", "frames": 3, "description": "PARTNER WITH LEADING BRANDS AND RETAILERS"}, {"id": "rionsports-0073", "factory": "Rion Sports (Bruce, Emma)", "type": "шорты", "item_no": "", "fabric": "", "price": "", "web": "img/rionsports-0073.jpg", "frames": 3, "description": "YOGA & FITNESS FOCUS ON INNOVATIVE DESIGNS AND FUNCTIONAL FABRICS"}, {"id": "rionsports-0074", "factory": "Rion Sports (Bruce, Emma)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/rionsports-0074.jpg", "frames": 3, "description": "Athleisure FOCUS ON FASHION DESIGNS AND SUSTAINABLE FABRICS"}, {"id": "rionsports-0075", "factory": "Rion Sports (Bruce, Emma)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/rionsports-0075.jpg", "frames": 3, "description": "RUNNING & TRAINING FOCUS ON INNOVATIVE DESIGNS AND FUNCTIONAL FABRICS"}, {"id": "rionsports-0076", "factory": "Rion Sports (Bruce, Emma)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/rionsports-0076.jpg", "frames": 3, "description": "CYCLING & SPORTS UNDERWEAR FOCUS ON INNOVATIVE DESIGNS AND FUNCTIONAL FABRICS"}];
+const PAGE_ID = "rion-sports-bruce-emma-chast-1";
+const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
+let db=null, uid=null;
+
+const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
+const key = id => id+"__"+(uid||"local");
+
+function localLoad(){ try{ return JSON.parse(localStorage.getItem("votes:"+PAGE_ID)||"{}"); }catch(e){ return {}; } }
+function localSave(){ try{ localStorage.setItem("votes:"+PAGE_ID, JSON.stringify(state.mine)); }catch(e){} }
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.textContent = "";
+  const q = state.q.trim().toLowerCase();
+  let shown = 0;
+  for(const m of MODELS){
+    const v = state.mine[m.id] || {};
+    if(state.filter==="new" && (v.like || v.stars)) continue;
+    if(state.filter==="like" && !v.like) continue;
+    if(state.type && m.type !== state.type) continue;
+    if(q && !((m.item_no+" "+m.fabric+" "+m.description).toLowerCase().includes(q))) continue;
+    grid.appendChild(card(m, v)); shown++;
+  }
+  document.getElementById("empty").hidden = shown>0;
+  const rated = MODELS.filter(m=>{const v=state.mine[m.id]||{}; return v.like||v.stars;}).length;
+  document.getElementById("bar").style.width = (100*rated/MODELS.length).toFixed(1)+"%";
+  document.getElementById("cnt").textContent = `оценено ${rated} из ${MODELS.length}`;
+}
+
+function card(m, v){
+  const c = el("div","card"+(v.like?" liked":""));
+  const ph = el("div","ph"); ph.tabIndex = 0;
+  const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
+  img.src = m.web; img.style.width = (m.frames*100)+"%";
+  const dots = el("div","dots");
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
+  const meta = el("div","meta");
+  meta.appendChild(el("div","type", m.type));
+  if(m.item_no) meta.appendChild(el("div","art", m.item_no));
+  if(m.fabric) meta.appendChild(el("div","fab", m.fabric));
+  if(m.price) meta.appendChild(el("div","price", m.price));
+  const acts = el("div","acts");
+  const heart = el("button","heart"+(v.like?" on":""),"♥");
+  heart.title = "Нравится"; heart.setAttribute("aria-pressed", v.like?"true":"false");
+  heart.onclick = ()=> save(m, {like: !(state.mine[m.id]||{}).like});
+  acts.appendChild(heart);
+  const others = state.others[m.id]||0;
+  if(others) acts.appendChild(el("span","others","+"+others));
+  const stars = el("div","stars");
+  for(let i=1;i<=5;i++){
+    const s = el("button","star"+((v.stars||0)>=i?" on":""),"★");
+    s.title = i+" из 5";
+    s.onclick = ()=> save(m, {stars: (state.mine[m.id]||{}).stars===i ? 0 : i});
+    stars.appendChild(s);
+  }
+  acts.appendChild(stars);
+  c.append(ph, meta, acts);
+  return c;
+}
+
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
+function openBig(m){
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
+}
+document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+async function save(m, patch){
+  const cur = state.mine[m.id] || {like:false, stars:0};
+  const next = Object.assign({}, cur, patch);
+  state.mine[m.id] = next; localSave(); render();
+  if(!db) return;
+  try{
+    await db.doc("votes/"+key(m.id)).set({
+      model:m.id, page:PAGE_ID, factory:m.factory, type:m.type, item_no:m.item_no||"",
+      like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
+    });
+  }catch(e){
+    document.getElementById("status").textContent = "Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе");
+  }
+}
+
+function picked(){
+  const out = [];
+  for(const m of MODELS){
+    const v = state.mine[m.id]; if(!v || (!v.like && !v.stars)) continue;
+    out.push({id:m.id, factory:m.factory, type:m.type, item:m.item_no||"", like:!!v.like, stars:v.stars||0});
+  }
+  return {page:PAGE_ID, who:(document.getElementById("who").value||"").trim(), at:new Date().toISOString(), picks:out};
+}
+document.getElementById("who").value = localStorage.getItem("who")||"";
+document.getElementById("who").oninput = e => { try{ localStorage.setItem("who", e.target.value); }catch(err){} };
+document.getElementById("copy").onclick = async ()=>{
+  const data = picked();
+  try{ await navigator.clipboard.writeText(JSON.stringify(data));
+       document.getElementById("status").textContent = `Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`; }
+  catch(e){ document.getElementById("status").textContent = "Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."; }
+};
+document.getElementById("dl").onclick = ()=>{
+  const data = picked();
+  const blob = new Blob([JSON.stringify(data, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `выбор-rion-sports-bruce-emma-chast-1-${data.who||"без-имени"}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
+};
+document.getElementById("mail").onclick = e => {
+  const data = picked();
+  const body = data.picks.map(p=>`${p.factory} · ${p.type} ${p.item} — ${p.like?"нравится":""} ${p.stars?p.stars+"/5":""}`).join("\n");
+  e.currentTarget.href = "mailto:privery.prod@euphoria.fit?subject=" +
+    encodeURIComponent("Выбор моделей: "+PAGE_ID) + "&body=" + encodeURIComponent((data.who?data.who+"\n\n":"")+body);
+};
+
+document.getElementById("f-all").onclick = ()=> setFilter("all");
+document.getElementById("f-new").onclick = ()=> setFilter("new");
+document.getElementById("f-like").onclick = ()=> setFilter("like");
+function setFilter(f){
+  state.filter=f;
+  for(const [id,val] of [["f-all","all"],["f-new","new"],["f-like","like"]])
+    document.getElementById(id).setAttribute("aria-pressed", String(val===f));
+  render();
+}
+const types = [...new Set(MODELS.map(m=>m.type))].sort();
+const sel = document.getElementById("f-type");
+for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
+sel.onchange = e => { state.type = e.target.value; render(); };
+document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+state.mine = localLoad();
+render();
+
+(async ()=>{
+  const user = await window.claude?.use?.("user");
+  uid = user ? await user.id() : null;
+  db = await window.claude?.use?.("db");
+  if(!db){ document.getElementById("status").textContent = "Общая база недоступна — оценки сохраняются только в этом браузере."; return; }
+  document.getElementById("status").textContent = "Оценки сохраняются автоматически и видны коллегам.";
+  db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
+    const mine={}, others={};
+    for(const d of snap.docs){
+      const v = d.data()||{};
+      if(uid && v.by===uid){ mine[v.model]={like:!!v.like, stars:v.stars||0}; }
+      else if(v.like){ others[v.model]=(others[v.model]||0)+1; }
+    }
+    if(Object.keys(mine).length || Object.keys(others).length){
+      state.mine = Object.keys(mine).length ? mine : state.mine;
+      state.others = others; localSave(); render();
+    }
+  }, err => { document.getElementById("status").textContent = "Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."; });
+})();
+</script>

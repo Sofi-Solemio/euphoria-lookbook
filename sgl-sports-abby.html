@@ -57,7 +57,13 @@ select,input[type=search]{border:1px solid var(--line);background:var(--panel);c
 #who{min-width:150px}
 dialog{border:0;border-radius:14px;padding:0;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 dialog::backdrop{background:rgba(10,16,13,.7)}
-.big{display:block;max-width:100%;max-height:78vh}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
 .dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
 button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media (max-width:420px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}}
@@ -89,7 +95,15 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
 </div>
-<dialog id="dlg"><img class="big" id="bigimg" alt=""><div class="dlgbar"><span class="sub" id="dlgcap"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div></dialog>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
 <script>
 const MODELS = [{"id": "sglsportsa-0002", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0002.jpg", "frames": 3, "description": "Sports Bra & shorts"}, {"id": "sglsportsa-0003", "factory": "SGL Sports (Abby)", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0003.jpg", "frames": 2, "description": "One piece Sportswear"}, {"id": "sglsportsa-0004", "factory": "SGL Sports (Abby)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0004.jpg", "frames": 3, "description": "Top and bottom"}, {"id": "sglsportsa-0005", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0005.jpg", "frames": 3, "description": "Sports Bra & shorts"}, {"id": "sglsportsa-0006", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0006.jpg", "frames": 3, "description": "Sports Bra & shorts D19110"}, {"id": "sglsportsa-0007", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0007.jpg", "frames": 3, "description": "Sports Bra"}, {"id": "sglsportsa-0008", "factory": "SGL Sports (Abby)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0008.jpg", "frames": 3, "description": "Sports Leggings"}, {"id": "sglsportsa-0009", "factory": "SGL Sports (Abby)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0009.jpg", "frames": 3, "description": "Top and bottom"}, {"id": "sglsportsa-0010", "factory": "SGL Sports (Abby)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0010.jpg", "frames": 3, "description": "Legging-DL392"}, {"id": "sglsportsa-0011", "factory": "SGL Sports (Abby)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0011.jpg", "frames": 3, "description": "Sports Leggings"}, {"id": "sglsportsa-0012", "factory": "SGL Sports (Abby)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0012.jpg", "frames": 1, "description": "About us SGL sports is located in south of China,world-manufacture-center Dongguan city. Factory covers an area of 3500 square meters and has more than 200 skilled workers. We are modern & professional enterprise combined with the design,development, production and sales of Sportswear clothing, such"}, {"id": "sglsportsa-0013", "factory": "SGL Sports (Abby)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0013.jpg", "frames": 3, "description": "Sports Leggings"}, {"id": "sglsportsa-0014", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0014.jpg", "frames": 3, "description": "Seamless Bra and legging"}, {"id": "sglsportsa-0015", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0015.jpg", "frames": 2, "description": "Seamless Bra and legging"}, {"id": "sglsportsa-0016", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0016.jpg", "frames": 3, "description": "Seamless Bra and legging"}, {"id": "sglsportsa-0017", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0017.jpg", "frames": 2, "description": "Seamless Bra and legging"}, {"id": "sglsportsa-0018", "factory": "SGL Sports (Abby)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0018.jpg", "frames": 3, "description": "Seamless T-shirts"}, {"id": "sglsportsa-0019", "factory": "SGL Sports (Abby)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0019.jpg", "frames": 1, "description": "Women Jacket & Hoodie"}, {"id": "sglsportsa-0020", "factory": "SGL Sports (Abby)", "type": "лонгслив", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0020.jpg", "frames": 2, "description": "Men Sports shirts"}, {"id": "sglsportsa-0021", "factory": "SGL Sports (Abby)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0021.jpg", "frames": 3, "description": "Men Sports Hoodie & Jacket"}, {"id": "sglsportsa-0022", "factory": "SGL Sports (Abby)", "type": "шорты", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0022.jpg", "frames": 3, "description": "Men Sports Shorts"}, {"id": "sglsportsa-0024", "factory": "SGL Sports (Abby)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0024.jpg", "frames": 3, "description": "Men Sports Legging"}, {"id": "sglsportsa-0025", "factory": "SGL Sports (Abby)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0025.jpg", "frames": 2, "description": "Men Sports Joggers"}, {"id": "sglsportsa-0026", "factory": "SGL Sports (Abby)", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0026.jpg", "frames": 3, "description": "Garments pictures"}, {"id": "sglsportsa-0033", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0033.jpg", "frames": 1, "description": "Sports Bra"}, {"id": "sglsportsa-0034", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0034.jpg", "frames": 3, "description": "Sports Bra & shorts"}, {"id": "sglsportsa-0036", "factory": "SGL Sports (Abby)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0036.jpg", "frames": 1, "description": "Jacket | it is the estimated cost basing on the pictures,after sample, the cost will be more closer | 5size | 300pcs 500pcs 1000pcs | 21.7 20.8 19.9 | Legging | it is the estimated cost basing on the pictures,after sample, the cost will be more closer | 5size | 300pcs 500pcs 1000pcs | 11.5 10.8 10.1"}, {"id": "sglsportsa-0039", "factory": "SGL Sports (Abby)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0039.jpg", "frames": 1, "description": "Mid Jacket | it is the estimated cost basing on the pictures,after sample, the cost will be more closer | 5size | 300pcs 500pcs 1000pcs | 16.5 15.8 15.0 | Pants | it is the estimated cost basing on the pictures,after sample, the cost will be more closer | 5size | 300pcs 500pcs 1000pcs | 19.0 18.1 17"}, {"id": "sglsportsa-0040", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0040.jpg", "frames": 1, "description": "Pants | it is the estimated cost basing on the pictures,after sample, the cost will be more closer | 5size | 300pcs 500pcs 1000pcs | 19.0 18.1 17.1 | Shorts | it is the estimated cost basing on the pictures,after sample, the cost will be more closer | 5size | 300pcs 500pcs 1000pcs | 10.5 9.8 9.0 | S"}, {"id": "sglsportsa-0041", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0041.jpg", "frames": 1, "description": "Shorts | it is the estimated cost basing on the pictures,after sample, the cost will be more closer | 5size | 300pcs 500pcs 1000pcs | 10.5 9.8 9.0 | Skirt | it is the estimated cost basing on the pictures,after sample, the cost will be more closer | 5size | 300pcs 500pcs 1000pcs | 17.5 16.6 15.7 | B"}, {"id": "sglsportsa-0042", "factory": "SGL Sports (Abby)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0042.jpg", "frames": 1, "description": "Skirt | it is the estimated cost basing on the pictures,after sample, the cost will be more closer | 5size | 300pcs 500pcs 1000pcs | 17.5 16.6 15.7 | Bra | it is the estimated cost basing on the pictures,after sample, the cost will be more closer | 5size | 300pcs 500pcs 1000pcs | 10.5 9.7 9.0 | norm"}, {"id": "sglsportsa-0001", "factory": "SGL Sports (Abby)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0001.jpg", "frames": 1, "description": "SGL Sports Introduction abby@sglsports.com +86 139 2559 0143 Abby"}, {"id": "sglsportsa-0023", "factory": "SGL Sports (Abby)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0023.jpg", "frames": 3, "description": "Office images"}, {"id": "sglsportsa-0027", "factory": "SGL Sports (Abby)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0027.jpg", "frames": 1, "description": "Whole factory workers gathering"}, {"id": "sglsportsa-0028", "factory": "SGL Sports (Abby)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0028.jpg", "frames": 1, "description": "THE END & THANKS Should any of interest for you Welcome to contact me as below Abby@sglsports.com +86 139 2559 0143"}, {"id": "sglsportsa-0029", "factory": "SGL Sports (Abby)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0029.jpg", "frames": 3, "description": "Development Dep."}, {"id": "sglsportsa-0030", "factory": "SGL Sports (Abby)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0030.jpg", "frames": 3, "description": "Production Line"}, {"id": "sglsportsa-0031", "factory": "SGL Sports (Abby)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0031.jpg", "frames": 3, "description": "Production Line"}, {"id": "sglsportsa-0032", "factory": "SGL Sports (Abby)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/sglsportsa-0032.jpg", "frames": 3, "description": "Ironing & Triming & Packing"}];
 const PAGE_ID = "sgl-sports-abby";
@@ -126,14 +140,11 @@ function card(m, v){
   const ph = el("div","ph"); ph.tabIndex = 0;
   const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
   img.src = m.web; img.style.width = (m.frames*100)+"%";
-  let frame = 0;
   const dots = el("div","dots");
   for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
-  const flip = ()=>{ frame=(frame+1)%m.frames; img.style.transform=`translateX(${-frame*(100/m.frames)}%)`;
-    [...dots.children].forEach((b,i)=>b.className = i===frame?"on":""); };
-  ph.addEventListener("click", e=>{ if(e.shiftKey || m.frames===1) return openBig(m); flip(); });
-  ph.addEventListener("keydown", e=>{ if(e.key==="Enter") flip(); });
-  ph.append(img, dots); if(m.frames>1) ph.append();
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
   const meta = el("div","meta");
   meta.appendChild(el("div","type", m.type));
   if(m.item_no) meta.appendChild(el("div","art", m.item_no));
@@ -158,13 +169,45 @@ function card(m, v){
   return c;
 }
 
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
 function openBig(m){
-  const d=document.getElementById("dlg");
-  document.getElementById("bigimg").src = m.web;
-  document.getElementById("dlgcap").textContent = [m.factory, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
-  d.showModal();
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
 }
 document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
 
 async function save(m, patch){
   const cur = state.mine[m.id] || {like:false, stars:0};
