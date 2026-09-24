@@ -89,7 +89,7 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
     <input id="who" placeholder="ваше имя" autocomplete="name">
     <button class="chip" id="copy">Скопировать выбор</button>
     <button class="chip" id="dl">Скачать файл выбора</button>
-    <button class="chip" id="send">Отправить выбор</button>
+    <button class="chip" id="send">Отправить Софье</button>
   </div>
 </header>
 <div class="grid" id="grid"></div>
@@ -277,12 +277,12 @@ document.getElementById("send").onclick = async () => {
       })
     });
     if(!res.ok) throw new Error("HTTP " + res.status);
-    st.textContent = `Отправлено: ${data.picks.length} моделей. Спасибо — выбор ушёл Софии.`;
+    st.textContent = `Отправлено Софье: ${data.picks.length} моделей. Спасибо!`;
     try{ localStorage.setItem("sent:" + PAGE_ID, new Date().toISOString()); }catch(e){}
   }catch(e){
     try{
       await navigator.clipboard.writeText(text);
-      st.textContent = "Не удалось отправить (нет сети?) — выбор скопирован в буфер, пришлите его Софии сообщением.";
+      st.textContent = "Не удалось отправить (нет сети?) — выбор скопирован в буфер, пришлите его Софье сообщением.";
     }catch(err){
       st.textContent = "Не удалось отправить — нажмите «Скачать файл выбора» и пришлите файл.";
     }
