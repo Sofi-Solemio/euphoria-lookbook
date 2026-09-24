@@ -1,4 +1,6 @@
 <title>Лукбук — Ningbo Felicity (Angelina) — часть 1</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -18,7 +20,7 @@
   --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
 .wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
 .brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
@@ -31,15 +33,15 @@ h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
 .chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:14px;margin-top:16px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,215px),1fr));gap:14px;margin-top:16px}
+.card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
 .card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
 .ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
 .dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
 .dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
 .dots b.on{background:var(--accent)}
-.meta{padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.meta{min-width:0;overflow-wrap:anywhere;padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
 .type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
 .art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
 .fab{font-size:11.5px;color:var(--muted);line-height:1.35}
@@ -66,7 +68,29 @@ dialog::backdrop{background:rgba(10,16,13,.7)}
 .dots.big b.on{background:var(--accent)}
 .dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
 button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-@media (max-width:420px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}}
+/* телефон: две крупные колонки вместо мелкой сетки, крупнее текст и кнопки */
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 12px 72px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  h1{font-size:21px}
+  .type{font-size:14px}
+  .art{font-size:12.5px}
+  .fab{font-size:13px}
+  .price{font-size:15px}
+  .meta{padding:10px 12px 0;gap:4px}
+  .acts{padding:10px 12px 12px;gap:8px}
+  .heart,.star{font-size:23px;padding:4px 2px}
+  .stars{gap:3px}
+  .chip,select,input[type=search]{font-size:15px;padding:9px 14px}
+  #who{min-width:130px}
+  .viewer{width:96vw}
+  .nav{width:52px;height:68px;font-size:30px}
+}
+@media (max-width:430px){
+  .grid{grid-template-columns:minmax(0,1fr);gap:14px}
+  .heart,.star{font-size:26px;padding:6px 3px}
+}
 </style>
 <div class="wrap">
 <header class="top">
