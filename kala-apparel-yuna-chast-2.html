@@ -250,7 +250,7 @@ document.getElementById("dl").onclick = ()=>{
   document.body.appendChild(a); a.click(); a.remove();
   document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
 };
-const REPO = "Sofi-Solemio/euphoria-lookbook";
+const SEND_URL = "https://formsubmit.co/ajax/privery.prod@euphoria.fit";
 document.getElementById("send").onclick = async () => {
   const data = picked();
   const st = document.getElementById("status");
@@ -260,20 +260,33 @@ document.getElementById("send").onclick = async () => {
   const lines = data.picks.map(p =>
     `- ${p.id} · ${p.factory} · ${p.type}${p.item ? " · " + p.item : ""}${p.like ? " · нравится" : ""}${p.stars ? " · " + p.stars + "/5" : ""}`);
   const text = `Страница: kala-apparel-yuna-chast-2\nКто отмечал: ${data.who || "не указано"}\nОтмечено моделей: ${data.picks.length}\n\n` + lines.join("\n");
-  const title = `Выбор моделей: ${data.who || "без имени"} — kala-apparel-yuna-chast-2`;
-  const url = `https://github.com/${REPO}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(text)}`;
-  if(url.length < 7000){
-    window.open(url, "_blank", "noopener");
-    st.textContent = `Открыл форму отправки: ${data.picks.length} моделей. Нажмите там зелёную кнопку Submit — и выбор попадёт ко мне.`;
-    return;
-  }
+  const btn = document.getElementById("send");
+  btn.disabled = true;
+  st.textContent = "Отправляю…";
   try{
-    await navigator.clipboard.writeText(text);
-    window.open(`https://github.com/${REPO}/issues/new?title=${encodeURIComponent(title)}`, "_blank", "noopener");
-    st.textContent = `Выбор большой (${data.picks.length} моделей) — он скопирован в буфер. Вставьте его в открывшуюся форму и нажмите Submit.`;
+    const res = await fetch(SEND_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Accept": "application/json"},
+      body: JSON.stringify({
+        _subject: `Выбор моделей: ${data.who || "без имени"} — kala-apparel-yuna-chast-2`,
+        _template: "table",
+        Кто: data.who || "не указано",
+        Страница: PAGE_ID,
+        Моделей: String(data.picks.length),
+        Выбор: text
+      })
+    });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    st.textContent = `Отправлено: ${data.picks.length} моделей. Спасибо — выбор ушёл Софии.`;
+    try{ localStorage.setItem("sent:" + PAGE_ID, new Date().toISOString()); }catch(e){}
   }catch(e){
-    st.textContent = "Выбор слишком большой — нажмите «Скачать файл выбора» и пришлите файл.";
-  }
+    try{
+      await navigator.clipboard.writeText(text);
+      st.textContent = "Не удалось отправить (нет сети?) — выбор скопирован в буфер, пришлите его Софии сообщением.";
+    }catch(err){
+      st.textContent = "Не удалось отправить — нажмите «Скачать файл выбора» и пришлите файл.";
+    }
+  }finally{ btn.disabled = false; }
 };
 
 document.getElementById("f-all").onclick = ()=> setFilter("all");
