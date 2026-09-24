@@ -55,11 +55,12 @@ select,input[type=search]{border:1px solid var(--line);background:var(--panel);c
 .empty{padding:40px 0;color:var(--muted);text-align:center}
 .status{font-size:12px;color:var(--muted);margin-top:6px}
 .back{text-decoration:none;color:var(--ink);font-size:19px;font-weight:700;padding-right:2px}
-.send{margin-top:8px}
-.send summary{display:inline-block;cursor:pointer;list-style:none}
+.send{position:relative}
+.send summary{display:inline-block;cursor:pointer;list-style:none;white-space:nowrap}
 .send summary::-webkit-details-marker{display:none}
 .send[open] summary{background:var(--accent);border-color:var(--accent);color:#fff}
-.send .tools{margin-top:8px}
+.sendbox{position:absolute;right:0;top:calc(100% + 6px);z-index:30;display:flex;flex-wrap:wrap;gap:6px;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);width:max-content;max-width:min(92vw,420px)}
 #who{min-width:150px}
 dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 dialog::backdrop{background:rgba(10,16,13,.7)}
@@ -77,12 +78,16 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
   body{font-size:16px}
   .wrap{padding:0 12px 72px}
   .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  header.top{padding-block:8px 8px}
-  .brow{gap:6px 10px}
+  header.top{padding-block:6px 6px}
+  .brow{gap:4px 8px;flex-wrap:nowrap;align-items:center}
   .prog{display:none}
   .brow .sub:first-of-type{display:none}
-  .status{display:none}
-  .send[open] ~ * .status, .send[open] .status{display:block}
+  h1{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+  #cnt{white-space:nowrap;font-size:12px}
+  .status{font-size:12px;margin-top:4px}
+  .tools{margin-top:6px}
+  .chip,select,input[type=search]{font-size:14px;padding:7px 12px}
+  input[type=search]{min-width:150px}
   .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .tools::-webkit-scrollbar{display:none}
   .chip,select,input[type=search]{flex:0 0 auto}
@@ -128,17 +133,17 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
     <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
     <select id="f-type"><option value="">Все типы</option></select>
     <input type="search" id="f-q" placeholder="артикул или ткань">
+    <details class="send">
+      <summary class="chip">Отправить</summary>
+      <div class="sendbox">
+        <input id="who" placeholder="ваше имя" autocomplete="name">
+        <button class="chip" id="send">Отправить Софье</button>
+        <button class="chip" id="copy">Скопировать</button>
+        <button class="chip" id="dl">Скачать файл</button>
+      </div>
+    </details>
   </div>
   <div class="status" id="status" hidden></div>
-  <details class="send">
-    <summary class="chip">Отправить выбор</summary>
-    <div class="tools">
-      <input id="who" placeholder="ваше имя" autocomplete="name">
-      <button class="chip" id="send">Отправить Софье</button>
-      <button class="chip" id="copy">Скопировать</button>
-      <button class="chip" id="dl">Скачать файл</button>
-    </div>
-  </details>
 </header>
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
