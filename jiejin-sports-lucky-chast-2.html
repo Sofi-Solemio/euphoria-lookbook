@@ -1,0 +1,253 @@
+<title>Лукбук — Jiejin Sports (Lucky) — часть 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:14px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.send{margin-top:8px;align-items:center}
+.send a.chip{text-decoration:none}
+#who{min-width:150px}
+dialog{border:0;border-radius:14px;padding:0;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.big{display:block;max-width:100%;max-height:78vh}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:420px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brow">
+    <h1>Jiejin Sports (Lucky) — часть 2</h1>
+    <div class="sub">133 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+  </div>
+  <div class="status" id="status">Оценки сохраняются автоматически.</div>
+  <div class="tools send">
+    <a class="chip" href="index.html">← Все фабрики</a>
+    <input id="who" placeholder="ваше имя" autocomplete="name">
+    <button class="chip" id="copy">Скопировать выбор</button>
+    <button class="chip" id="dl">Скачать файл выбора</button>
+    <a class="chip" id="mail" href="#">Отправить Софии</a>
+  </div>
+</header>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
+</div>
+<dialog id="dlg"><img class="big" id="bigimg" alt=""><div class="dlgbar"><span class="sub" id="dlgcap"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div></dialog>
+<script>
+const MODELS = [{"id": "jiejinspor-0135", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0135.jpg", "frames": 2, "description": "No. 209"}, {"id": "jiejinspor-0136", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0136.jpg", "frames": 2, "description": "No. 210"}, {"id": "jiejinspor-0137", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0137.jpg", "frames": 2, "description": "No. 211"}, {"id": "jiejinspor-0138", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0138.jpg", "frames": 2, "description": "No. 212"}, {"id": "jiejinspor-0139", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0139.jpg", "frames": 3, "description": "No.19"}, {"id": "jiejinspor-0140", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0140.jpg", "frames": 2, "description": "No. 213"}, {"id": "jiejinspor-0141", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0141.jpg", "frames": 2, "description": "No. 214"}, {"id": "jiejinspor-0142", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0142.jpg", "frames": 2, "description": "No. 215"}, {"id": "jiejinspor-0143", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0143.jpg", "frames": 2, "description": "No. 216"}, {"id": "jiejinspor-0144", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0144.jpg", "frames": 3, "description": "No. 217"}, {"id": "jiejinspor-0145", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0145.jpg", "frames": 2, "description": "No.218"}, {"id": "jiejinspor-0146", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0146.jpg", "frames": 2, "description": "No. 219"}, {"id": "jiejinspor-0147", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0147.jpg", "frames": 3, "description": "No. 220"}, {"id": "jiejinspor-0148", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0148.jpg", "frames": 3, "description": "No. 221"}, {"id": "jiejinspor-0149", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0149.jpg", "frames": 3, "description": "No. 222"}, {"id": "jiejinspor-0150", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0150.jpg", "frames": 2, "description": "No.20"}, {"id": "jiejinspor-0151", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0151.jpg", "frames": 2, "description": "No. 223"}, {"id": "jiejinspor-0152", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0152.jpg", "frames": 3, "description": "No. 224"}, {"id": "jiejinspor-0153", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0153.jpg", "frames": 3, "description": "No. 225"}, {"id": "jiejinspor-0154", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0154.jpg", "frames": 3, "description": "No. 226"}, {"id": "jiejinspor-0155", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0155.jpg", "frames": 3, "description": "No. 227"}, {"id": "jiejinspor-0156", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0156.jpg", "frames": 3, "description": "No. 228"}, {"id": "jiejinspor-0157", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0157.jpg", "frames": 2, "description": "No.229"}, {"id": "jiejinspor-0158", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0158.jpg", "frames": 2, "description": "No. 230"}, {"id": "jiejinspor-0159", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0159.jpg", "frames": 3, "description": "No.231"}, {"id": "jiejinspor-0160", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0160.jpg", "frames": 2, "description": "No. 232"}, {"id": "jiejinspor-0161", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0161.jpg", "frames": 3, "description": "No.21"}, {"id": "jiejinspor-0162", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0162.jpg", "frames": 3, "description": "No. 233"}, {"id": "jiejinspor-0163", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0163.jpg", "frames": 2, "description": "No. 234"}, {"id": "jiejinspor-0164", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0164.jpg", "frames": 2, "description": "No. 235"}, {"id": "jiejinspor-0165", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0165.jpg", "frames": 2, "description": "No. 236"}, {"id": "jiejinspor-0166", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0166.jpg", "frames": 2, "description": "No. 237"}, {"id": "jiejinspor-0167", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0167.jpg", "frames": 2, "description": "No.238"}, {"id": "jiejinspor-0168", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0168.jpg", "frames": 2, "description": "No.239"}, {"id": "jiejinspor-0169", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0169.jpg", "frames": 2, "description": "No. 240"}, {"id": "jiejinspor-0170", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0170.jpg", "frames": 3, "description": "No. 241"}, {"id": "jiejinspor-0171", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0171.jpg", "frames": 2, "description": "No.242"}, {"id": "jiejinspor-0172", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0172.jpg", "frames": 3, "description": "No.22"}, {"id": "jiejinspor-0173", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0173.jpg", "frames": 2, "description": "No. 243"}, {"id": "jiejinspor-0174", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0174.jpg", "frames": 3, "description": "No. 244"}, {"id": "jiejinspor-0175", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0175.jpg", "frames": 2, "description": "No. 245"}, {"id": "jiejinspor-0176", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0176.jpg", "frames": 3, "description": "No. 246"}, {"id": "jiejinspor-0177", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0177.jpg", "frames": 3, "description": "No. 247"}, {"id": "jiejinspor-0178", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0178.jpg", "frames": 2, "description": "No. 248"}, {"id": "jiejinspor-0179", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0179.jpg", "frames": 3, "description": "No. 249"}, {"id": "jiejinspor-0180", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0180.jpg", "frames": 2, "description": "No. 250"}, {"id": "jiejinspor-0181", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0181.jpg", "frames": 2, "description": "No. 251"}, {"id": "jiejinspor-0182", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0182.jpg", "frames": 3, "description": "No. 252"}, {"id": "jiejinspor-0183", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0183.jpg", "frames": 3, "description": "No.23"}, {"id": "jiejinspor-0184", "factory": "Jiejin Sports (Lucky)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0184.jpg", "frames": 2, "description": "No. 253"}, {"id": "jiejinspor-0185", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0185.jpg", "frames": 1, "description": "Our Advantages 1. Working with many world-class brands. 2. Original factory with more than 14 years history. 3. With own designing and R&D team, able to make any customized designs. 4. Well equipped production lines, with all imported 4 needle 6 thread machines. 5. Strict in-house QC inspection proc"}, {"id": "jiejinspor-0187", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0187.jpg", "frames": 3, "description": "No.24"}, {"id": "jiejinspor-0188", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0188.jpg", "frames": 3, "description": "No.25"}, {"id": "jiejinspor-0189", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0189.jpg", "frames": 3, "description": "No.26"}, {"id": "jiejinspor-0190", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0190.jpg", "frames": 1, "description": "Leggings/Shorts and Sports Bra Sets"}, {"id": "jiejinspor-0191", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0191.jpg", "frames": 2, "description": "No.27"}, {"id": "jiejinspor-0192", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0192.jpg", "frames": 3, "description": "No.28"}, {"id": "jiejinspor-0193", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0193.jpg", "frames": 3, "description": "No.29"}, {"id": "jiejinspor-0194", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0194.jpg", "frames": 2, "description": "No.30"}, {"id": "jiejinspor-0195", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0195.jpg", "frames": 3, "description": "No.31"}, {"id": "jiejinspor-0196", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0196.jpg", "frames": 3, "description": "No.32"}, {"id": "jiejinspor-0197", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0197.jpg", "frames": 3, "description": "No.33"}, {"id": "jiejinspor-0198", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0198.jpg", "frames": 3, "description": "No.34"}, {"id": "jiejinspor-0199", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0199.jpg", "frames": 3, "description": "No.35"}, {"id": "jiejinspor-0200", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0200.jpg", "frames": 2, "description": "No.36"}, {"id": "jiejinspor-0201", "factory": "Jiejin Sports (Lucky)", "type": "лонгслив", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0201.jpg", "frames": 3, "description": "No.1"}, {"id": "jiejinspor-0202", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0202.jpg", "frames": 3, "description": "No.37"}, {"id": "jiejinspor-0203", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0203.jpg", "frames": 2, "description": "No.38"}, {"id": "jiejinspor-0204", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0204.jpg", "frames": 3, "description": "No.39"}, {"id": "jiejinspor-0205", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0205.jpg", "frames": 3, "description": "No.40"}, {"id": "jiejinspor-0206", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0206.jpg", "frames": 3, "description": "No.41"}, {"id": "jiejinspor-0207", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0207.jpg", "frames": 3, "description": "No.42"}, {"id": "jiejinspor-0208", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0208.jpg", "frames": 3, "description": "No.43"}, {"id": "jiejinspor-0209", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0209.jpg", "frames": 3, "description": "No.44"}, {"id": "jiejinspor-0210", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0210.jpg", "frames": 3, "description": "No.45"}, {"id": "jiejinspor-0211", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0211.jpg", "frames": 3, "description": "No.46"}, {"id": "jiejinspor-0212", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0212.jpg", "frames": 2, "description": "No.2"}, {"id": "jiejinspor-0213", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0213.jpg", "frames": 3, "description": "No.47"}, {"id": "jiejinspor-0214", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0214.jpg", "frames": 3, "description": "No.48"}, {"id": "jiejinspor-0215", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0215.jpg", "frames": 3, "description": "No.49"}, {"id": "jiejinspor-0216", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0216.jpg", "frames": 3, "description": "No.50"}, {"id": "jiejinspor-0217", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0217.jpg", "frames": 3, "description": "No.51"}, {"id": "jiejinspor-0218", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0218.jpg", "frames": 3, "description": "No.52"}, {"id": "jiejinspor-0219", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0219.jpg", "frames": 3, "description": "No.53"}, {"id": "jiejinspor-0220", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0220.jpg", "frames": 3, "description": "No.54"}, {"id": "jiejinspor-0221", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0221.jpg", "frames": 3, "description": "No.55"}, {"id": "jiejinspor-0222", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0222.jpg", "frames": 3, "description": "No.56"}, {"id": "jiejinspor-0223", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0223.jpg", "frames": 3, "description": "No.3"}, {"id": "jiejinspor-0224", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0224.jpg", "frames": 3, "description": "No.57"}, {"id": "jiejinspor-0225", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0225.jpg", "frames": 2, "description": "No.58"}, {"id": "jiejinspor-0226", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0226.jpg", "frames": 2, "description": "No.59"}, {"id": "jiejinspor-0227", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0227.jpg", "frames": 3, "description": "No.60"}, {"id": "jiejinspor-0228", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0228.jpg", "frames": 3, "description": "No.61"}, {"id": "jiejinspor-0229", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0229.jpg", "frames": 3, "description": "No.62"}, {"id": "jiejinspor-0230", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0230.jpg", "frames": 2, "description": "No.63"}, {"id": "jiejinspor-0231", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0231.jpg", "frames": 3, "description": "No.64"}, {"id": "jiejinspor-0232", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0232.jpg", "frames": 3, "description": "No.65"}, {"id": "jiejinspor-0233", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0233.jpg", "frames": 3, "description": "No.66"}, {"id": "jiejinspor-0234", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0234.jpg", "frames": 2, "description": "No.4"}, {"id": "jiejinspor-0235", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0235.jpg", "frames": 3, "description": "No.67"}, {"id": "jiejinspor-0236", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0236.jpg", "frames": 3, "description": "No.68"}, {"id": "jiejinspor-0237", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0237.jpg", "frames": 3, "description": "No.69"}, {"id": "jiejinspor-0238", "factory": "Jiejin Sports (Lucky)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0238.jpg", "frames": 3, "description": "No.70"}, {"id": "jiejinspor-0239", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0239.jpg", "frames": 2, "description": "No.70"}, {"id": "jiejinspor-0240", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0240.jpg", "frames": 3, "description": "No.71"}, {"id": "jiejinspor-0241", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0241.jpg", "frames": 3, "description": "No.72"}, {"id": "jiejinspor-0242", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0242.jpg", "frames": 3, "description": "No.73"}, {"id": "jiejinspor-0243", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0243.jpg", "frames": 2, "description": "No.74"}, {"id": "jiejinspor-0244", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0244.jpg", "frames": 3, "description": "No.75"}, {"id": "jiejinspor-0245", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0245.jpg", "frames": 3, "description": "No.5"}, {"id": "jiejinspor-0246", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0246.jpg", "frames": 3, "description": "No.76"}, {"id": "jiejinspor-0247", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0247.jpg", "frames": 1, "description": "Fitness leggings catalogue"}, {"id": "jiejinspor-0248", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0248.jpg", "frames": 3, "description": "No.77"}, {"id": "jiejinspor-0249", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0249.jpg", "frames": 2, "description": "No.78"}, {"id": "jiejinspor-0250", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0250.jpg", "frames": 3, "description": "No.79"}, {"id": "jiejinspor-0251", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0251.jpg", "frames": 3, "description": "No.80"}, {"id": "jiejinspor-0252", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0252.jpg", "frames": 2, "description": "No.81"}, {"id": "jiejinspor-0253", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0253.jpg", "frames": 3, "description": "No.82"}, {"id": "jiejinspor-0254", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0254.jpg", "frames": 3, "description": "No.83"}, {"id": "jiejinspor-0255", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0255.jpg", "frames": 2, "description": "No.84"}, {"id": "jiejinspor-0256", "factory": "Jiejin Sports (Lucky)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0256.jpg", "frames": 2, "description": "No.6"}, {"id": "jiejinspor-0257", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0257.jpg", "frames": 3, "description": "No.85"}, {"id": "jiejinspor-0258", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0258.jpg", "frames": 3, "description": "No.86"}, {"id": "jiejinspor-0259", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0259.jpg", "frames": 2, "description": "No.87"}, {"id": "jiejinspor-0260", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0260.jpg", "frames": 2, "description": "No.88"}, {"id": "jiejinspor-0261", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0261.jpg", "frames": 3, "description": "No.89"}, {"id": "jiejinspor-0262", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0262.jpg", "frames": 2, "description": "No.90"}, {"id": "jiejinspor-0263", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0263.jpg", "frames": 2, "description": "No.91"}, {"id": "jiejinspor-0264", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0264.jpg", "frames": 2, "description": "No.92"}, {"id": "jiejinspor-0265", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0265.jpg", "frames": 3, "description": "No.93"}, {"id": "jiejinspor-0266", "factory": "Jiejin Sports (Lucky)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0266.jpg", "frames": 3, "description": "No.94"}, {"id": "jiejinspor-0116", "factory": "Jiejin Sports (Lucky)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0116.jpg", "frames": 1, "description": "We are coorperating with many customers, such as Aimn, ZYIA, Justlive, Vie active, Gorman, Do you even, Lu’rv, Liybod etc. Because of good quality & price & service, these customers repeat orders regularly. Customers"}, {"id": "jiejinspor-0186", "factory": "Jiejin Sports (Lucky)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jiejinspor-0186.jpg", "frames": 1, "description": "Lucky Email: lucky@jiejinsports.com Tel: 0769-39010016-848 Mob : (86) 16620626815 Whatsapp: +86 16620626815 Wechat: 16620626815 Skype: Lucky Zhao QQ: 1028437757 Thanks for reading"}];
+const PAGE_ID = "jiejin-sports-lucky-chast-2";
+const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
+let db=null, uid=null;
+
+const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
+const key = id => id+"__"+(uid||"local");
+
+function localLoad(){ try{ return JSON.parse(localStorage.getItem("votes:"+PAGE_ID)||"{}"); }catch(e){ return {}; } }
+function localSave(){ try{ localStorage.setItem("votes:"+PAGE_ID, JSON.stringify(state.mine)); }catch(e){} }
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.textContent = "";
+  const q = state.q.trim().toLowerCase();
+  let shown = 0;
+  for(const m of MODELS){
+    const v = state.mine[m.id] || {};
+    if(state.filter==="new" && (v.like || v.stars)) continue;
+    if(state.filter==="like" && !v.like) continue;
+    if(state.type && m.type !== state.type) continue;
+    if(q && !((m.item_no+" "+m.fabric+" "+m.description).toLowerCase().includes(q))) continue;
+    grid.appendChild(card(m, v)); shown++;
+  }
+  document.getElementById("empty").hidden = shown>0;
+  const rated = MODELS.filter(m=>{const v=state.mine[m.id]||{}; return v.like||v.stars;}).length;
+  document.getElementById("bar").style.width = (100*rated/MODELS.length).toFixed(1)+"%";
+  document.getElementById("cnt").textContent = `оценено ${rated} из ${MODELS.length}`;
+}
+
+function card(m, v){
+  const c = el("div","card"+(v.like?" liked":""));
+  const ph = el("div","ph"); ph.tabIndex = 0;
+  const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
+  img.src = m.web; img.style.width = (m.frames*100)+"%";
+  let frame = 0;
+  const dots = el("div","dots");
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
+  const flip = ()=>{ frame=(frame+1)%m.frames; img.style.transform=`translateX(${-frame*(100/m.frames)}%)`;
+    [...dots.children].forEach((b,i)=>b.className = i===frame?"on":""); };
+  ph.addEventListener("click", e=>{ if(e.shiftKey || m.frames===1) return openBig(m); flip(); });
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter") flip(); });
+  ph.append(img, dots); if(m.frames>1) ph.append();
+  const meta = el("div","meta");
+  meta.appendChild(el("div","type", m.type));
+  if(m.item_no) meta.appendChild(el("div","art", m.item_no));
+  if(m.fabric) meta.appendChild(el("div","fab", m.fabric));
+  if(m.price) meta.appendChild(el("div","price", m.price));
+  const acts = el("div","acts");
+  const heart = el("button","heart"+(v.like?" on":""),"♥");
+  heart.title = "Нравится"; heart.setAttribute("aria-pressed", v.like?"true":"false");
+  heart.onclick = ()=> save(m, {like: !(state.mine[m.id]||{}).like});
+  acts.appendChild(heart);
+  const others = state.others[m.id]||0;
+  if(others) acts.appendChild(el("span","others","+"+others));
+  const stars = el("div","stars");
+  for(let i=1;i<=5;i++){
+    const s = el("button","star"+((v.stars||0)>=i?" on":""),"★");
+    s.title = i+" из 5";
+    s.onclick = ()=> save(m, {stars: (state.mine[m.id]||{}).stars===i ? 0 : i});
+    stars.appendChild(s);
+  }
+  acts.appendChild(stars);
+  c.append(ph, meta, acts);
+  return c;
+}
+
+function openBig(m){
+  const d=document.getElementById("dlg");
+  document.getElementById("bigimg").src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  d.showModal();
+}
+document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+
+async function save(m, patch){
+  const cur = state.mine[m.id] || {like:false, stars:0};
+  const next = Object.assign({}, cur, patch);
+  state.mine[m.id] = next; localSave(); render();
+  if(!db) return;
+  try{
+    await db.doc("votes/"+key(m.id)).set({
+      model:m.id, page:PAGE_ID, factory:m.factory, type:m.type, item_no:m.item_no||"",
+      like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
+    });
+  }catch(e){
+    document.getElementById("status").textContent = "Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе");
+  }
+}
+
+function picked(){
+  const out = [];
+  for(const m of MODELS){
+    const v = state.mine[m.id]; if(!v || (!v.like && !v.stars)) continue;
+    out.push({id:m.id, factory:m.factory, type:m.type, item:m.item_no||"", like:!!v.like, stars:v.stars||0});
+  }
+  return {page:PAGE_ID, who:(document.getElementById("who").value||"").trim(), at:new Date().toISOString(), picks:out};
+}
+document.getElementById("who").value = localStorage.getItem("who")||"";
+document.getElementById("who").oninput = e => { try{ localStorage.setItem("who", e.target.value); }catch(err){} };
+document.getElementById("copy").onclick = async ()=>{
+  const data = picked();
+  try{ await navigator.clipboard.writeText(JSON.stringify(data));
+       document.getElementById("status").textContent = `Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`; }
+  catch(e){ document.getElementById("status").textContent = "Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."; }
+};
+document.getElementById("dl").onclick = ()=>{
+  const data = picked();
+  const blob = new Blob([JSON.stringify(data, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `выбор-jiejin-sports-lucky-chast-2-${data.who||"без-имени"}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
+};
+document.getElementById("mail").onclick = e => {
+  const data = picked();
+  const body = data.picks.map(p=>`${p.factory} · ${p.type} ${p.item} — ${p.like?"нравится":""} ${p.stars?p.stars+"/5":""}`).join("\n");
+  e.currentTarget.href = "mailto:privery.prod@euphoria.fit?subject=" +
+    encodeURIComponent("Выбор моделей: "+PAGE_ID) + "&body=" + encodeURIComponent((data.who?data.who+"\n\n":"")+body);
+};
+
+document.getElementById("f-all").onclick = ()=> setFilter("all");
+document.getElementById("f-new").onclick = ()=> setFilter("new");
+document.getElementById("f-like").onclick = ()=> setFilter("like");
+function setFilter(f){
+  state.filter=f;
+  for(const [id,val] of [["f-all","all"],["f-new","new"],["f-like","like"]])
+    document.getElementById(id).setAttribute("aria-pressed", String(val===f));
+  render();
+}
+const types = [...new Set(MODELS.map(m=>m.type))].sort();
+const sel = document.getElementById("f-type");
+for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
+sel.onchange = e => { state.type = e.target.value; render(); };
+document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+state.mine = localLoad();
+render();
+
+(async ()=>{
+  const user = await window.claude?.use?.("user");
+  uid = user ? await user.id() : null;
+  db = await window.claude?.use?.("db");
+  if(!db){ document.getElementById("status").textContent = "Общая база недоступна — оценки сохраняются только в этом браузере."; return; }
+  document.getElementById("status").textContent = "Оценки сохраняются автоматически и видны коллегам.";
+  db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
+    const mine={}, others={};
+    for(const d of snap.docs){
+      const v = d.data()||{};
+      if(uid && v.by===uid){ mine[v.model]={like:!!v.like, stars:v.stars||0}; }
+      else if(v.like){ others[v.model]=(others[v.model]||0)+1; }
+    }
+    if(Object.keys(mine).length || Object.keys(others).length){
+      state.mine = Object.keys(mine).length ? mine : state.mine;
+      state.others = others; localSave(); render();
+    }
+  }, err => { document.getElementById("status").textContent = "Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."; });
+})();
+</script>

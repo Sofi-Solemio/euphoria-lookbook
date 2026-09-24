@@ -1,0 +1,253 @@
+<title>Лукбук — JDX & YS (Quincy)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:14px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.send{margin-top:8px;align-items:center}
+.send a.chip{text-decoration:none}
+#who{min-width:150px}
+dialog{border:0;border-radius:14px;padding:0;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.big{display:block;max-width:100%;max-height:78vh}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:420px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brow">
+    <h1>JDX & YS (Quincy)</h1>
+    <div class="sub">73 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+  </div>
+  <div class="status" id="status">Оценки сохраняются автоматически.</div>
+  <div class="tools send">
+    <a class="chip" href="index.html">← Все фабрики</a>
+    <input id="who" placeholder="ваше имя" autocomplete="name">
+    <button class="chip" id="copy">Скопировать выбор</button>
+    <button class="chip" id="dl">Скачать файл выбора</button>
+    <a class="chip" id="mail" href="#">Отправить Софии</a>
+  </div>
+</header>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
+</div>
+<dialog id="dlg"><img class="big" id="bigimg" alt=""><div class="dlgbar"><span class="sub" id="dlgcap"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div></dialog>
+<script>
+const MODELS = [{"id": "jdxysquinc-0002", "factory": "JDX & YS (Quincy)", "type": "лонгслив", "item_no": "", "fabric": "180gsm", "price": "", "web": "img/jdxysquinc-0002.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China Fabric: Nylon/spandex 180gsm Design(printing): Customzied SKS0240522 SKS0240523 SK02201126 SKS0240521"}, {"id": "jdxysquinc-0003", "factory": "JDX & YS (Quincy)", "type": "платье", "item_no": "", "fabric": "180gsm", "price": "", "web": "img/jdxysquinc-0003.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China SK022012893 SK022012898 SK02201132 Fabric: Nylon/spandex 180gsm Design(printing): Customzied"}, {"id": "jdxysquinc-0004", "factory": "JDX & YS (Quincy)", "type": "платье", "item_no": "", "fabric": "210gsm", "price": "", "web": "img/jdxysquinc-0004.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China SK022012890 SK02201131 SK02201130 Fabric: Nylon/spandex 210gsm Design(printing): Customzied"}, {"id": "jdxysquinc-0005", "factory": "JDX & YS (Quincy)", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0005.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China"}, {"id": "jdxysquinc-0006", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "", "fabric": "210gsm", "price": "", "web": "img/jdxysquinc-0006.jpg", "frames": 3, "description": "SK022012891 SK02201274 SK02201272 SK02201281 Fabric: Polyester/spandex 210gsm Design(printing): Customzied XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China"}, {"id": "jdxysquinc-0007", "factory": "JDX & YS (Quincy)", "type": "худи / кофта на молнии", "item_no": "", "fabric": "210gsm", "price": "", "web": "img/jdxysquinc-0007.jpg", "frames": 3, "description": "SK02201286 SK02201276 XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201285 SK02201125 Fabric:Nylon/spandex 210gsm Design(printing): Customzied"}, {"id": "jdxysquinc-0008", "factory": "JDX & YS (Quincy)", "type": "лонгслив", "item_no": "", "fabric": "210gsm", "price": "", "web": "img/jdxysquinc-0008.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD SKS0240503 SKS0240504 SK022012889 SK02201277 Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China Fabric:Nylon/spandex 210gsm Design(printing): Customzied"}, {"id": "jdxysquinc-0009", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "", "fabric": "210gsm", "price": "", "web": "img/jdxysquinc-0009.jpg", "frames": 3, "description": "SK02201269 SK02201265 Fabric: Nylon/spandex 210gsm Design(printing): Customzied XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201264 SK02201281"}, {"id": "jdxysquinc-0010", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "", "fabric": "210gsm", "price": "", "web": "img/jdxysquinc-0010.jpg", "frames": 3, "description": "SK02201279 SK02201271 Fabric: Nylon/spandex 210gsm Design(printing): Customzied XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201266 SK02201270"}, {"id": "jdxysquinc-0011", "factory": "JDX & YS (Quincy)", "type": "шорты", "item_no": "", "fabric": "210gsm", "price": "", "web": "img/jdxysquinc-0011.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD SK022012906 SK02201278 SK02201280 SK022012920 Fabric: Nylon/spandex 210gsm Design(printing): Customzied Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China"}, {"id": "jdxysquinc-0012", "factory": "JDX & YS (Quincy)", "type": "брюки", "item_no": "", "fabric": "160gsm", "price": "", "web": "img/jdxysquinc-0012.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China Fabric: Nylon/spandex 160gsm Design(printing): Customzied SKS0240512 SK022012923 SK0220129223"}, {"id": "jdxysquinc-0016", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0016.jpg", "frames": 1, "description": "Partners We have cooperated with and established strategic partnerships with well-known brands such as Juice Couture, Gymking, and Louis Garneau. Strategic partnerships"}, {"id": "jdxysquinc-0030", "factory": "JDX & YS (Quincy)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0030.jpg", "frames": 1, "description": "About JDX#YS As overseas business grows rapidly, we set up Xiamen Yisheng Trading Co., Ltd ,located 30 kilometers away from the Jiadexin factory in the city center, to better serve our customers. Yisheng focuses on overseas business development and JDX concentrates on production. We believe the clos"}, {"id": "jdxysquinc-0034", "factory": "JDX & YS (Quincy)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0034.jpg", "frames": 3, "description": "Product category Fitness series Cycling series Tennis series Golf series"}, {"id": "jdxysquinc-0035", "factory": "JDX & YS (Quincy)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0035.jpg", "frames": 3, "description": "Running series Leisure series Outdoor clothing series Others Product category"}, {"id": "jdxysquinc-0038", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "XM00050", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0038.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: XM00050(Top) XM00051(Bottom) St"}, {"id": "jdxysquinc-0039", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201219", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0039.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201219(Top) SK02201220(Bott"}, {"id": "jdxysquinc-0040", "factory": "JDX & YS (Quincy)", "type": "комплект", "item_no": "SK02201107", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0040.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201107 Style No: SK02201110"}, {"id": "jdxysquinc-0041", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "XM00001", "fabric": "59% cotton 30%polyester 11%spandex  · 300gsm", "price": "", "web": "img/jdxysquinc-0041.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 59% cotton 30%polyester 11%spandex demin 300gsm Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: XM00001(Top) XM00003(Bottom)"}, {"id": "jdxysquinc-0042", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201013", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0042.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201013(Top) SK02201014(Bott"}, {"id": "jdxysquinc-0043", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201153", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0043.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201153(Top) SK02201154(Bott"}, {"id": "jdxysquinc-0044", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201110", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0044.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201110(Top) SK02201230(Bott"}, {"id": "jdxysquinc-0045", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201187", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0045.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201187(Top) SK02201184(Bott"}, {"id": "jdxysquinc-0046", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SKS02406071", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0046.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SKS02406071(Top) SK02201230(Bot"}, {"id": "jdxysquinc-0047", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201103", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0047.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201103(Top) SK02201112(Bott"}, {"id": "jdxysquinc-0048", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201101", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0048.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201101(Top) SK02201112(Bott"}, {"id": "jdxysquinc-0049", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201208", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0049.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201208(Top) SK02201209(Bott"}, {"id": "jdxysquinc-0050", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201183", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0050.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201183(Top) SK02201184(Bott"}, {"id": "jdxysquinc-0051", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201161", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0051.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201161(Top) SK02201162(Bott"}, {"id": "jdxysquinc-0052", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201212", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0052.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201212(Top) SK02201216(Bott"}, {"id": "jdxysquinc-0053", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201151", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0053.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201151(Top) SK02201182(Bott"}, {"id": "jdxysquinc-0054", "factory": "JDX & YS (Quincy)", "type": "футболка / топ", "item_no": "SK02201149", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0054.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China --YOGA Style No: SK02201149 Style No: SKS0240607"}, {"id": "jdxysquinc-0056", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0056.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201212 SK02201216 SK0220122718 SK02201211 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied"}, {"id": "jdxysquinc-0057", "factory": "JDX & YS (Quincy)", "type": "леггинсы", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0057.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201200 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied SK02201201 SK02201210 SK02201213"}, {"id": "jdxysquinc-0058", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0058.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201209 SK02201208 SK02201205 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied SK02201207"}, {"id": "jdxysquinc-0059", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0059.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201199 XM00020 SK02201147 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied XM00048"}, {"id": "jdxysquinc-0060", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0060.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201166 SK0220122701 SK02201161 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied SK02201167"}, {"id": "jdxysquinc-0061", "factory": "JDX & YS (Quincy)", "type": "лонгслив", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0061.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied SK02201036 SK02201165 SK02201036 SKS0240007"}, {"id": "jdxysquinc-0062", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0062.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China XM00050 XM00010 XM00051 SK02201169 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied"}, {"id": "jdxysquinc-0063", "factory": "JDX & YS (Quincy)", "type": "леггинсы", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0063.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China XM00021 XM00044 XM00049 XM00053 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied"}, {"id": "jdxysquinc-0064", "factory": "JDX & YS (Quincy)", "type": "шорты", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0064.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201134 SK02201186 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied XM00022 XM00011"}, {"id": "jdxysquinc-0065", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0065.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied SKS0240001 SKS0240002 SKS0240003 SKS0240004"}, {"id": "jdxysquinc-0066", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0066.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201227 SK02201228 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied SKS0240005 SKS0240006"}, {"id": "jdxysquinc-0067", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0067.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China j SK02201224 SK02201223 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied SK02201241 SK02201242"}, {"id": "jdxysquinc-0068", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0068.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201204 SK02201203 SK02201226 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied SK02201225"}, {"id": "jdxysquinc-0069", "factory": "JDX & YS (Quincy)", "type": "леггинсы", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0069.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201221 SK02201220 SK02201219 SK02201222 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied"}, {"id": "jdxysquinc-0070", "factory": "JDX & YS (Quincy)", "type": "шорты", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0070.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China XM00001 XM00004 XM00003 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied XM00018"}, {"id": "jdxysquinc-0071", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0071.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China XM00052 XM00040 XM00039 XM00038 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied"}, {"id": "jdxysquinc-0072", "factory": "JDX & YS (Quincy)", "type": "бра", "item_no": "", "fabric": "76% nylon 24% spandex ", "price": "", "web": "img/jdxysquinc-0072.jpg", "frames": 3, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China SK02201214 SK02201215 SK02201150 SK02201151 Fabric: 76% nylon 24% spandex interlock or customized Design(printing): Customzied"}, {"id": "jdxysquinc-0001", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0001.jpg", "frames": 1, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No. 77 Lingxia South Road, Huli District,Xiamen,361006 China -Golf&Tennis"}, {"id": "jdxysquinc-0013", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0013.jpg", "frames": 1, "description": ""}, {"id": "jdxysquinc-0014", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0014.jpg", "frames": 2, "description": "Market Share Since 1996, our products have been well received by customers from Europe, America, and Australia. We are aware of the fierce competition in the international market. Considering both the supply and demand situation, our products are positioned in the mid to high-end market. Sales Distr"}, {"id": "jdxysquinc-0015", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0015.jpg", "frames": 1, "description": "Partners"}, {"id": "jdxysquinc-0017", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0017.jpg", "frames": 3, "description": "Elite Team Business meeting Material selection &design Designer drawing Pattern-making Sewing prodction Make a sample On-time deliver"}, {"id": "jdxysquinc-0018", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0018.jpg", "frames": 3, "description": "Exhibition As an ambitious and socially responsible company, we will continue to work hard and innovate to provide more high-quality products for domestic and international markets. We look forward to working with you soon."}, {"id": "jdxysquinc-0019", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0019.jpg", "frames": 3, "description": "Showroom Abundant sample resources"}, {"id": "jdxysquinc-0020", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "20% through ", "price": "", "web": "img/jdxysquinc-0020.jpg", "frames": 2, "description": "Workshops Automatic Hanging Line Production efficiency has been increased by 20% through 18 groups of intelligent garment hanging production lines. Intelligent hanging workshop Intelligent hanging workshop"}, {"id": "jdxysquinc-0021", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0021.jpg", "frames": 3, "description": "Workshops Equipped with a professional heat transfer printing workshop, with a standard operation process to meet the requirements of high quality and efficiency. Transfer printing Transfer printing1 Transfer printing2 Transfer printing3"}, {"id": "jdxysquinc-0022", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0022.jpg", "frames": 1, "description": "Workshops According to AQL 2.5/4.0 standard, online inspection will be conducted throughout the production process. Needle detection"}, {"id": "jdxysquinc-0023", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0023.jpg", "frames": 3, "description": "Workshops All garments will go through steps including thread cutting, checking, and ironing, and pass through a needle detector before packing . pack 1 pack 2 Garment Pressing"}, {"id": "jdxysquinc-0024", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0024.jpg", "frames": 1, "description": "Xiamen Jiadexing Industrial Co.,Ltd. is a comprehensive garment enterprise specializing in design, development, and production. Founded in 1996, it is located in the Tong'an Industrial Zone, Xiamen City.Our company is a well-known manufacturer of activewear in Fujian province and warmly welcomes OEM"}, {"id": "jdxysquinc-0025", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0025.jpg", "frames": 3, "description": "Workshops In-house inspection will be conducted before production starts. Incoming Material QC Fabric Storage Warehouse Fabric Inspection Incoming Material Inspection"}, {"id": "jdxysquinc-0026", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0026.jpg", "frames": 2, "description": "All boxes will be neatly stacked by PO, style, and color."}, {"id": "jdxysquinc-0027", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0027.jpg", "frames": 3, "description": "Team We are a well-organized and experienced team. We are grateful for your continuous support and will continue to provide good products and services."}, {"id": "jdxysquinc-0028", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0028.jpg", "frames": 3, "description": "Team Activity"}, {"id": "jdxysquinc-0029", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0029.jpg", "frames": 1, "description": "Thank You ! Xiamen Jiadexing Industrial Co.,Ltd."}, {"id": "jdxysquinc-0031", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0031.jpg", "frames": 1, "description": "​FACTORY STRENGTHS JDX factory covers an area of 20,000 square meters with self- built 5-story buildings. We have 18 intelligent production lines with 520 pieces of advanced production equipment. 20,000+m² Factory Building Floor Area 18lines Intelligent Overhead Conveyor System 600+pcs Processing Eq"}, {"id": "jdxysquinc-0032", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0032.jpg", "frames": 1, "description": "At present, there are 420 sewing workers and 80 office staff in the factory. Additionally, we collaborate with a network of long-term partner factories to enhance our production capacity ​"}, {"id": "jdxysquinc-0033", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "$25", "web": "img/jdxysquinc-0033.jpg", "frames": 1, "description": "R&D and production capacity Our main products cover yoga, fitness, running, cycling, tennis, golf, and leisure wear. With 30 years of rich production experience, our R&D team is constantly expanding our horizons, improving our technical capabilities and creativity. As a result, more than 300 new sty"}, {"id": "jdxysquinc-0036", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0036.jpg", "frames": 1, "description": "Certification We have obtained certificates such as BSCI, WRAP, and GRS, which are renewed annually, ensuring that we are a qualified and trustworthy supplier."}, {"id": "jdxysquinc-0037", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0037.jpg", "frames": 1, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China -YOGA"}, {"id": "jdxysquinc-0055", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0055.jpg", "frames": 1, "description": "XIAMEN JIADEXING INDUSTRIAL CO.,LTD & XIAMEN YISHENG TRADING CO., LTD Add: Room 207, Henghui Business Center,No.77 Lingxia South Road, Huli District,Xiamen,361006 China -YOGA"}, {"id": "jdxysquinc-0073", "factory": "JDX & YS (Quincy)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/jdxysquinc-0073.jpg", "frames": 1, "description": ""}];
+const PAGE_ID = "jdx-ys-quincy";
+const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
+let db=null, uid=null;
+
+const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
+const key = id => id+"__"+(uid||"local");
+
+function localLoad(){ try{ return JSON.parse(localStorage.getItem("votes:"+PAGE_ID)||"{}"); }catch(e){ return {}; } }
+function localSave(){ try{ localStorage.setItem("votes:"+PAGE_ID, JSON.stringify(state.mine)); }catch(e){} }
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.textContent = "";
+  const q = state.q.trim().toLowerCase();
+  let shown = 0;
+  for(const m of MODELS){
+    const v = state.mine[m.id] || {};
+    if(state.filter==="new" && (v.like || v.stars)) continue;
+    if(state.filter==="like" && !v.like) continue;
+    if(state.type && m.type !== state.type) continue;
+    if(q && !((m.item_no+" "+m.fabric+" "+m.description).toLowerCase().includes(q))) continue;
+    grid.appendChild(card(m, v)); shown++;
+  }
+  document.getElementById("empty").hidden = shown>0;
+  const rated = MODELS.filter(m=>{const v=state.mine[m.id]||{}; return v.like||v.stars;}).length;
+  document.getElementById("bar").style.width = (100*rated/MODELS.length).toFixed(1)+"%";
+  document.getElementById("cnt").textContent = `оценено ${rated} из ${MODELS.length}`;
+}
+
+function card(m, v){
+  const c = el("div","card"+(v.like?" liked":""));
+  const ph = el("div","ph"); ph.tabIndex = 0;
+  const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
+  img.src = m.web; img.style.width = (m.frames*100)+"%";
+  let frame = 0;
+  const dots = el("div","dots");
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
+  const flip = ()=>{ frame=(frame+1)%m.frames; img.style.transform=`translateX(${-frame*(100/m.frames)}%)`;
+    [...dots.children].forEach((b,i)=>b.className = i===frame?"on":""); };
+  ph.addEventListener("click", e=>{ if(e.shiftKey || m.frames===1) return openBig(m); flip(); });
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter") flip(); });
+  ph.append(img, dots); if(m.frames>1) ph.append();
+  const meta = el("div","meta");
+  meta.appendChild(el("div","type", m.type));
+  if(m.item_no) meta.appendChild(el("div","art", m.item_no));
+  if(m.fabric) meta.appendChild(el("div","fab", m.fabric));
+  if(m.price) meta.appendChild(el("div","price", m.price));
+  const acts = el("div","acts");
+  const heart = el("button","heart"+(v.like?" on":""),"♥");
+  heart.title = "Нравится"; heart.setAttribute("aria-pressed", v.like?"true":"false");
+  heart.onclick = ()=> save(m, {like: !(state.mine[m.id]||{}).like});
+  acts.appendChild(heart);
+  const others = state.others[m.id]||0;
+  if(others) acts.appendChild(el("span","others","+"+others));
+  const stars = el("div","stars");
+  for(let i=1;i<=5;i++){
+    const s = el("button","star"+((v.stars||0)>=i?" on":""),"★");
+    s.title = i+" из 5";
+    s.onclick = ()=> save(m, {stars: (state.mine[m.id]||{}).stars===i ? 0 : i});
+    stars.appendChild(s);
+  }
+  acts.appendChild(stars);
+  c.append(ph, meta, acts);
+  return c;
+}
+
+function openBig(m){
+  const d=document.getElementById("dlg");
+  document.getElementById("bigimg").src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  d.showModal();
+}
+document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+
+async function save(m, patch){
+  const cur = state.mine[m.id] || {like:false, stars:0};
+  const next = Object.assign({}, cur, patch);
+  state.mine[m.id] = next; localSave(); render();
+  if(!db) return;
+  try{
+    await db.doc("votes/"+key(m.id)).set({
+      model:m.id, page:PAGE_ID, factory:m.factory, type:m.type, item_no:m.item_no||"",
+      like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
+    });
+  }catch(e){
+    document.getElementById("status").textContent = "Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе");
+  }
+}
+
+function picked(){
+  const out = [];
+  for(const m of MODELS){
+    const v = state.mine[m.id]; if(!v || (!v.like && !v.stars)) continue;
+    out.push({id:m.id, factory:m.factory, type:m.type, item:m.item_no||"", like:!!v.like, stars:v.stars||0});
+  }
+  return {page:PAGE_ID, who:(document.getElementById("who").value||"").trim(), at:new Date().toISOString(), picks:out};
+}
+document.getElementById("who").value = localStorage.getItem("who")||"";
+document.getElementById("who").oninput = e => { try{ localStorage.setItem("who", e.target.value); }catch(err){} };
+document.getElementById("copy").onclick = async ()=>{
+  const data = picked();
+  try{ await navigator.clipboard.writeText(JSON.stringify(data));
+       document.getElementById("status").textContent = `Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`; }
+  catch(e){ document.getElementById("status").textContent = "Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."; }
+};
+document.getElementById("dl").onclick = ()=>{
+  const data = picked();
+  const blob = new Blob([JSON.stringify(data, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `выбор-jdx-ys-quincy-${data.who||"без-имени"}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
+};
+document.getElementById("mail").onclick = e => {
+  const data = picked();
+  const body = data.picks.map(p=>`${p.factory} · ${p.type} ${p.item} — ${p.like?"нравится":""} ${p.stars?p.stars+"/5":""}`).join("\n");
+  e.currentTarget.href = "mailto:privery.prod@euphoria.fit?subject=" +
+    encodeURIComponent("Выбор моделей: "+PAGE_ID) + "&body=" + encodeURIComponent((data.who?data.who+"\n\n":"")+body);
+};
+
+document.getElementById("f-all").onclick = ()=> setFilter("all");
+document.getElementById("f-new").onclick = ()=> setFilter("new");
+document.getElementById("f-like").onclick = ()=> setFilter("like");
+function setFilter(f){
+  state.filter=f;
+  for(const [id,val] of [["f-all","all"],["f-new","new"],["f-like","like"]])
+    document.getElementById(id).setAttribute("aria-pressed", String(val===f));
+  render();
+}
+const types = [...new Set(MODELS.map(m=>m.type))].sort();
+const sel = document.getElementById("f-type");
+for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
+sel.onchange = e => { state.type = e.target.value; render(); };
+document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+state.mine = localLoad();
+render();
+
+(async ()=>{
+  const user = await window.claude?.use?.("user");
+  uid = user ? await user.id() : null;
+  db = await window.claude?.use?.("db");
+  if(!db){ document.getElementById("status").textContent = "Общая база недоступна — оценки сохраняются только в этом браузере."; return; }
+  document.getElementById("status").textContent = "Оценки сохраняются автоматически и видны коллегам.";
+  db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
+    const mine={}, others={};
+    for(const d of snap.docs){
+      const v = d.data()||{};
+      if(uid && v.by===uid){ mine[v.model]={like:!!v.like, stars:v.stars||0}; }
+      else if(v.like){ others[v.model]=(others[v.model]||0)+1; }
+    }
+    if(Object.keys(mine).length || Object.keys(others).length){
+      state.mine = Object.keys(mine).length ? mine : state.mine;
+      state.others = others; localSave(); render();
+    }
+  }, err => { document.getElementById("status").textContent = "Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."; });
+})();
+</script>
