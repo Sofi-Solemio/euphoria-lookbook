@@ -20,6 +20,7 @@
   --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
 .wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
@@ -372,7 +373,14 @@ sel.onchange = e => { state.type = e.target.value; render(); };
 document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
 
 const sheet = document.getElementById("sheet"), sheetbg = document.getElementById("sheetbg");
-function openSheet(on){ sheet.hidden = !on; sheetbg.hidden = !on; if(on) document.getElementById("who").focus(); }
+sheet.style.display = "none"; sheetbg.style.display = "none";
+function openSheet(on){
+  sheet.hidden = !on; sheetbg.hidden = !on;
+  sheet.style.display = on ? "flex" : "none";
+  sheetbg.style.display = on ? "block" : "none";
+  if(on) document.getElementById("who").focus();
+}
+document.addEventListener("keydown", e => { if(e.key === "Escape") openSheet(false); });
 document.getElementById("sendopen").onclick = ()=> openSheet(true);
 document.getElementById("sheetclose").onclick = ()=> openSheet(false);
 sheetbg.onclick = ()=> openSheet(false);
