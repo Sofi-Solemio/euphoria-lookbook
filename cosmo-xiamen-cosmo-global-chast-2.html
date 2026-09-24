@@ -54,8 +54,12 @@ select,input[type=search]{border:1px solid var(--line);background:var(--panel);c
 .others{font-size:11px;color:var(--muted)}
 .empty{padding:40px 0;color:var(--muted);text-align:center}
 .status{font-size:12px;color:var(--muted);margin-top:6px}
-.send{margin-top:8px;align-items:center}
-.send a.chip{text-decoration:none}
+.back{text-decoration:none;color:var(--ink);font-size:19px;font-weight:700;padding-right:2px}
+.send{margin-top:8px}
+.send summary{display:inline-block;cursor:pointer;list-style:none}
+.send summary::-webkit-details-marker{display:none}
+.send[open] summary{background:var(--accent);border-color:var(--accent);color:#fff}
+.send .tools{margin-top:8px}
 #who{min-width:150px}
 dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 dialog::backdrop{background:rgba(10,16,13,.7)}
@@ -73,7 +77,16 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
   body{font-size:16px}
   .wrap{padding:0 12px 72px}
   .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  h1{font-size:21px}
+  header.top{padding-block:8px 8px}
+  .brow{gap:6px 10px}
+  .prog{display:none}
+  .brow .sub:first-of-type{display:none}
+  .status{display:none}
+  .send[open] ~ * .status, .send[open] .status{display:block}
+  .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tools::-webkit-scrollbar{display:none}
+  .chip,select,input[type=search]{flex:0 0 auto}
+  h1{font-size:19px}
   .type{font-size:14px}
   .art{font-size:12.5px}
   .fab{font-size:13px}
@@ -90,6 +103,7 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
 @media (max-width:430px){
   /* на телефоне всегда две карточки в ряд */
   .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  h1{font-size:17px}
   .wrap{padding:0 10px 72px}
   .meta{padding:8px 9px 0}
   .acts{padding:8px 9px 10px;gap:4px}
@@ -102,6 +116,7 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
 <div class="wrap">
 <header class="top">
   <div class="brow">
+    <a class="back" href="index.html" title="Все фабрики">←</a>
     <h1>Cosmo (Xiamen Cosmo Global) — часть 2</h1>
     <div class="sub">80 моделей · каталоги фабрики</div>
     <div class="prog" aria-hidden="true"><i id="bar"></i></div>
@@ -114,14 +129,16 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
     <select id="f-type"><option value="">Все типы</option></select>
     <input type="search" id="f-q" placeholder="артикул или ткань">
   </div>
-  <div class="status" id="status">Оценки сохраняются автоматически.</div>
-  <div class="tools send">
-    <a class="chip" href="index.html">← Все фабрики</a>
-    <input id="who" placeholder="ваше имя" autocomplete="name">
-    <button class="chip" id="copy">Скопировать выбор</button>
-    <button class="chip" id="dl">Скачать файл выбора</button>
-    <button class="chip" id="send">Отправить Софье</button>
-  </div>
+  <div class="status" id="status" hidden></div>
+  <details class="send">
+    <summary class="chip">Отправить выбор</summary>
+    <div class="tools">
+      <input id="who" placeholder="ваше имя" autocomplete="name">
+      <button class="chip" id="send">Отправить Софье</button>
+      <button class="chip" id="copy">Скопировать</button>
+      <button class="chip" id="dl">Скачать файл</button>
+    </div>
+  </details>
 </header>
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
@@ -141,6 +158,11 @@ const PAGE_ID = "cosmo-xiamen-cosmo-global-chast-2";
 const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
 let db=null, uid=null;
 
+function setStatus(text){
+  const el = document.getElementById("status");
+  el.textContent = text || "";
+  el.hidden = !text;
+}
 const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
 const key = id => id+"__"+(uid||"local");
 
@@ -252,7 +274,7 @@ async function save(m, patch){
       like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
     });
   }catch(e){
-    document.getElementById("status").textContent = "Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе");
+    setStatus("Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе"));
   }
 }
 
@@ -269,8 +291,8 @@ document.getElementById("who").oninput = e => { try{ localStorage.setItem("who",
 document.getElementById("copy").onclick = async ()=>{
   const data = picked();
   try{ await navigator.clipboard.writeText(JSON.stringify(data));
-       document.getElementById("status").textContent = `Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`; }
-  catch(e){ document.getElementById("status").textContent = "Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."; }
+       setStatus(`Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`); }
+  catch(e){ setStatus("Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."); }
 };
 document.getElementById("dl").onclick = ()=>{
   const data = picked();
@@ -279,13 +301,12 @@ document.getElementById("dl").onclick = ()=>{
   a.href = URL.createObjectURL(blob);
   a.download = `выбор-cosmo-xiamen-cosmo-global-chast-2-${data.who||"без-имени"}.json`;
   document.body.appendChild(a); a.click(); a.remove();
-  document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
+  setStatus(`Файл сохранён: ${data.picks.length} моделей.`);
 };
 const SEND_URL = "https://formsubmit.co/ajax/privery.prod@euphoria.fit";
 document.getElementById("send").onclick = async () => {
   const data = picked();
-  const st = document.getElementById("status");
-  if(!data.picks.length){ st.textContent = "Пока ничего не отмечено — поставьте сердце или звёзды."; return; }
+  if(!data.picks.length){ setStatus("Пока ничего не отмечено — поставьте сердце или звёзды."); return; }
   const body = (data.who ? data.who + "\n\n" : "") +
     data.picks.map(p=>`${p.factory} · ${p.type}${p.item ? " " + p.item : ""} — ${p.like ? "нравится" : ""}${p.stars ? " " + p.stars + "/5" : ""}`).join("\n");
   const lines = data.picks.map(p =>
@@ -293,7 +314,7 @@ document.getElementById("send").onclick = async () => {
   const text = `Страница: cosmo-xiamen-cosmo-global-chast-2\nКто отмечал: ${data.who || "не указано"}\nОтмечено моделей: ${data.picks.length}\n\n` + lines.join("\n");
   const btn = document.getElementById("send");
   btn.disabled = true;
-  st.textContent = "Отправляю…";
+  setStatus("Отправляю…");
   try{
     const res = await fetch(SEND_URL, {
       method: "POST",
@@ -308,14 +329,14 @@ document.getElementById("send").onclick = async () => {
       })
     });
     if(!res.ok) throw new Error("HTTP " + res.status);
-    st.textContent = `Отправлено Софье: ${data.picks.length} моделей. Спасибо!`;
+    setStatus(`Отправлено Софье: ${data.picks.length} моделей. Спасибо!`);
     try{ localStorage.setItem("sent:" + PAGE_ID, new Date().toISOString()); }catch(e){}
   }catch(e){
     try{
       await navigator.clipboard.writeText(text);
-      st.textContent = "Не удалось отправить (нет сети?) — выбор скопирован в буфер, пришлите его Софье сообщением.";
+      setStatus("Не удалось отправить (нет сети?) — выбор скопирован в буфер, пришлите его Софье сообщением.");
     }catch(err){
-      st.textContent = "Не удалось отправить — нажмите «Скачать файл выбора» и пришлите файл.";
+      setStatus("Не удалось отправить — нажмите «Скачать файл выбора» и пришлите файл.");
     }
   }finally{ btn.disabled = false; }
 };
@@ -342,8 +363,8 @@ render();
   const user = await window.claude?.use?.("user");
   uid = user ? await user.id() : null;
   db = await window.claude?.use?.("db");
-  if(!db){ document.getElementById("status").textContent = "Общая база недоступна — оценки сохраняются только в этом браузере."; return; }
-  document.getElementById("status").textContent = "Оценки сохраняются автоматически и видны коллегам.";
+  if(!db){ setStatus("Общая база недоступна — оценки сохраняются только в этом браузере."); return; }
+  setStatus("Оценки сохраняются автоматически и видны коллегам.");
   db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
     const mine={}, others={};
     for(const d of snap.docs){
@@ -355,6 +376,6 @@ render();
       state.mine = Object.keys(mine).length ? mine : state.mine;
       state.others = others; localSave(); render();
     }
-  }, err => { document.getElementById("status").textContent = "Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."; });
+  }, err => { setStatus("Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."); });
 })();
 </script>
