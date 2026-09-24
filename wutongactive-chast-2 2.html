@@ -1,0 +1,392 @@
+<title>Лукбук — WutongActive — часть 2</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,215px),1fr));gap:14px;margin-top:16px}
+.card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{min-width:0;overflow-wrap:anywhere;padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.back{text-decoration:none;color:var(--ink);font-size:19px;font-weight:700;padding-right:2px}
+.send{position:relative}
+.send summary{display:inline-block;cursor:pointer;list-style:none;white-space:nowrap}
+.send summary::-webkit-details-marker{display:none}
+.send[open] summary{background:var(--accent);border-color:var(--accent);color:#fff}
+.sendbox{position:absolute;right:0;top:calc(100% + 6px);z-index:30;display:flex;flex-wrap:wrap;gap:6px;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);width:max-content;max-width:min(92vw,420px)}
+#who{min-width:150px}
+dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* телефон: две крупные колонки вместо мелкой сетки, крупнее текст и кнопки */
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 12px 72px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  header.top{padding-block:6px 6px}
+  .brow{gap:4px 8px;flex-wrap:nowrap;align-items:center}
+  .prog{display:none}
+  .brow .sub:first-of-type{display:none}
+  h1{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+  #cnt{white-space:nowrap;font-size:12px}
+  .status{font-size:12px;margin-top:4px}
+  .tools{margin-top:6px}
+  /* панель отправки — снизу экрана, иначе её обрезает прокручиваемая строка фильтров */
+  .sendbox{position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));top:auto;
+    width:auto;max-width:none;flex-direction:column;align-items:stretch;gap:8px;padding:14px}
+  .sendbox .chip{width:100%;text-align:center;padding:12px;font-size:16px}
+  .sendbox #who{width:100%;padding:12px;font-size:16px}
+  .send[open] summary{position:relative;z-index:31}
+  .chip,select,input[type=search]{font-size:14px;padding:7px 12px}
+  input[type=search]{min-width:150px}
+  .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tools::-webkit-scrollbar{display:none}
+  .chip,select,input[type=search]{flex:0 0 auto}
+  h1{font-size:19px}
+  .type{font-size:14px}
+  .art{font-size:12.5px}
+  .fab{font-size:13px}
+  .price{font-size:15px}
+  .meta{padding:10px 12px 0;gap:4px}
+  .acts{padding:10px 12px 12px;gap:8px}
+  .heart,.star{font-size:23px;padding:4px 2px}
+  .stars{gap:3px}
+  .chip,select,input[type=search]{font-size:15px;padding:9px 14px}
+  #who{min-width:130px}
+  .viewer{width:96vw}
+  .nav{width:52px;height:68px;font-size:30px}
+}
+@media (max-width:430px){
+  /* на телефоне всегда две карточки в ряд */
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  h1{font-size:17px}
+  .wrap{padding:0 10px 72px}
+  .meta{padding:8px 9px 0}
+  .acts{padding:8px 9px 10px;gap:4px}
+  .heart,.star{font-size:20px;padding:3px 1px}
+  .stars{gap:0}
+  .fab{font-size:12px}
+  .type{font-size:13px}
+}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brow">
+    <a class="back" href="index.html" title="Все фабрики">←</a>
+    <h1>WutongActive — часть 2</h1>
+    <div class="sub">107 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+    <details class="send">
+      <summary class="chip">Отправить</summary>
+      <div class="sendbox">
+        <input id="who" placeholder="ваше имя" autocomplete="name">
+        <button class="chip" id="send">Отправить Софье</button>
+        <button class="chip" id="copy">Скопировать</button>
+        <button class="chip" id="dl">Скачать файл</button>
+      </div>
+    </details>
+  </div>
+  <div class="status" id="status" hidden></div>
+</header>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
+</div>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
+<script>
+const MODELS = [{"id": "wutongacti-37341d21", "factory": "WutongActive", "type": "комплект", "item_no": "TZ2546-9", "fabric": "78% Nylon+22% Spandex ", "price": "US$26.07", "web": "img/wutongacti-37341d21.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: US$26.07 Item No.:TZ2546-9"}, {"id": "wutongacti-375e5eb6", "factory": "WutongActive", "type": "комплект", "item_no": "TZ5558", "fabric": "78% Nylon+22% Spandex ", "price": "$9.52", "web": "img/wutongacti-375e5eb6.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ5558 bra top short sleeve short flare legging $9.52 $9.78 $8.75 $8.75 $14.69"}, {"id": "wutongacti-37fd7d13", "factory": "WutongActive", "type": "комплект", "item_no": "3006", "fabric": "90% Nylon+10% Spandex ", "price": "$20.13", "web": "img/wutongacti-37fd7d13.jpg", "frames": 3, "description": "• Product:Bra+Short • Fabric: 90% Nylon+10% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: $20.13 Item No.:3006 90% Nylon+10% Spandex"}, {"id": "wutongacti-38bac70d", "factory": "WutongActive", "type": "платье", "item_no": "DLT9091", "fabric": "80% Recycled ", "price": "US$18.03", "web": "img/wutongacti-38bac70d.jpg", "frames": 3, "description": "• Product：Tennis Skirt • Fabric: 80% Recycled Polyester + 20% Spandex(Lining) 100% Polyester(Outer) • Color: 3 colours as pictures • Size: S/M/L/XL • Price: US$18.03 Item No.:DLT9091"}, {"id": "wutongacti-3a22144f", "factory": "WutongActive", "type": "комплект", "item_no": "SM2393", "fabric": "75% Nylon/25% Spandex ", "price": "$8.52", "web": "img/wutongacti-3a22144f.jpg", "frames": 3, "description": "• Product:Set • Fabric:75% Nylon/25% Spandex • Color: 3 colours as pictures • Size: S/M/L/XL • Price: Item No.:SM2393 bra jacket short legging flare legging skirt $8.52 $11.87 $8.77 $11.09 $11.87 $9.55"}, {"id": "wutongacti-3aad90f2", "factory": "WutongActive", "type": "бра", "item_no": "TZ7790", "fabric": "90% Nylon/10% Spandex ", "price": "$10.52", "web": "img/wutongacti-3aad90f2.jpg", "frames": 1, "description": "• Product:Set • Fabric: 90% Nylon/10% Spandex • Color: 7 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ7790 bra jacket short legging $10.52 $12.23 $7.85 $9.78"}, {"id": "wutongacti-3b49d0b0", "factory": "WutongActive", "type": "лонгслив", "item_no": "3356S25", "fabric": "100% Cotton ", "price": "US$13.29", "web": "img/wutongacti-3b49d0b0.jpg", "frames": 3, "description": "• Product:Crewnwck • Fabric: 100% Cotton • Color: 8 colours as pictures • Size: M/L/XL • Price: US$13.29 Item No.:3356S25"}, {"id": "wutongacti-3d90dea9", "factory": "WutongActive", "type": "комплект", "item_no": "DAW006", "fabric": "78% Nylon,22% Spandex ", "price": "US$19.37", "web": "img/wutongacti-3d90dea9.jpg", "frames": 2, "description": "• Product：Jacket • Fabric: 78% Nylon,22% Spandex • Color: 5 colours as pictures • Size: 4/6/8/10/12 • Price: US$19.37 Item No.:DAW006"}, {"id": "wutongacti-3df1d39d", "factory": "WutongActive", "type": "комплект", "item_no": "YW512", "fabric": "75% Nylon+25% Spandex ", "price": "$9.8", "web": "img/wutongacti-3df1d39d.jpg", "frames": 3, "description": "• Product:Set • Fabric: 75% Nylon+25% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: Item No.:YW512+KW305+KW307 bra short flare legging $9.8 $8.09 $12.26"}, {"id": "wutongacti-3f57effc", "factory": "WutongActive", "type": "комплект", "item_no": "TZ2546-1", "fabric": "78% Nylon+22% Spandex ", "price": "US$19.98", "web": "img/wutongacti-3f57effc.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: US$19.98 Item No.:TZ2546-1"}, {"id": "wutongacti-3f7e5ad2", "factory": "WutongActive", "type": "комплект", "item_no": "CLT8294", "fabric": "78% Nylon, 22% Spandex ", "price": "US$14.68", "web": "img/wutongacti-3f7e5ad2.jpg", "frames": 2, "description": "• Product：Jumpsuit • Fabric: 78% Nylon, 22% Spandex • Color: 7 colours as pictures • Size: S/M/L/XL • Price: US$14.68 Item No.:CLT8294"}, {"id": "wutongacti-3f9ee374", "factory": "WutongActive", "type": "шорты", "item_no": "TJ1438WK", "fabric": "80% Nylon/ 20% Spandex ", "price": "US$9.8", "web": "img/wutongacti-3f9ee374.jpg", "frames": 3, "description": "• Product：Short • Fabric: 80% Nylon/ 20% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL • Price: US$9.8 Item No.:TJ1438WK"}, {"id": "wutongacti-4055fbfd", "factory": "WutongActive", "type": "футболка / топ", "item_no": "DMT002", "fabric": "100% Polyester ", "price": "US$11.92", "web": "img/wutongacti-4055fbfd.jpg", "frames": 3, "description": "• Product:Shirt • Fabric: 100% Polyester • Color: 6 colours as pictures • Size: S/M/L/XL/XXL • Price: US$11.92 Item No.:DMT002"}, {"id": "wutongacti-407d8977", "factory": "WutongActive", "type": "комплект", "item_no": "CLT8305", "fabric": "78% Nylon, 22% Spandex ", "price": "US$18.09", "web": "img/wutongacti-407d8977.jpg", "frames": 3, "description": "• Product：Jumpsuit • Fabric: 78% Nylon, 22% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: US$18.09 Item No.:CLT8305"}, {"id": "wutongacti-409937cf", "factory": "WutongActive", "type": "комплект", "item_no": "TZ7028", "fabric": "78% Nylon+22% Spandex ", "price": "$9.78", "web": "img/wutongacti-409937cf.jpg", "frames": 1, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 11 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ7028 bra top short sleeve short legging flare legging $9.78 $9.78 $12.23 $8.31 $11.5 $13.95"}, {"id": "wutongacti-40f87fc2", "factory": "WutongActive", "type": "комплект", "item_no": "YW512", "fabric": "75% Nylon+25% Spandex ", "price": "$9.8", "web": "img/wutongacti-40f87fc2.jpg", "frames": 1, "description": "• Product:Set • Fabric: 75% Nylon+25% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: Item No.:YW512+KW305+KW307 bra short flare legging $9.8 $8.09 $12.26"}, {"id": "wutongacti-41eb924b", "factory": "WutongActive", "type": "комплект", "item_no": "TZ8799-2", "fabric": "75% Nylon/ 25% Spandex ", "price": "US$25.2", "web": "img/wutongacti-41eb924b.jpg", "frames": 3, "description": "• Product：short sleeve+flare legging • Fabric: 75% Nylon/ 25% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price:US$25.2 Item No.:TZ8799-2"}, {"id": "wutongacti-420b70f7", "factory": "WutongActive", "type": "комплект", "item_no": "167W17", "fabric": "51% cotton, 49% polyester ", "price": "US$32.52", "web": "img/wutongacti-420b70f7.jpg", "frames": 2, "description": "• Product:Hoodie Set • Fabric: 51% cotton, 49% polyester • Color: 10 colours as pictures • Size: S/M/L/XL/XXL • Price: US$32.52 Item No.:167W17、13236W23"}, {"id": "wutongacti-42113e5e", "factory": "WutongActive", "type": "комплект", "item_no": "ECK5090", "fabric": "54% Polyester+40% Modal+6% Spandex ", "price": "US$16.92", "web": "img/wutongacti-42113e5e.jpg", "frames": 3, "description": "• Product: T-shirt • Fabric: 54% Polyester+40% Modal+6% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL/XXL • Price: US$16.92 Item No.:ECK5090"}, {"id": "wutongacti-4229b11b", "factory": "WutongActive", "type": "футболка / топ", "item_no": "S1718-1", "fabric": "100% Cotton ", "price": "US$10.1", "web": "img/wutongacti-4229b11b.jpg", "frames": 3, "description": "• Product:T shirt 270G • Fabric: 100% Cotton • Color: 7 colours as pictures • Size: XS/S/M/L/XL/XXL • Price: US$10.1 Item No.:S1718-1"}, {"id": "wutongacti-42a26f53", "factory": "WutongActive", "type": "комплект", "item_no": "TZ5518-1", "fabric": "90% Nylon+10% Spandex ", "price": "US$17.52", "web": "img/wutongacti-42a26f53.jpg", "frames": 1, "description": "• Product:Set • Fabric: 90% Nylon+10% Spandex • Color: 6 colours as pictures • Size: S/M/L/XL • Price: US$17.52 Item No.:TZ5518-1"}, {"id": "wutongacti-4348335e", "factory": "WutongActive", "type": "платье", "item_no": "ELT9576", "fabric": "78% Nylon, 22% Spandex ", "price": "US$21.32", "web": "img/wutongacti-4348335e.jpg", "frames": 3, "description": "• Product：Jumpsuit • Fabric: 78% Nylon, 22% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: US$21.32 Item No.:ELT9576 FLT2134-1"}, {"id": "wutongacti-43c67efc", "factory": "WutongActive", "type": "комплект", "item_no": "TZ5558", "fabric": "78% Nylon+22% Spandex ", "price": "$9.52", "web": "img/wutongacti-43c67efc.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ5558 bra top short sleeve short flare legging $9.52 $9.78 $8.75 $8.75 $14.69"}, {"id": "wutongacti-4414df20", "factory": "WutongActive", "type": "комплект", "item_no": "TZ3129", "fabric": "78% Nylon/22% Spandex ", "price": "$11.5", "web": "img/wutongacti-4414df20.jpg", "frames": 3, "description": "• Product:Set • Fabric:78% Nylon/22% Spandex • Color: 9 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ3129 bra top skirt short legging flare legging $11.5 $12.23 $11.5 $9.05 $11.5 $13.95"}, {"id": "wutongacti-45ee5944", "factory": "WutongActive", "type": "худи / кофта на молнии", "item_no": "4518W25", "fabric": "66% cotton, 34% polyester ", "price": "US$21.13", "web": "img/wutongacti-45ee5944.jpg", "frames": 3, "description": "• Product:Sleeveless vest • Fabric: 66% cotton, 34% polyester • Color: 3 colours as pictures • Size: M/L • Price: US$21.13 Item No.:4518W25"}, {"id": "wutongacti-46573ed2", "factory": "WutongActive", "type": "комплект", "item_no": "TJ1522WX", "fabric": "80% Nylon/ 20% Spandex ", "price": "US$9.9", "web": "img/wutongacti-46573ed2.jpg", "frames": 3, "description": "• Product:Bra • Fabric: 80% Nylon/ 20% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: US$9.9 Item No.:TJ1522WX"}, {"id": "wutongacti-46a0ac01", "factory": "WutongActive", "type": "шорты", "item_no": "DDK1008", "fabric": "90% Cotton+10% Spandex ", "price": "US$14.31", "web": "img/wutongacti-46a0ac01.jpg", "frames": 1, "description": "• Product:Short • Fabric: 90% Cotton+10% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL/XXL • Price: US$14.31 Item No.:DDK1008"}, {"id": "wutongacti-472d2125", "factory": "WutongActive", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/wutongacti-472d2125.jpg", "frames": 1, "description": "Short L E A R N"}, {"id": "wutongacti-4760ba17", "factory": "WutongActive", "type": "комплект", "item_no": "TZ4506", "fabric": "78% Nylon+22% Spandex ", "price": "$10.94", "web": "img/wutongacti-4760ba17.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 6 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ4506 top short Capri Leggings flare legging $10.94 $9.3 $12.04 $16.42"}, {"id": "wutongacti-478e52e9", "factory": "WutongActive", "type": "худи / кофта на молнии", "item_no": "4496W25", "fabric": "55% cotton, 45% polyester ", "price": "US$27.3", "web": "img/wutongacti-478e52e9.jpg", "frames": 3, "description": "• Product:Hoodie • Fabric: 55% cotton, 45% polyester • Color: 6 colours as pictures • Size: M/L/XL • Price: US$27.3 Item No.:4496W25"}, {"id": "wutongacti-47ae675b", "factory": "WutongActive", "type": "футболка / топ", "item_no": "YEL31420", "fabric": "77% Nylon+23% Spandex ", "price": "US$10.3", "web": "img/wutongacti-47ae675b.jpg", "frames": 1, "description": "• Product:Short • Fabric: 77% Nylon+23% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL/XXL • Price: US$10.3 Item No.:YEL31420"}, {"id": "wutongacti-484b173b", "factory": "WutongActive", "type": "комплект", "item_no": "3006", "fabric": "90% Nylon+10% Spandex ", "price": "$24.6", "web": "img/wutongacti-484b173b.jpg", "frames": 1, "description": "• Product:Top+Legging • Fabric: 90% Nylon+10% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: $24.6 Item No.:3006"}, {"id": "wutongacti-4860eccc", "factory": "WutongActive", "type": "футболка / топ", "item_no": "51232", "fabric": "85% Polyester +15% Spandex ", "price": "US$7.54", "web": "img/wutongacti-4860eccc.jpg", "frames": 3, "description": "• Product:Shirt • Fabric: 85% Polyester +15% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL/XXL • Price: US$7.54 Item No.:51232"}, {"id": "wutongacti-4888fe2d", "factory": "WutongActive", "type": "худи / кофта на молнии", "item_no": "4488W25", "fabric": "3% cotton, 25% polyester, ", "price": "US$25.74", "web": "img/wutongacti-4888fe2d.jpg", "frames": 3, "description": "• Product:Hoodie • Fabric:72.3% cotton, 25% polyester, 2.7% spandex • Color: 5 colours as pictures • Size:M/L/XL • Price: US$25.74 Item No.:4488W25"}, {"id": "wutongacti-488be635", "factory": "WutongActive", "type": "футболка / топ", "item_no": "YEL01217", "fabric": "85% Polyester +15% Spandex ", "price": "US$6.04", "web": "img/wutongacti-488be635.jpg", "frames": 1, "description": "• Product:Shirt • Fabric: 85% Polyester +15% Spandex • Color: 9 colours as pictures • Size: S/M/L/XL/XXL • Price: US$6.04 Item No.:YEL01217"}, {"id": "wutongacti-497bb490", "factory": "WutongActive", "type": "бра", "item_no": "ELT9528", "fabric": "78% Nylon/ 22% Spandex ", "price": "US$14.68", "web": "img/wutongacti-497bb490.jpg", "frames": 1, "description": "• Product：Jumpsuit • Fabric: 78% Nylon/ 22% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL • Price:US$14.68 Item No.:ELT9528"}, {"id": "wutongacti-49d84047", "factory": "WutongActive", "type": "комплект", "item_no": "TZ3091-8", "fabric": "78% Nylon+22% Spandex ", "price": "US$25.69", "web": "img/wutongacti-49d84047.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 7 colours as pictures • Size: S/M/L/XL • Price: US$25.69 Item No.:TZ3091-8"}, {"id": "wutongacti-49e08ae8", "factory": "WutongActive", "type": "комплект", "item_no": "DQC5238", "fabric": "87% Nylon/ 13% Spandex ", "price": "US$9.51", "web": "img/wutongacti-49e08ae8.jpg", "frames": 3, "description": "• Product:Bra • Fabric: 87% Nylon/ 13% Spandex • Color: 26 colours as pictures • Size: S/M/L/XL • Price: US$9.51 Item No.:DQC5238"}, {"id": "wutongacti-4a8fc769", "factory": "WutongActive", "type": "брюки", "item_no": "DMK004", "fabric": "90% Nylon+10% Spandex ", "price": "US$17.03", "web": "img/wutongacti-4a8fc769.jpg", "frames": 3, "description": "• Product:Pants • Fabric: 90% Nylon+10% Spandex • Color: 6 colours as pictures • Size: S/M/L/XL/XXL • Price: US$17.03 Item No.:DMK004"}, {"id": "wutongacti-4b4cf97e", "factory": "WutongActive", "type": "бра", "item_no": "TJWX1249", "fabric": "80% Nylon/ 20% Spandex ", "price": "US$7.2", "web": "img/wutongacti-4b4cf97e.jpg", "frames": 3, "description": "• Product:Bra • Fabric: 80% Nylon/ 20% Spandex • Color: 17 colours as pictures • Size: S/M/L/XL • Price: US$7.2 Item No.:TJWX1249"}, {"id": "wutongacti-4ccded39", "factory": "WutongActive", "type": "лонгслив", "item_no": "DCX8743", "fabric": "78% Nylon/ 22% Spandex ", "price": "US$9.58", "web": "img/wutongacti-4ccded39.jpg", "frames": 1, "description": "• Product:Long sleeve • Fabric: 78% Nylon/ 22% Spandex • Color: 7 colours as pictures • Size: S/M/L/XL • Price: US$9.58 Item No.:DCX8743"}, {"id": "wutongacti-4ee9a9ae", "factory": "WutongActive", "type": "лонгслив", "item_no": "11517", "fabric": "90% Polyester+10% Spandex ", "price": "US$8.32", "web": "img/wutongacti-4ee9a9ae.jpg", "frames": 3, "description": "• Product:Jacket • Fabric: 90% Polyester+10% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL/XXL • Price: US$8.32 Item No.:11517"}, {"id": "wutongacti-4f7f1ab4", "factory": "WutongActive", "type": "лонгслив", "item_no": "ECX1168", "fabric": "50% Polyester+50% Composite ", "price": "US$12.97", "web": "img/wutongacti-4f7f1ab4.jpg", "frames": 3, "description": "• Product:Jacket • Fabric: 50% Polyester+50% Composite fiber • Color: 3 colours as pictures • Size: S/M/L/XL/XXL • Price: US$12.97 Item No.:ECX1168"}, {"id": "wutongacti-4fca3387", "factory": "WutongActive", "type": "комплект", "item_no": "TZ5529", "fabric": "78% Nylon+22% Spandex ", "price": "$9.52", "web": "img/wutongacti-4fca3387.jpg", "frames": 1, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ5529 Bra Top Pants Jacket $9.52 $10.3 $15.46 $15.46"}, {"id": "wutongacti-4fde64b4", "factory": "WutongActive", "type": "комплект", "item_no": "DAW177", "fabric": "79% Nylon, 21% Spandex ", "price": "US$18.58", "web": "img/wutongacti-4fde64b4.jpg", "frames": 1, "description": "• Product：Jacket • Fabric: 79% Nylon, 21% Spandex • Color: 7 colours as pictures • Size: 4/6/8/10/12 • Price: US$18.58 Item No.:DAW177"}, {"id": "wutongacti-51527c1d", "factory": "WutongActive", "type": "худи / кофта на молнии", "item_no": "DAW177", "fabric": "79% Nylon, 21% Spandex ", "price": "US$18.58", "web": "img/wutongacti-51527c1d.jpg", "frames": 3, "description": "• Product：Jacket • Fabric: 79% Nylon, 21% Spandex • Color: 7 colours as pictures • Size: 4/6/8/10/12 • Price: US$18.58 Item No.:DAW177"}, {"id": "wutongacti-51af4682", "factory": "WutongActive", "type": "футболка / топ", "item_no": "DDX8743", "fabric": "78% Nylon/ 22% Spandex ", "price": "US$8.75", "web": "img/wutongacti-51af4682.jpg", "frames": 2, "description": "• Product:Short sleeve • Fabric: 78% Nylon/ 22% Spandex • Color: 10 colours as pictures • Size: S/M/L/XL • Price: US$8.75 Item No.:DDX8743"}, {"id": "wutongacti-5249b5eb", "factory": "WutongActive", "type": "комплект", "item_no": "TZ9528", "fabric": "78% Nylon+22% Spandex ", "price": "$9.05", "web": "img/wutongacti-5249b5eb.jpg", "frames": 2, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ9528 bra 1 bra 2 short legging jumpsuit $9.05 $9.05 $11.5 $11.5 $13.4"}, {"id": "wutongacti-52f8b5a3", "factory": "WutongActive", "type": "комплект", "item_no": "SM2551", "fabric": "80% Nylon+20% Spandex ", "price": "$22.85", "web": "img/wutongacti-52f8b5a3.jpg", "frames": 1, "description": "• Product:Long Sleeve+Pants • Fabric: 80% Nylon+20% Spandex • Color: 6 colours as pictures • Size: S/M/L/XL • Price: $22.85 Item No.:SM2551 90% Nylon+10% Spandex"}, {"id": "wutongacti-5355fd74", "factory": "WutongActive", "type": "комплект", "item_no": "TZ4549-1", "fabric": "78% Nylon+22% Spandex ", "price": "US$22.83", "web": "img/wutongacti-5355fd74.jpg", "frames": 2, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 7 colours as pictures • Size: S/M/L/XL • Price: US$22.83 Item No.:TZ4549-1"}, {"id": "wutongacti-545c0a62", "factory": "WutongActive", "type": "комплект", "item_no": "TZ2027", "fabric": "78% Nylon+22% Spandex ", "price": "$9.78", "web": "img/wutongacti-545c0a62.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 7 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ2027 bra short legging flare legging $9.78 $7.85 $11 $13.46"}, {"id": "wutongacti-54898f9c", "factory": "WutongActive", "type": "шорты", "item_no": "TJ1409SK", "fabric": "80% Nylon/ 20% Spandex ", "price": "US$8.05", "web": "img/wutongacti-54898f9c.jpg", "frames": 3, "description": "• Product：Short • Fabric: 80% Nylon/ 20% Spandex • Color: 17 colours as pictures • Size: S/M/L/XL • Price: US$8.05 Item No.:TJ1409SK"}, {"id": "wutongacti-5597ec96", "factory": "WutongActive", "type": "комплект", "item_no": "ELT9326", "fabric": "78% Nylon/ 22% Spandex ", "price": "US$21.90", "web": "img/wutongacti-5597ec96.jpg", "frames": 3, "description": "• Product：Jumpsuit • Fabric: 78% Nylon/ 22% Spandex • Color: 6 colours as pictures • Size: S/M/L/XL • Price:US$21.90 Item No.:ELT9326"}, {"id": "wutongacti-563a4573", "factory": "WutongActive", "type": "юбка-шорты", "item_no": "TZ8725-5", "fabric": "95% Nylon+5% Spandex ", "price": "US$26.42", "web": "img/wutongacti-563a4573.jpg", "frames": 3, "description": "• Product:Set • Fabric: 95% Nylon+5% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: US$26.42 Item No.:TZ8725-5 TZ8725-5"}, {"id": "wutongacti-568e59a9", "factory": "WutongActive", "type": "комплект", "item_no": "TZ4518", "fabric": "78% Nylon+22% Spandex ", "price": "$8.82", "web": "img/wutongacti-568e59a9.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ4518 bra 1 bra 2 jacket short legging flare legging $8.82 $9.54 $11.99 $8.82 $11.5 $11.93"}, {"id": "wutongacti-5716c69d", "factory": "WutongActive", "type": "комплект", "item_no": "167W17", "fabric": "51% cotton, 49% polyester ", "price": "US$32.52", "web": "img/wutongacti-5716c69d.jpg", "frames": 3, "description": "• Product:Hoodie Set • Fabric: 51% cotton, 49% polyester • Color: 10 colours as pictures • Size: S/M/L/XL/XXL • Price: US$32.52 Item No.:167W17、13236W23"}, {"id": "wutongacti-575ad24f", "factory": "WutongActive", "type": "леггинсы", "item_no": "TJCK1237", "fabric": "80% Nylon/ 20% Spandex ", "price": "US$7", "web": "img/wutongacti-575ad24f.jpg", "frames": 3, "description": "• Product:Legging • Fabric: 80% Nylon/ 20% Spandex • Color: 35 colours as pictures • Size: S/M/L/XL • Price: US$7 Item No.:TJCK1237"}, {"id": "wutongacti-579b7d76", "factory": "WutongActive", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/wutongacti-579b7d76.jpg", "frames": 1, "description": "Jacket L E A R N"}, {"id": "wutongacti-5920f2ec", "factory": "WutongActive", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/wutongacti-5920f2ec.jpg", "frames": 1, "description": "T shirt"}, {"id": "wutongacti-5975e021", "factory": "WutongActive", "type": "комплект", "item_no": "TZ2036", "fabric": "78% Nylon/22% Spandex ", "price": "$8.82", "web": "img/wutongacti-5975e021.jpg", "frames": 1, "description": "• Product:Bra+Legging • Fabric: 78% Nylon/22% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ2036 bra legging $8.82 $9.54"}, {"id": "wutongacti-597f46e1", "factory": "WutongActive", "type": "комплект", "item_no": "FLT3533", "fabric": "78% Nylon, 22% Spandex ", "price": "US$16.42", "web": "img/wutongacti-597f46e1.jpg", "frames": 3, "description": "• Product：Jumpsuit • Fabric: 78% Nylon, 22% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: US$16.42 Item No.:FLT3533"}, {"id": "wutongacti-59845cc4", "factory": "WutongActive", "type": "платье", "item_no": "DLT9094", "fabric": "78% Nylon, 22% Spandex ", "price": "US$20.61", "web": "img/wutongacti-59845cc4.jpg", "frames": 3, "description": "• Product：Tennis Skirt • Fabric: 78% Nylon, 22% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: US$20.61 Item No.:DLT9094"}, {"id": "wutongacti-5a1be6a6", "factory": "WutongActive", "type": "комплект", "item_no": "TZ5518-1", "fabric": "90% Nylon+10% Spandex ", "price": "US$17.52", "web": "img/wutongacti-5a1be6a6.jpg", "frames": 3, "description": "• Product:Set • Fabric: 90% Nylon+10% Spandex • Color: 6 colours as pictures • Size: S/M/L/XL • Price: US$17.52 Item No.:TZ5518-1"}, {"id": "wutongacti-5b34e85b", "factory": "WutongActive", "type": "комплект", "item_no": "3006", "fabric": "90% Nylon+10% Spandex ", "price": "$20.13", "web": "img/wutongacti-5b34e85b.jpg", "frames": 2, "description": "• Product:Bra+Short • Fabric: 90% Nylon+10% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: $20.13 Item No.:3006 90% Nylon+10% Spandex"}, {"id": "wutongacti-5b50cc22", "factory": "WutongActive", "type": "комплект", "item_no": "TZ7028", "fabric": "78% Nylon+22% Spandex ", "price": "$9.78", "web": "img/wutongacti-5b50cc22.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 11 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ7028 bra top short sleeve short legging flare legging $9.78 $9.78 $12.23 $8.31 $11.5 $13.95"}, {"id": "wutongacti-5c19293f", "factory": "WutongActive", "type": "комплект", "item_no": "D26020", "fabric": "", "price": "$10.05", "web": "img/wutongacti-5c19293f.jpg", "frames": 1, "description": "• Product:Set • Fabric: Cotton Blend • Color: 4 colours as pictures • Size: S/M/L/XL/XXL • Price: Item No.:D26020,D26021,D26022,D26023 sleeveless top long sleeve short pants skirt $10.05 $11.77 $13.73 $11.03"}, {"id": "wutongacti-5d12a777", "factory": "WutongActive", "type": "футболка / топ", "item_no": "260SS", "fabric": "1% Cotton, · 260gsm", "price": "US$7.3", "web": "img/wutongacti-5d12a777.jpg", "frames": 3, "description": "• Product:Shirt(260gsm) • Fabric:67.1% Cotton,32.9% Polyesyer • Color: 9 colours as pictures • Size: S/M/L/XL/XXL • Price: US$7.3 Item No.:260SS"}, {"id": "wutongacti-5d971605", "factory": "WutongActive", "type": "леггинсы", "item_no": "S2589", "fabric": "90% Nylon/10% Spandex ", "price": "US$9.03", "web": "img/wutongacti-5d971605.jpg", "frames": 1, "description": "• Product:Short • Fabric: 90% Nylon/10% Spandex • Color: 33 colours as pictures • Size: XS/S/M/L/XL • Price: US$9.03 Item No.:S2589"}, {"id": "wutongacti-5dfff781", "factory": "WutongActive", "type": "комплект", "item_no": "ELT9506-3", "fabric": "82% Nylon+18% Spandex ", "price": "US$19.59", "web": "img/wutongacti-5dfff781.jpg", "frames": 1, "description": "• Product:Jumpsuit • Fabric: 82% Nylon+18% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: US$19.59 Item No.:ELT9506-3"}, {"id": "wutongacti-5e1d1a3c", "factory": "WutongActive", "type": "комплект", "item_no": "TZ5544-5", "fabric": "78% Nylon+22% Spandex ", "price": "US$24.71", "web": "img/wutongacti-5e1d1a3c.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: US$24.71 Item No.:TZ5544-5"}, {"id": "wutongacti-5eb28a07", "factory": "WutongActive", "type": "лонгслив", "item_no": "DCX8743", "fabric": "78% Nylon/ 22% Spandex ", "price": "US$9.58", "web": "img/wutongacti-5eb28a07.jpg", "frames": 3, "description": "• Product:Long sleeve • Fabric: 78% Nylon/ 22% Spandex • Color: 7 colours as pictures • Size: S/M/L/XL • Price: US$9.58 Item No.:DCX8743"}, {"id": "wutongacti-60e61e9e", "factory": "WutongActive", "type": "бра", "item_no": "TZ3562-7", "fabric": "78% Nylon+22% Spandex ", "price": "$9.52", "web": "img/wutongacti-60e61e9e.jpg", "frames": 1, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ3562-7 bra short jacket $9.52 $9.52 $12.1"}, {"id": "wutongacti-60faa7a0", "factory": "WutongActive", "type": "комплект", "item_no": "SM2551", "fabric": "80% Nylon+20% Spandex ", "price": "$22.85", "web": "img/wutongacti-60faa7a0.jpg", "frames": 3, "description": "• Product:Long Sleeve+Pants • Fabric: 80% Nylon+20% Spandex • Color: 6 colours as pictures • Size: S/M/L/XL • Price: $22.85 Item No.:SM2551 90% Nylon+10% Spandex"}, {"id": "wutongacti-61723c9a", "factory": "WutongActive", "type": "ветровка / куртка", "item_no": "D16004", "fabric": "100% Polyester ", "price": "US$10.58", "web": "img/wutongacti-61723c9a.jpg", "frames": 1, "description": "• Product:Jacket • Fabric: 100% Polyester • Color: 6 colours as pictures • Size: S/M/L/XL/XXL/XXXL • Price: US$10.58 Item No.:D16004"}, {"id": "wutongacti-628c0195", "factory": "WutongActive", "type": "худи / кофта на молнии", "item_no": "YC261", "fabric": "100% Nylon ", "price": "US$11.28", "web": "img/wutongacti-628c0195.jpg", "frames": 3, "description": "• Product：Jacket • Fabric: 100% Nylon • Color: 4 colours as pictures • Size: S/M/L/XL • Price: US$11.28 Item No.:YC261"}, {"id": "wutongacti-62beabc8", "factory": "WutongActive", "type": "комплект", "item_no": "TZ4549-1", "fabric": "78% Nylon+22% Spandex ", "price": "US$22.83", "web": "img/wutongacti-62beabc8.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 7 colours as pictures • Size: S/M/L/XL • Price: US$22.83 Item No.:TZ4549-1"}, {"id": "wutongacti-63765e19", "factory": "WutongActive", "type": "леггинсы", "item_no": "ECK5064", "fabric": "90% Nylon/ 10% Spandex ", "price": "US$10.76", "web": "img/wutongacti-63765e19.jpg", "frames": 2, "description": "• Product：Legging • Fabric: 90% Nylon/ 10% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: US$10.76 Item No.:ECK5064"}, {"id": "wutongacti-6385f45b", "factory": "WutongActive", "type": "юбка-шорты", "item_no": "DLT9094", "fabric": "78% Nylon, 22% Spandex ", "price": "US$20.61", "web": "img/wutongacti-6385f45b.jpg", "frames": 3, "description": "• Product：Tennis Skirt • Fabric: 78% Nylon, 22% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL • Price: US$20.61 Item No.:DLT9094"}, {"id": "wutongacti-63ea79df", "factory": "WutongActive", "type": "комплект", "item_no": "TZ8725-5", "fabric": "95% Nylon+5% Spandex ", "price": "US$26.42", "web": "img/wutongacti-63ea79df.jpg", "frames": 3, "description": "• Product:Set • Fabric: 95% Nylon+5% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: US$26.42 Item No.:TZ8725-5 TZ8725-5"}, {"id": "wutongacti-63fdda8e", "factory": "WutongActive", "type": "бра", "item_no": "TZ2546-1", "fabric": "78% Nylon+22% Spandex ", "price": "US$19.98", "web": "img/wutongacti-63fdda8e.jpg", "frames": 2, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: US$19.98 Item No.:TZ2546-1"}, {"id": "wutongacti-6411f106", "factory": "WutongActive", "type": "брюки", "item_no": "DMK004", "fabric": "90% Nylon+10% Spandex ", "price": "US$17.03", "web": "img/wutongacti-6411f106.jpg", "frames": 1, "description": "• Product:Pants • Fabric: 90% Nylon+10% Spandex • Color: 6 colours as pictures • Size: S/M/L/XL/XXL • Price: US$17.03 Item No.:DMK004"}, {"id": "wutongacti-64de7fb9", "factory": "WutongActive", "type": "ветровка / куртка", "item_no": "D16004", "fabric": "100% Polyester ", "price": "US$10.58", "web": "img/wutongacti-64de7fb9.jpg", "frames": 1, "description": "• Product:Jacket • Fabric: 100% Polyester • Color: 6 colours as pictures • Size: S/M/L/XL/XXL/XXXL • Price: US$10.58 Item No.:D16004"}, {"id": "wutongacti-65147fe7", "factory": "WutongActive", "type": "комплект", "item_no": "TZ8799-1", "fabric": "75% Nylon/ 25% Spandex ", "price": "US$19.5", "web": "img/wutongacti-65147fe7.jpg", "frames": 3, "description": "• Product：bra+short • Fabric: 75% Nylon/ 25% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price:US$19.5 Item No.:TZ8799-1"}, {"id": "wutongacti-653d086d", "factory": "WutongActive", "type": "шорты", "item_no": "TZ5558", "fabric": "78% Nylon+22% Spandex ", "price": "$9.52", "web": "img/wutongacti-653d086d.jpg", "frames": 1, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ5558 bra top short sleeve short flare legging $9.52 $9.78 $8.75 $8.75 $14.69"}, {"id": "wutongacti-660ca447", "factory": "WutongActive", "type": "футболка / топ", "item_no": "8092S25", "fabric": "4% Cotton, ", "price": "US$9.14", "web": "img/wutongacti-660ca447.jpg", "frames": 3, "description": "• Product:T shirt • Fabric: 83.4% Cotton, 16.6% Nylon • Color: 7 colours as pictures • Size: S/M/L/XL • Price: US$9.14 Item No.:8092S25"}, {"id": "wutongacti-669cb043", "factory": "WutongActive", "type": "лонгслив", "item_no": "61527", "fabric": "90% Polyester+10% Spandex ", "price": "US$16.15", "web": "img/wutongacti-669cb043.jpg", "frames": 3, "description": "• Product: Tank • Fabric: 90% Polyester+10% Spandex • Color: 5 colours as pictures • Size: S/M/L/XL/XXL • Price: US$16.15 Item No.:61527"}, {"id": "wutongacti-67347749", "factory": "WutongActive", "type": "комплект", "item_no": "TZ2251-1", "fabric": "78% Nylon+22% Spandex ", "price": "US$17.78", "web": "img/wutongacti-67347749.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL • Price: US$17.78 Item No.:TZ2251-1"}, {"id": "wutongacti-6776587d", "factory": "WutongActive", "type": "футболка / топ", "item_no": "61204", "fabric": "100%Polyster ", "price": "US$10.77", "web": "img/wutongacti-6776587d.jpg", "frames": 2, "description": "• Product: T-shit • Fabric: 100%Polyster • Color: 5 colours as pictures • Size: S/M/L/XL/XXL • Price: US$10.77 Item No.:61204"}, {"id": "wutongacti-68b20eb6", "factory": "WutongActive", "type": "комплект", "item_no": "D26020", "fabric": "", "price": "$10.05", "web": "img/wutongacti-68b20eb6.jpg", "frames": 3, "description": "• Product:Set • Fabric: Cotton Blend • Color: 4 colours as pictures • Size: S/M/L/XL/XXL • Price: Item No.:D26020,D26021,D26022,D26023 sleeveless top long sleeve short pants skirt $10.05 $11.77 $13.73 $11.03"}, {"id": "wutongacti-6988a22a", "factory": "WutongActive", "type": "комплект", "item_no": "TZ2251-6", "fabric": "78% Nylon+22% Spandex ", "price": "US$22.8", "web": "img/wutongacti-6988a22a.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL • Price: US$22.8 Item No.:TZ2251-6"}, {"id": "wutongacti-6a04ab03", "factory": "WutongActive", "type": "лонгслив", "item_no": "41523", "fabric": "90% Nylon +10% Spandex ", "price": "US$7.8", "web": "img/wutongacti-6a04ab03.jpg", "frames": 3, "description": "• Product:Shirt • Fabric: 90% Nylon +10% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL/XXL • Price: US$7.8 Item No.:41523"}, {"id": "wutongacti-6a746c37", "factory": "WutongActive", "type": "комплект", "item_no": "51525", "fabric": "85% Polyester +15% Spandex ", "price": "US$7.74", "web": "img/wutongacti-6a746c37.jpg", "frames": 3, "description": "• Product:Shirt • Fabric: 85% Polyester +15% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL/XXL • Price: US$7.74 Item No.:51525"}, {"id": "wutongacti-6b37d2ee", "factory": "WutongActive", "type": "брюки", "item_no": "51339", "fabric": "54% Polyester+40% Modal+6% Spandex ", "price": "US$15.89", "web": "img/wutongacti-6b37d2ee.jpg", "frames": 3, "description": "• Product: Pants • Fabric: 54% Polyester+40% Modal+6% Spandex • Color: 3 colours as pictures • Size: S/M/L/XL/XXL • Price: US$15.89 Item No.:51339"}, {"id": "wutongacti-6c0c00a1", "factory": "WutongActive", "type": "ветровка / куртка", "item_no": "CYJK9967", "fabric": "100% Polyester ", "price": "US$25.78", "web": "img/wutongacti-6c0c00a1.jpg", "frames": 1, "description": "• Product:Jacket • Fabric: 100% Polyester • Color: 4 colours as pictures • Size: S/M/L/XL • Price: US$25.78 Item No.:CYJK9967"}, {"id": "wutongacti-6cbbd4d2", "factory": "WutongActive", "type": "шорты", "item_no": "S2589", "fabric": "90% Nylon/10% Spandex ", "price": "US$9.03", "web": "img/wutongacti-6cbbd4d2.jpg", "frames": 3, "description": "• Product:Short • Fabric: 90% Nylon/10% Spandex • Color: 33 colours as pictures • Size: XS/S/M/L/XL • Price: US$9.03 Item No.:S2589"}, {"id": "wutongacti-6ce53946", "factory": "WutongActive", "type": "шорты", "item_no": "S2589", "fabric": "90% Nylon/10% Spandex ", "price": "US$9.03", "web": "img/wutongacti-6ce53946.jpg", "frames": 3, "description": "• Product:Short • Fabric: 90% Nylon/10% Spandex • Color: 33 colours as pictures • Size: XS/S/M/L/XL • Price: US$9.03 Item No.:S2589"}, {"id": "wutongacti-6dca2a45", "factory": "WutongActive", "type": "футболка / топ", "item_no": "EDX3539", "fabric": "5% Lyocell+", "price": "US$16.92", "web": "img/wutongacti-6dca2a45.jpg", "frames": 3, "description": "• Product: Shirts • Fabric: 64.5% Lyocell+27.7% Wool+7.8% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL/XXL • Price: US$16.92 Item No.:EDX3539"}, {"id": "wutongacti-6dfae8c4", "factory": "WutongActive", "type": "бра", "item_no": "TZ5079-2", "fabric": "78% Nylon+22% Spandex ", "price": "US$24.85", "web": "img/wutongacti-6dfae8c4.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 4 colours as pictures • Size: S/M/L/XL • Price: US$24.85 Item No.:TZ5079-2"}, {"id": "wutongacti-6e309c44", "factory": "WutongActive", "type": "ветровка / куртка", "item_no": "DMK003", "fabric": "90% Nylon+10% Spandex ", "price": "US$13.63", "web": "img/wutongacti-6e309c44.jpg", "frames": 1, "description": "• Product:Short • Fabric:90% Nylon+10% Spandex • Color: 6 colours as pictures • Size: S/M/L/XL/XXL • Price: US$13.63 Item No.:DMK003"}, {"id": "wutongacti-6ecf25e9", "factory": "WutongActive", "type": "леггинсы", "item_no": "L2589", "fabric": "90% Nylon/10% Spandex ", "price": "US$11.61", "web": "img/wutongacti-6ecf25e9.jpg", "frames": 3, "description": "• Product:Legging • Fabric: 90% Nylon/10% Spandex • Color: 33 colours as pictures • Size: XS/S/M/L/XL • Price: US$11.61 Item No.:L2589"}, {"id": "wutongacti-6f3d8da8", "factory": "WutongActive", "type": "футболка / топ", "item_no": "S1780", "fabric": "100% Cotton ", "price": "US$9.81", "web": "img/wutongacti-6f3d8da8.jpg", "frames": 3, "description": "• Product:T shirt 305G • Fabric: 100% Cotton • Color: 7 colours as pictures • Size: XS/S/M/L/XL/XXL • Price: US$9.81 Item No.:S1780"}, {"id": "wutongacti-6f89a4b3", "factory": "WutongActive", "type": "ветровка / куртка", "item_no": "CYJK9967", "fabric": "100% Polyester ", "price": "US$25.78", "web": "img/wutongacti-6f89a4b3.jpg", "frames": 1, "description": "• Product:Jacket • Fabric: 100% Polyester • Color: 4 colours as pictures • Size: S/M/L/XL • Price: US$25.78 Item No.:CYJK9967"}, {"id": "wutongacti-709998a3", "factory": "WutongActive", "type": "шорты", "item_no": "DDK1006", "fabric": "90% Nylon+10% Spandex ", "price": "US$16.23", "web": "img/wutongacti-709998a3.jpg", "frames": 2, "description": "• Product:Short • Fabric: 90% Nylon+10% Spandex • Color: 8 colours as pictures • Size: S/M/L/XL/XXL • Price: US$16.23 Item No.:DDK1006"}, {"id": "wutongacti-70df02fc", "factory": "WutongActive", "type": "комплект", "item_no": "TZ5558", "fabric": "78% Nylon+22% Spandex ", "price": "$8.75", "web": "img/wutongacti-70df02fc.jpg", "frames": 3, "description": "• Product:Set • Fabric: 78% Nylon+22% Spandex • Color: 10 colours as pictures • Size: S/M/L/XL • Price: Item No.:TZ5558 bra top short wide leg pants $8.75 $10.94 $9.02 $12.04"}, {"id": "wutongacti-70ed8ef8", "factory": "WutongActive", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/wutongacti-70ed8ef8.jpg", "frames": 1, "description": "Jumpsuit L E A R N"}, {"id": "wutongacti-714c3c28", "factory": "WutongActive", "type": "леггинсы", "item_no": "TJ-CK1583", "fabric": "80% Nylon/ 20% Spandex ", "price": "US$7.1", "web": "img/wutongacti-714c3c28.jpg", "frames": 3, "description": "• Product：Legging • Fabric: 80% Nylon/ 20% Spandex • Color: 9 colours as pictures • Size: S/M/L/XL • Price: US$7.1 Item No.:TJ-CK1583"}, {"id": "wutongacti-7166d5f3", "factory": "WutongActive", "type": "футболка / топ", "item_no": "8092S25", "fabric": "4% Cotton, ", "price": "US$9.14", "web": "img/wutongacti-7166d5f3.jpg", "frames": 1, "description": "• Product:T shirt • Fabric: 83.4% Cotton, 16.6% Nylon • Color: 7 colours as pictures • Size: S/M/L/XL • Price: US$9.14 Item No.:8092S25"}];
+const PAGE_ID = "wutongactive-chast-2";
+const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
+let db=null, uid=null;
+
+function setStatus(text){
+  const el = document.getElementById("status");
+  el.textContent = text || "";
+  el.hidden = !text;
+}
+const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
+const key = id => id+"__"+(uid||"local");
+
+function localLoad(){ try{ return JSON.parse(localStorage.getItem("votes:"+PAGE_ID)||"{}"); }catch(e){ return {}; } }
+function localSave(){ try{ localStorage.setItem("votes:"+PAGE_ID, JSON.stringify(state.mine)); }catch(e){} }
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.textContent = "";
+  const q = state.q.trim().toLowerCase();
+  let shown = 0;
+  for(const m of MODELS){
+    const v = state.mine[m.id] || {};
+    if(state.filter==="new" && (v.like || v.stars)) continue;
+    if(state.filter==="like" && !v.like) continue;
+    if(state.type && m.type !== state.type) continue;
+    if(q && !((m.item_no+" "+m.fabric+" "+m.description).toLowerCase().includes(q))) continue;
+    grid.appendChild(card(m, v)); shown++;
+  }
+  document.getElementById("empty").hidden = shown>0;
+  const rated = MODELS.filter(m=>{const v=state.mine[m.id]||{}; return v.like||v.stars;}).length;
+  document.getElementById("bar").style.width = (100*rated/MODELS.length).toFixed(1)+"%";
+  document.getElementById("cnt").textContent = `оценено ${rated} из ${MODELS.length}`;
+}
+
+function card(m, v){
+  const c = el("div","card"+(v.like?" liked":""));
+  const ph = el("div","ph"); ph.tabIndex = 0;
+  const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
+  img.src = m.web; img.style.width = (m.frames*100)+"%";
+  const dots = el("div","dots");
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
+  const meta = el("div","meta");
+  meta.appendChild(el("div","type", m.type));
+  if(m.item_no) meta.appendChild(el("div","art", m.item_no));
+  if(m.fabric) meta.appendChild(el("div","fab", m.fabric));
+  if(m.price) meta.appendChild(el("div","price", m.price));
+  const acts = el("div","acts");
+  const heart = el("button","heart"+(v.like?" on":""),"♥");
+  heart.title = "Нравится"; heart.setAttribute("aria-pressed", v.like?"true":"false");
+  heart.onclick = ()=> save(m, {like: !(state.mine[m.id]||{}).like});
+  acts.appendChild(heart);
+  const others = state.others[m.id]||0;
+  if(others) acts.appendChild(el("span","others","+"+others));
+  const stars = el("div","stars");
+  for(let i=1;i<=5;i++){
+    const s = el("button","star"+((v.stars||0)>=i?" on":""),"★");
+    s.title = i+" из 5";
+    s.onclick = ()=> save(m, {stars: (state.mine[m.id]||{}).stars===i ? 0 : i});
+    stars.appendChild(s);
+  }
+  acts.appendChild(stars);
+  c.append(ph, meta, acts);
+  return c;
+}
+
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
+function openBig(m){
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
+}
+document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("dlg").addEventListener("click", e => { if(e.target.id === "dlg") document.getElementById("dlg").close(); });
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+async function save(m, patch){
+  const cur = state.mine[m.id] || {like:false, stars:0};
+  const next = Object.assign({}, cur, patch);
+  state.mine[m.id] = next; localSave(); render();
+  if(!db) return;
+  try{
+    await db.doc("votes/"+key(m.id)).set({
+      model:m.id, page:PAGE_ID, factory:m.factory, type:m.type, item_no:m.item_no||"",
+      like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
+    });
+  }catch(e){
+    setStatus("Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе"));
+  }
+}
+
+function picked(){
+  const out = [];
+  for(const m of MODELS){
+    const v = state.mine[m.id]; if(!v || (!v.like && !v.stars)) continue;
+    out.push({id:m.id, factory:m.factory, type:m.type, item:m.item_no||"", like:!!v.like, stars:v.stars||0});
+  }
+  return {page:PAGE_ID, who:(document.getElementById("who").value||"").trim(), at:new Date().toISOString(), picks:out};
+}
+document.getElementById("who").value = localStorage.getItem("who")||"";
+document.getElementById("who").oninput = e => { try{ localStorage.setItem("who", e.target.value); }catch(err){} };
+document.getElementById("copy").onclick = async ()=>{
+  const data = picked();
+  try{ await navigator.clipboard.writeText(JSON.stringify(data));
+       setStatus(`Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`); }
+  catch(e){ setStatus("Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."); }
+};
+document.getElementById("dl").onclick = ()=>{
+  const data = picked();
+  const blob = new Blob([JSON.stringify(data, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `выбор-wutongactive-chast-2-${data.who||"без-имени"}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setStatus(`Файл сохранён: ${data.picks.length} моделей.`);
+};
+const SEND_URL = "https://formsubmit.co/ajax/privery.prod@euphoria.fit";
+document.getElementById("send").onclick = async () => {
+  const data = picked();
+  if(!data.picks.length){ setStatus("Пока ничего не отмечено — поставьте сердце или звёзды."); return; }
+  const body = (data.who ? data.who + "\n\n" : "") +
+    data.picks.map(p=>`${p.factory} · ${p.type}${p.item ? " " + p.item : ""} — ${p.like ? "нравится" : ""}${p.stars ? " " + p.stars + "/5" : ""}`).join("\n");
+  const lines = data.picks.map(p =>
+    `- ${p.id} · ${p.factory} · ${p.type}${p.item ? " · " + p.item : ""}${p.like ? " · нравится" : ""}${p.stars ? " · " + p.stars + "/5" : ""}`);
+  const text = `Страница: wutongactive-chast-2\nКто отмечал: ${data.who || "не указано"}\nОтмечено моделей: ${data.picks.length}\n\n` + lines.join("\n");
+  const btn = document.getElementById("send");
+  btn.disabled = true;
+  setStatus("Отправляю…");
+  try{
+    const res = await fetch(SEND_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Accept": "application/json"},
+      body: JSON.stringify({
+        _subject: `Выбор моделей: ${data.who || "без имени"} — wutongactive-chast-2`,
+        _template: "table",
+        Кто: data.who || "не указано",
+        Страница: PAGE_ID,
+        Моделей: String(data.picks.length),
+        Выбор: text
+      })
+    });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    setStatus(`Отправлено Софье: ${data.picks.length} моделей. Спасибо!`);
+    try{ localStorage.setItem("sent:" + PAGE_ID, new Date().toISOString()); }catch(e){}
+  }catch(e){
+    try{
+      await navigator.clipboard.writeText(text);
+      setStatus("Не удалось отправить (нет сети?) — выбор скопирован в буфер, пришлите его Софье сообщением.");
+    }catch(err){
+      setStatus("Не удалось отправить — нажмите «Скачать файл выбора» и пришлите файл.");
+    }
+  }finally{ btn.disabled = false; }
+};
+
+document.getElementById("f-all").onclick = ()=> setFilter("all");
+document.getElementById("f-new").onclick = ()=> setFilter("new");
+document.getElementById("f-like").onclick = ()=> setFilter("like");
+function setFilter(f){
+  state.filter=f;
+  for(const [id,val] of [["f-all","all"],["f-new","new"],["f-like","like"]])
+    document.getElementById(id).setAttribute("aria-pressed", String(val===f));
+  render();
+}
+const types = [...new Set(MODELS.map(m=>m.type))].sort();
+const sel = document.getElementById("f-type");
+for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
+sel.onchange = e => { state.type = e.target.value; render(); };
+document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+state.mine = localLoad();
+render();
+
+(async ()=>{
+  const user = await window.claude?.use?.("user");
+  uid = user ? await user.id() : null;
+  db = await window.claude?.use?.("db");
+  if(!db){ setStatus("Общая база недоступна — оценки сохраняются только в этом браузере."); return; }
+  setStatus("Оценки сохраняются автоматически и видны коллегам.");
+  db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
+    const mine={}, others={};
+    for(const d of snap.docs){
+      const v = d.data()||{};
+      if(uid && v.by===uid){ mine[v.model]={like:!!v.like, stars:v.stars||0}; }
+      else if(v.like){ others[v.model]=(others[v.model]||0)+1; }
+    }
+    if(Object.keys(mine).length || Object.keys(others).length){
+      state.mine = Object.keys(mine).length ? mine : state.mine;
+      state.others = others; localSave(); render();
+    }
+  }, err => { setStatus("Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."); });
+})();
+</script>

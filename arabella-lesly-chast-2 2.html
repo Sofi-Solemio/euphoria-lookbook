@@ -1,0 +1,386 @@
+<title>Лукбук — Arabella (Lesly) — часть 2</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,215px),1fr));gap:14px;margin-top:16px}
+.card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{min-width:0;overflow-wrap:anywhere;padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.back{text-decoration:none;color:var(--ink);font-size:19px;font-weight:700;padding-right:2px}
+.send{position:relative}
+.send summary{display:inline-block;cursor:pointer;list-style:none;white-space:nowrap}
+.send summary::-webkit-details-marker{display:none}
+.send[open] summary{background:var(--accent);border-color:var(--accent);color:#fff}
+.sendbox{position:absolute;right:0;top:calc(100% + 6px);z-index:30;display:flex;flex-wrap:wrap;gap:6px;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);width:max-content;max-width:min(92vw,420px)}
+#who{min-width:150px}
+dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* телефон: две крупные колонки вместо мелкой сетки, крупнее текст и кнопки */
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 12px 72px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  header.top{padding-block:6px 6px}
+  .brow{gap:4px 8px;flex-wrap:nowrap;align-items:center}
+  .prog{display:none}
+  .brow .sub:first-of-type{display:none}
+  h1{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+  #cnt{white-space:nowrap;font-size:12px}
+  .status{font-size:12px;margin-top:4px}
+  .tools{margin-top:6px}
+  .chip,select,input[type=search]{font-size:14px;padding:7px 12px}
+  input[type=search]{min-width:150px}
+  .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tools::-webkit-scrollbar{display:none}
+  .chip,select,input[type=search]{flex:0 0 auto}
+  h1{font-size:19px}
+  .type{font-size:14px}
+  .art{font-size:12.5px}
+  .fab{font-size:13px}
+  .price{font-size:15px}
+  .meta{padding:10px 12px 0;gap:4px}
+  .acts{padding:10px 12px 12px;gap:8px}
+  .heart,.star{font-size:23px;padding:4px 2px}
+  .stars{gap:3px}
+  .chip,select,input[type=search]{font-size:15px;padding:9px 14px}
+  #who{min-width:130px}
+  .viewer{width:96vw}
+  .nav{width:52px;height:68px;font-size:30px}
+}
+@media (max-width:430px){
+  /* на телефоне всегда две карточки в ряд */
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  h1{font-size:17px}
+  .wrap{padding:0 10px 72px}
+  .meta{padding:8px 9px 0}
+  .acts{padding:8px 9px 10px;gap:4px}
+  .heart,.star{font-size:20px;padding:3px 1px}
+  .stars{gap:0}
+  .fab{font-size:12px}
+  .type{font-size:13px}
+}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brow">
+    <a class="back" href="index.html" title="Все фабрики">←</a>
+    <h1>Arabella (Lesly) — часть 2</h1>
+    <div class="sub">83 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+    <details class="send">
+      <summary class="chip">Отправить</summary>
+      <div class="sendbox">
+        <input id="who" placeholder="ваше имя" autocomplete="name">
+        <button class="chip" id="send">Отправить Софье</button>
+        <button class="chip" id="copy">Скопировать</button>
+        <button class="chip" id="dl">Скачать файл</button>
+      </div>
+    </details>
+  </div>
+  <div class="status" id="status" hidden></div>
+</header>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
+</div>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
+<script>
+const MODELS = [{"id": "arabellale-8e4c68ae", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "95% Cotton 5%Spandex  · 260 gsm", "price": "", "web": "img/arabellale-8e4c68ae.jpg", "frames": 3, "description": "95% Cotton 5%Spandex 260 gsm AL-TEM0009"}, {"id": "arabellale-9247ef08", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "75% Nylon 25% Spandex  · 220 GSM", "price": "", "web": "img/arabellale-9247ef08.jpg", "frames": 3, "description": "RY 75% Nylon 25% Spandex 220 GSM Bra: EVD001 Shorts: EVD002"}, {"id": "arabellale-92a927f0", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "75%Nylon 25%Spandex  · 230gsm", "price": "", "web": "img/arabellale-92a927f0.jpg", "frames": 3, "description": "ADS-HB5927# 75%Nylon 25%Spandex 230gsm Bra: BR2060C1 Skort: SK8009C1"}, {"id": "arabellale-95ab5c22", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "53% Cotton 47% Polyester  · 298 GSM", "price": "", "web": "img/arabellale-95ab5c22.jpg", "frames": 2, "description": "Top: JSM MZ301510-1 53% Cotton 47% Polyester 298 GSM Skort: ADSHB5927 230 GSM 75% Nylon 25% Spandex Top: F1001 Skort: F3003"}, {"id": "arabellale-95f4e913", "factory": "Arabella (Lesly)", "type": "платье", "item_no": "", "fabric": "65%Recycled  · 163GSM", "price": "", "web": "img/arabellale-95f4e913.jpg", "frames": 3, "description": "Top:S617511C 163GSM 65%Recycled Polyester 35% Polyester Top: F1006 Skort: F3003 Bottom: ADSHB5927 230 GSM 75% Nylon 25% Spandex"}, {"id": "arabellale-9a1a40cf", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "93%Polyester 7%Spandex  · 180gsm", "price": "", "web": "img/arabellale-9a1a40cf.jpg", "frames": 2, "description": "JL-5520# 93%Polyester 7%Spandex 180gsm X200596"}, {"id": "arabellale-9a237bd5", "factory": "Arabella (Lesly)", "type": "леггинсы", "item_no": "", "fabric": "90% Polyester 10% Spandex ", "price": "", "web": "img/arabellale-9a237bd5.jpg", "frames": 3, "description": "90% Polyester 10% Spandex X190165"}, {"id": "arabellale-9e1887ad", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "93%Nylon 7%Spandex  · 285gsm", "price": "", "web": "img/arabellale-9e1887ad.jpg", "frames": 3, "description": "LXF-N2224(OF)#Rib: 93%Nylon 7%Spandex 285gsm Top:TP3016N2 Bottom:BW8012N2"}, {"id": "arabellale-9e367333", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "75%Nylon 25%Lycra  · 280gsm", "price": "", "web": "img/arabellale-9e367333.jpg", "frames": 3, "description": "Top:HP4022C5 Leggings:LG1040C5 LXF-SN2627L(M2)# 75%Nylon 25%Lycra 280gsm"}, {"id": "arabellale-9ea9295f", "factory": "Arabella (Lesly)", "type": "худи / кофта на молнии", "item_no": "", "fabric": "95% Cotton 5% Spandex  · 260 GSM", "price": "", "web": "img/arabellale-9ea9295f.jpg", "frames": 2, "description": "95% Cotton 5% Spandex 260 GSM SO1998"}, {"id": "arabellale-9ec47a0e", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "94%Cotton 6%Spandex  · 220gsm", "price": "", "web": "img/arabellale-9ec47a0e.jpg", "frames": 2, "description": "94%Cotton 6%Spandex 220gsm F23-23-002"}, {"id": "arabellale-9ee0d38a", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "90%Polyester 10%Spandex  · 140gsm", "price": "", "web": "img/arabellale-9ee0d38a.jpg", "frames": 2, "description": "90%Polyester 10%Spandex 140gsm RS2021M001"}, {"id": "arabellale-9fb788a3", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "90% Recycled  · 160gsm", "price": "", "web": "img/arabellale-9fb788a3.jpg", "frames": 3, "description": "90% Recycled Polyester 10%Spandex 160gsm X230479"}, {"id": "arabellale-a1355b15", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "94%Cotton 6%Spandex  · 220gsm", "price": "", "web": "img/arabellale-a1355b15.jpg", "frames": 2, "description": "94%Cotton 6%Spandex 220gsm F23-23-002"}, {"id": "arabellale-a14c3038", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "70% Nylon 30% Lycra ", "price": "", "web": "img/arabellale-a14c3038.jpg", "frames": 3, "description": "Top: 70% Nylon 30% Lycra Bottom:75% Nylon 25% Lycra Top: JK6015C4BLK Bottom: LG1040C5BLK"}, {"id": "arabellale-a1e9aeec", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "75%Nylon 25%Spandex  · 230gsm", "price": "", "web": "img/arabellale-a1e9aeec.jpg", "frames": 3, "description": "ADS-HB5927# 75%Nylon 25%Spandex 230gsm Bra: BR2037C1 Leggings:LG1025C1"}, {"id": "arabellale-a312d8e5", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "88% Nylon 12% Spandex ", "price": "", "web": "img/arabellale-a312d8e5.jpg", "frames": 3, "description": "LRHD13230347# 88% Nylon 12% Spandex 107100220"}, {"id": "arabellale-a5854990", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "100%Nylon ", "price": "", "web": "img/arabellale-a5854990.jpg", "frames": 3, "description": "228T# 100%Nylon Weave AW24-503"}, {"id": "arabellale-a6e02d02", "factory": "Arabella (Lesly)", "type": "худи / кофта на молнии", "item_no": "", "fabric": "94% Cotton 6% Spandex  · 220 GSM", "price": "", "web": "img/arabellale-a6e02d02.jpg", "frames": 2, "description": "FD-94% Cotton 6% Spandex 220 GSM AM24-115-BE"}, {"id": "arabellale-a6f13b0f", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "79%Polyester 14%Tencel 7%Spandex  · 200gsm", "price": "", "web": "img/arabellale-a6f13b0f.jpg", "frames": 3, "description": "FD# 79%Polyester 14%Tencel 7%Spandex 200gsm Top:VC-KN1159"}, {"id": "arabellale-a7d4fe6f", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/arabellale-a7d4fe6f.jpg", "frames": 3, "description": "Fitness & Yoga Collection"}, {"id": "arabellale-a82a6d0f", "factory": "Arabella (Lesly)", "type": "брюки", "item_no": "", "fabric": "93% Nylon 7% Spandex ", "price": "", "web": "img/arabellale-a82a6d0f.jpg", "frames": 3, "description": "Maxland 89117R2 140g 93% Nylon 7% Spandex F2009"}, {"id": "arabellale-ab1adfc3", "factory": "Arabella (Lesly)", "type": "брюки", "item_no": "", "fabric": "5% Cotton  · 340 GSM", "price": "", "web": "img/arabellale-ab1adfc3.jpg", "frames": 3, "description": "FD-CQM 71.5% Cotton 22.5% Polyester 6% Spandex 340 GSM AL21013"}, {"id": "arabellale-ab91a2ae", "factory": "Arabella (Lesly)", "type": "брюки", "item_no": "", "fabric": "80% Polyester 20% Spandex  · 145 GSM", "price": "", "web": "img/arabellale-ab91a2ae.jpg", "frames": 2, "description": "80% Polyester 20% Spandex 145 GSM 23121401"}, {"id": "arabellale-ad675500", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "92% Modal 8% Spandex ", "price": "", "web": "img/arabellale-ad675500.jpg", "frames": 2, "description": "92% Modal 8% Spandex Oversized Top"}, {"id": "arabellale-b17fddbe", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "7%Modal  · 200gsm", "price": "", "web": "img/arabellale-b17fddbe.jpg", "frames": 3, "description": "DL- 92.7%Modal 7.3%Spandex 200gsm Tank:AJ2111"}, {"id": "arabellale-b1a52a52", "factory": "Arabella (Lesly)", "type": "брюки", "item_no": "", "fabric": "5% Cotton  · 340 GSM", "price": "", "web": "img/arabellale-b1a52a52.jpg", "frames": 3, "description": "AL21001 FD-CQM 71.5% Cotton 22.5% Polyester 6% Spandex 340 GSM"}, {"id": "arabellale-b1c12e0a", "factory": "Arabella (Lesly)", "type": "ветровка / куртка", "item_no": "", "fabric": "100%Nylon  · 50gsm", "price": "", "web": "img/arabellale-b1c12e0a.jpg", "frames": 3, "description": "S1556#100%Nylon 50gsm F03"}, {"id": "arabellale-b26e876a", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "5% Cotton  · 340 GSM", "price": "", "web": "img/arabellale-b26e876a.jpg", "frames": 3, "description": "Crop Pullover Hoodie FD-CQM 71.5% Cotton 22.5% Polyester 6% Spandex 340 GSM"}, {"id": "arabellale-b3e0ad24", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "50%Nylon 40%Polyester 10%Spandex  · 180gsm", "price": "", "web": "img/arabellale-b3e0ad24.jpg", "frames": 2, "description": "JS2035# 50%Nylon 40%Polyester 10%Spandex 180gsm S2187"}, {"id": "arabellale-b4563e08", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "72% Nylon 28% Spandex ", "price": "", "web": "img/arabellale-b4563e08.jpg", "frames": 3, "description": "Bra: 011-P Leggings: ARA013-25 Bra: WHF3248X 72% Nylon 28% Spandex Leggings :LXF-SN2915L 70% Nylon 30% Lycra"}, {"id": "arabellale-b94ec02e", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "72%Nylon 28%Spandex  · 220 gsm", "price": "", "web": "img/arabellale-b94ec02e.jpg", "frames": 3, "description": "WHF3248X 72%Nylon 28%Spandex 220 gsm 152 cm 041-P-25"}, {"id": "arabellale-ba124514", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "50%Nylon 40%Polyester 10%Spandex  · 180gsm", "price": "", "web": "img/arabellale-ba124514.jpg", "frames": 3, "description": "JS2035# 50%Nylon 40%Polyester 10%Spandex 180gsm 103100161"}, {"id": "arabellale-bb1ba21f", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "74%Polyester 26%Spandex  · 265gsm", "price": "", "web": "img/arabellale-bb1ba21f.jpg", "frames": 3, "description": "DA-SPS1121# 74%Polyester 26%Spandex 265gsm Bra: BR4049C3 Leggings:LG8039N3"}, {"id": "arabellale-bcb650d0", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "100% Cotton  · 420gsm", "price": "", "web": "img/arabellale-bcb650d0.jpg", "frames": 3, "description": "Top:X210129 Bottom:X210131 FD-100% Cotton 420gsm"}, {"id": "arabellale-bda4b4a5", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/arabellale-bda4b4a5.jpg", "frames": 3, "description": "Fitness & Yoga Collection"}, {"id": "arabellale-c0a216a4", "factory": "Arabella (Lesly)", "type": "худи / кофта на молнии", "item_no": "", "fabric": "62% Polyester 38% Cotton ", "price": "", "web": "img/arabellale-c0a216a4.jpg", "frames": 2, "description": "62% Polyester 38% Cotton X230151"}, {"id": "arabellale-c13e1fc6", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "100% Wool 75% Wool 22% Nylon 3% Spandex ", "price": "", "web": "img/arabellale-c13e1fc6.jpg", "frames": 2, "description": "100% Wool 75% Wool 22% Nylon 3% Spandex 2025HBYM-W007"}, {"id": "arabellale-c167e420", "factory": "Arabella (Lesly)", "type": "брюки", "item_no": "", "fabric": "80%Polyester 20%Spandex  · 145 GSM", "price": "", "web": "img/arabellale-c167e420.jpg", "frames": 3, "description": "VC4697RR 80%Polyester 20%Spandex 145 GSM AM24-212-BE"}, {"id": "arabellale-c3128a5e", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "90% Recycled  · 160gsm", "price": "", "web": "img/arabellale-c3128a5e.jpg", "frames": 3, "description": "90% Recycled Polyester 10%Spandex 160gsm X240588"}, {"id": "arabellale-c4cb0b99", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "5% Cotton  · 340 GSM", "price": "", "web": "img/arabellale-c4cb0b99.jpg", "frames": 3, "description": "FD-CQM 71.5% Cotton 22.5% Polyester 6% Spandex 340 GSM X210125"}, {"id": "arabellale-c6e10bdb", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "70%Nylon 30%Spandex  · 300gsm", "price": "", "web": "img/arabellale-c6e10bdb.jpg", "frames": 3, "description": "DA-SNS1605 # 70%Nylon 30%Spandex 300gsm BD8008C1"}, {"id": "arabellale-c9666361", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "75% Rayon 19% Nylon 6% Spandex  · 300 GSM", "price": "", "web": "img/arabellale-c9666361.jpg", "frames": 3, "description": "75% Rayon 19% Nylon 6% Spandex 300 GSM AW25-638"}, {"id": "arabellale-cc33dcf4", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "95% Cotton 5% Spandex  · 180 GSM", "price": "", "web": "img/arabellale-cc33dcf4.jpg", "frames": 2, "description": "95% Cotton 5% Spandex 180 GSM TSL21004"}, {"id": "arabellale-cd8f796f", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "75% Lenzing ", "price": "", "web": "img/arabellale-cd8f796f.jpg", "frames": 3, "description": "75% Lenzing Lyocell 16% Wool 8%Spandex 75% Wool 25% Nylon 2025HBYM-W005"}, {"id": "arabellale-cdc1d096", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "77%Wool 23%Spandex 75% Wool 25% Nylon ", "price": "", "web": "img/arabellale-cdc1d096.jpg", "frames": 2, "description": "77%Wool 23%Spandex 75% Wool 25% Nylon 2025HBYM-W006"}, {"id": "arabellale-ce21d86f", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "90%Polyester 10%Spandex  · 120gsm", "price": "", "web": "img/arabellale-ce21d86f.jpg", "frames": 3, "description": "90%Polyester 10%Spandex 120gsm Reversible Shorts : VC-KN8043"}, {"id": "arabellale-cfe2fc58", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/arabellale-cfe2fc58.jpg", "frames": 2, "description": "Fitness & Yoga Collection"}, {"id": "arabellale-d85ff28c", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "72% Nylon 28% Spandex ", "price": "", "web": "img/arabellale-d85ff28c.jpg", "frames": 2, "description": "Bra: WHF3248X 72% Nylon 28% Spandex Bra: 049-P-V2 Shorts: 059-LI-6 Shorts:LXF-SN2915L 70% Nylon 30% Lycra"}, {"id": "arabellale-da5fc635", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "5% Cotton  · 340 GSM", "price": "", "web": "img/arabellale-da5fc635.jpg", "frames": 2, "description": "ARA-ALP-EL-01 FD-CQM 71.5% Cotton 22.5% Polyester 6% Spandex 340 GSM"}, {"id": "arabellale-dab5adfe", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "84%Nylon 16%Spandex  · 160gsm", "price": "", "web": "img/arabellale-dab5adfe.jpg", "frames": 3, "description": "84%Nylon 16%Spandex 160gsm AM24-11-BE"}, {"id": "arabellale-dc5f87b8", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "86%Polyester 14%Spandex  · 170gsm", "price": "", "web": "img/arabellale-dc5f87b8.jpg", "frames": 3, "description": "86%Polyester 14%Spandex 170gsm XRT0006"}, {"id": "arabellale-dd60a7e1", "factory": "Arabella (Lesly)", "type": "брюки", "item_no": "", "fabric": "72% Cotton 20% Polyester 8% Spandex  · 340 GSM", "price": "", "web": "img/arabellale-dd60a7e1.jpg", "frames": 2, "description": "72% Cotton 20% Polyester 8% Spandex 340 GSM RS2021W002"}, {"id": "arabellale-dffbc8e3", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "95%Cotton 5%Spandex  · 180gsm", "price": "", "web": "img/arabellale-dffbc8e3.jpg", "frames": 2, "description": "SYCF-1036# 95%Cotton 5%Spandex 180gsm X200147"}, {"id": "arabellale-e1c3f5b7", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "86%Nylon 14%Spandex  · 290gsm", "price": "", "web": "img/arabellale-e1c3f5b7.jpg", "frames": 3, "description": "XRT0004 86%Nylon 14%Spandex 290gsm"}, {"id": "arabellale-e1e7cc2a", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "90% Polyester 10% Spandex ", "price": "", "web": "img/arabellale-e1e7cc2a.jpg", "frames": 2, "description": "90% Polyester 10% Spandex X190546"}, {"id": "arabellale-e322fd1e", "factory": "Arabella (Lesly)", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/arabellale-e322fd1e.jpg", "frames": 3, "description": "Tennis & Golf Collection"}, {"id": "arabellale-e39ae627", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "100%Nylon  · 50gsm", "price": "", "web": "img/arabellale-e39ae627.jpg", "frames": 3, "description": "S1556#100%Nylon 50gsm F03"}, {"id": "arabellale-e3fe9ae0", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "45%Recycled  · 180gsm", "price": "", "web": "img/arabellale-e3fe9ae0.jpg", "frames": 2, "description": "45%Recycled Poly 45%Polyester 10%Spandex 180gsm 100040"}, {"id": "arabellale-e5e91c0d", "factory": "Arabella (Lesly)", "type": "худи / кофта на молнии", "item_no": "", "fabric": "38% Cotton 62% Polyester  · 320 gsm", "price": "", "web": "img/arabellale-e5e91c0d.jpg", "frames": 3, "description": "Top: X230151 Bottom: X230230 MZ300694 38% Cotton 62% Polyester 320 gsm"}, {"id": "arabellale-e5ef8a90", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "70% Nylon 30% Spandex ", "price": "", "web": "img/arabellale-e5ef8a90.jpg", "frames": 3, "description": "70% Nylon 30% Spandex 300G Top: TK4057C3 Bottom:LG1040C3"}, {"id": "arabellale-e6057633", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "94%Cotton 6%Spandex  · 220gsm", "price": "", "web": "img/arabellale-e6057633.jpg", "frames": 2, "description": "FD-94%Cotton 6%Spandex 220gsm AL22-TT01-1"}, {"id": "arabellale-e7b504ef", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "90% Polyester 10% Spandex ", "price": "", "web": "img/arabellale-e7b504ef.jpg", "frames": 2, "description": "90% Polyester 10% Spandex X200115"}, {"id": "arabellale-e7fc5ca2", "factory": "Arabella (Lesly)", "type": "брюки", "item_no": "", "fabric": "86%Nylon 14%Spandex  · 290gsm", "price": "", "web": "img/arabellale-e7fc5ca2.jpg", "frames": 3, "description": "86%Nylon 14%Spandex 290gsm XRT0043"}, {"id": "arabellale-e8d6cc62", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "85% Nylon 15% Spandex  · 130 GSM", "price": "", "web": "img/arabellale-e8d6cc62.jpg", "frames": 3, "description": "ZH 85% Nylon 15% Spandex 130 GSM/160 cm X250276"}, {"id": "arabellale-e9194d72", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "72% Nylon 28% Spandex ", "price": "", "web": "img/arabellale-e9194d72.jpg", "frames": 3, "description": "Bra: 011-P Leggings: ARA013-25 Bra: WHF3248X 72% Nylon 28% Spandex Leggings :LXF-SN2915L 70% Nylon 30% Lycra"}, {"id": "arabellale-e9ea71be", "factory": "Arabella (Lesly)", "type": "леггинсы", "item_no": "", "fabric": "90% Polyester 10% Spandex ", "price": "", "web": "img/arabellale-e9ea71be.jpg", "frames": 3, "description": "90% Polyester 10% Spandex X190165"}, {"id": "arabellale-ea363934", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "100% Cotton  · 430 GSM", "price": "", "web": "img/arabellale-ea363934.jpg", "frames": 3, "description": "100% Cotton 430 GSM ARA-1008"}, {"id": "arabellale-eb51f0b2", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "93%Polyester ", "price": "", "web": "img/arabellale-eb51f0b2.jpg", "frames": 3, "description": "SXL 120g 93%Polyester Woven Fabric Top: F2007 Shorts: F2008"}, {"id": "arabellale-ecd9e851", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "88% Polyester 12% Spandex  · 185 GSM", "price": "", "web": "img/arabellale-ecd9e851.jpg", "frames": 2, "description": "88% Polyester 12% Spandex 185 GSM S2187"}, {"id": "arabellale-ecfa4ea4", "factory": "Arabella (Lesly)", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "", "web": "img/arabellale-ecfa4ea4.jpg", "frames": 3, "description": "Performance Collection"}, {"id": "arabellale-f0144822", "factory": "Arabella (Lesly)", "type": "брюки", "item_no": "", "fabric": "38% Cotton 62% Polyester ", "price": "", "web": "img/arabellale-f0144822.jpg", "frames": 3, "description": "38% Cotton 62% Polyester X230230"}, {"id": "arabellale-f0208018", "factory": "Arabella (Lesly)", "type": "брюки", "item_no": "", "fabric": "100%Cotton  · 420gsm", "price": "", "web": "img/arabellale-f0208018.jpg", "frames": 3, "description": "X210125 FD-100%Cotton 420gsm"}, {"id": "arabellale-f093b87d", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "94%Polyester 6%Spandex  · 225gsm", "price": "", "web": "img/arabellale-f093b87d.jpg", "frames": 3, "description": "DA-N0989# 94%Polyester 6%Spandex 225gsm Top:HP4026S1 Bottom:BW1038S1"}, {"id": "arabellale-f1592bd3", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "95% Cotton 5% Spandex ", "price": "", "web": "img/arabellale-f1592bd3.jpg", "frames": 2, "description": "95% Cotton 5% Spandex A2302013"}, {"id": "arabellale-f6a1c385", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "51% Nylon 38% Recycled ", "price": "", "web": "img/arabellale-f6a1c385.jpg", "frames": 3, "description": "51% Nylon 38% Recycled polyester 11% Spandex Bodysuit: 005-S-4"}, {"id": "arabellale-f87ef5db", "factory": "Arabella (Lesly)", "type": "футболка / топ", "item_no": "", "fabric": "50%Nylon 40%Polyester 10%Spandex  · 180gsm", "price": "", "web": "img/arabellale-f87ef5db.jpg", "frames": 3, "description": "JS2035# 50%Nylon 40%Polyester 10%Spandex 180gsm 104100158"}, {"id": "arabellale-f8d31881", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "5%Cotton · 330GSM", "price": "", "web": "img/arabellale-f8d31881.jpg", "frames": 3, "description": "71.5%Cotton21.5%Polyester6%Spandex 330GSM AL21015"}, {"id": "arabellale-f9c32a2e", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "90% Polyester 10% Spandex ", "price": "", "web": "img/arabellale-f9c32a2e.jpg", "frames": 3, "description": "90% Polyester 10% Spandex CRX-SHORTS"}, {"id": "arabellale-fc138c96", "factory": "Arabella (Lesly)", "type": "ветровка / куртка", "item_no": "", "fabric": "100%Nylon ", "price": "", "web": "img/arabellale-fc138c96.jpg", "frames": 3, "description": "SZF 720# 100%Nylon EXW-029"}, {"id": "arabellale-fcdaef7d", "factory": "Arabella (Lesly)", "type": "шорты", "item_no": "", "fabric": "100% Cotton  · 205 gsm", "price": "", "web": "img/arabellale-fcdaef7d.jpg", "frames": 3, "description": "Tee:100% Cotton 205 gsm Shorts: 86%Poly 14% SP 124 gsm A2401005 & A2401006"}, {"id": "arabellale-ffaef917", "factory": "Arabella (Lesly)", "type": "лонгслив", "item_no": "", "fabric": "90% Polyester 10% Spandex ", "price": "", "web": "img/arabellale-ffaef917.jpg", "frames": 2, "description": "90% Polyester 10% Spandex X190546"}, {"id": "arabellale-ffc95261", "factory": "Arabella (Lesly)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/arabellale-ffc95261.jpg", "frames": 3, "description": "Polyester/Spandex (Support Customization) X190165 X200115 X190546"}];
+const PAGE_ID = "arabella-lesly-chast-2";
+const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
+let db=null, uid=null;
+
+function setStatus(text){
+  const el = document.getElementById("status");
+  el.textContent = text || "";
+  el.hidden = !text;
+}
+const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
+const key = id => id+"__"+(uid||"local");
+
+function localLoad(){ try{ return JSON.parse(localStorage.getItem("votes:"+PAGE_ID)||"{}"); }catch(e){ return {}; } }
+function localSave(){ try{ localStorage.setItem("votes:"+PAGE_ID, JSON.stringify(state.mine)); }catch(e){} }
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.textContent = "";
+  const q = state.q.trim().toLowerCase();
+  let shown = 0;
+  for(const m of MODELS){
+    const v = state.mine[m.id] || {};
+    if(state.filter==="new" && (v.like || v.stars)) continue;
+    if(state.filter==="like" && !v.like) continue;
+    if(state.type && m.type !== state.type) continue;
+    if(q && !((m.item_no+" "+m.fabric+" "+m.description).toLowerCase().includes(q))) continue;
+    grid.appendChild(card(m, v)); shown++;
+  }
+  document.getElementById("empty").hidden = shown>0;
+  const rated = MODELS.filter(m=>{const v=state.mine[m.id]||{}; return v.like||v.stars;}).length;
+  document.getElementById("bar").style.width = (100*rated/MODELS.length).toFixed(1)+"%";
+  document.getElementById("cnt").textContent = `оценено ${rated} из ${MODELS.length}`;
+}
+
+function card(m, v){
+  const c = el("div","card"+(v.like?" liked":""));
+  const ph = el("div","ph"); ph.tabIndex = 0;
+  const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
+  img.src = m.web; img.style.width = (m.frames*100)+"%";
+  const dots = el("div","dots");
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
+  const meta = el("div","meta");
+  meta.appendChild(el("div","type", m.type));
+  if(m.item_no) meta.appendChild(el("div","art", m.item_no));
+  if(m.fabric) meta.appendChild(el("div","fab", m.fabric));
+  if(m.price) meta.appendChild(el("div","price", m.price));
+  const acts = el("div","acts");
+  const heart = el("button","heart"+(v.like?" on":""),"♥");
+  heart.title = "Нравится"; heart.setAttribute("aria-pressed", v.like?"true":"false");
+  heart.onclick = ()=> save(m, {like: !(state.mine[m.id]||{}).like});
+  acts.appendChild(heart);
+  const others = state.others[m.id]||0;
+  if(others) acts.appendChild(el("span","others","+"+others));
+  const stars = el("div","stars");
+  for(let i=1;i<=5;i++){
+    const s = el("button","star"+((v.stars||0)>=i?" on":""),"★");
+    s.title = i+" из 5";
+    s.onclick = ()=> save(m, {stars: (state.mine[m.id]||{}).stars===i ? 0 : i});
+    stars.appendChild(s);
+  }
+  acts.appendChild(stars);
+  c.append(ph, meta, acts);
+  return c;
+}
+
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
+function openBig(m){
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
+}
+document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("dlg").addEventListener("click", e => { if(e.target.id === "dlg") document.getElementById("dlg").close(); });
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+async function save(m, patch){
+  const cur = state.mine[m.id] || {like:false, stars:0};
+  const next = Object.assign({}, cur, patch);
+  state.mine[m.id] = next; localSave(); render();
+  if(!db) return;
+  try{
+    await db.doc("votes/"+key(m.id)).set({
+      model:m.id, page:PAGE_ID, factory:m.factory, type:m.type, item_no:m.item_no||"",
+      like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
+    });
+  }catch(e){
+    setStatus("Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе"));
+  }
+}
+
+function picked(){
+  const out = [];
+  for(const m of MODELS){
+    const v = state.mine[m.id]; if(!v || (!v.like && !v.stars)) continue;
+    out.push({id:m.id, factory:m.factory, type:m.type, item:m.item_no||"", like:!!v.like, stars:v.stars||0});
+  }
+  return {page:PAGE_ID, who:(document.getElementById("who").value||"").trim(), at:new Date().toISOString(), picks:out};
+}
+document.getElementById("who").value = localStorage.getItem("who")||"";
+document.getElementById("who").oninput = e => { try{ localStorage.setItem("who", e.target.value); }catch(err){} };
+document.getElementById("copy").onclick = async ()=>{
+  const data = picked();
+  try{ await navigator.clipboard.writeText(JSON.stringify(data));
+       setStatus(`Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`); }
+  catch(e){ setStatus("Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."); }
+};
+document.getElementById("dl").onclick = ()=>{
+  const data = picked();
+  const blob = new Blob([JSON.stringify(data, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `выбор-arabella-lesly-chast-2-${data.who||"без-имени"}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setStatus(`Файл сохранён: ${data.picks.length} моделей.`);
+};
+const SEND_URL = "https://formsubmit.co/ajax/privery.prod@euphoria.fit";
+document.getElementById("send").onclick = async () => {
+  const data = picked();
+  if(!data.picks.length){ setStatus("Пока ничего не отмечено — поставьте сердце или звёзды."); return; }
+  const body = (data.who ? data.who + "\n\n" : "") +
+    data.picks.map(p=>`${p.factory} · ${p.type}${p.item ? " " + p.item : ""} — ${p.like ? "нравится" : ""}${p.stars ? " " + p.stars + "/5" : ""}`).join("\n");
+  const lines = data.picks.map(p =>
+    `- ${p.id} · ${p.factory} · ${p.type}${p.item ? " · " + p.item : ""}${p.like ? " · нравится" : ""}${p.stars ? " · " + p.stars + "/5" : ""}`);
+  const text = `Страница: arabella-lesly-chast-2\nКто отмечал: ${data.who || "не указано"}\nОтмечено моделей: ${data.picks.length}\n\n` + lines.join("\n");
+  const btn = document.getElementById("send");
+  btn.disabled = true;
+  setStatus("Отправляю…");
+  try{
+    const res = await fetch(SEND_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Accept": "application/json"},
+      body: JSON.stringify({
+        _subject: `Выбор моделей: ${data.who || "без имени"} — arabella-lesly-chast-2`,
+        _template: "table",
+        Кто: data.who || "не указано",
+        Страница: PAGE_ID,
+        Моделей: String(data.picks.length),
+        Выбор: text
+      })
+    });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    setStatus(`Отправлено Софье: ${data.picks.length} моделей. Спасибо!`);
+    try{ localStorage.setItem("sent:" + PAGE_ID, new Date().toISOString()); }catch(e){}
+  }catch(e){
+    try{
+      await navigator.clipboard.writeText(text);
+      setStatus("Не удалось отправить (нет сети?) — выбор скопирован в буфер, пришлите его Софье сообщением.");
+    }catch(err){
+      setStatus("Не удалось отправить — нажмите «Скачать файл выбора» и пришлите файл.");
+    }
+  }finally{ btn.disabled = false; }
+};
+
+document.getElementById("f-all").onclick = ()=> setFilter("all");
+document.getElementById("f-new").onclick = ()=> setFilter("new");
+document.getElementById("f-like").onclick = ()=> setFilter("like");
+function setFilter(f){
+  state.filter=f;
+  for(const [id,val] of [["f-all","all"],["f-new","new"],["f-like","like"]])
+    document.getElementById(id).setAttribute("aria-pressed", String(val===f));
+  render();
+}
+const types = [...new Set(MODELS.map(m=>m.type))].sort();
+const sel = document.getElementById("f-type");
+for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
+sel.onchange = e => { state.type = e.target.value; render(); };
+document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+state.mine = localLoad();
+render();
+
+(async ()=>{
+  const user = await window.claude?.use?.("user");
+  uid = user ? await user.id() : null;
+  db = await window.claude?.use?.("db");
+  if(!db){ setStatus("Общая база недоступна — оценки сохраняются только в этом браузере."); return; }
+  setStatus("Оценки сохраняются автоматически и видны коллегам.");
+  db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
+    const mine={}, others={};
+    for(const d of snap.docs){
+      const v = d.data()||{};
+      if(uid && v.by===uid){ mine[v.model]={like:!!v.like, stars:v.stars||0}; }
+      else if(v.like){ others[v.model]=(others[v.model]||0)+1; }
+    }
+    if(Object.keys(mine).length || Object.keys(others).length){
+      state.mine = Object.keys(mine).length ? mine : state.mine;
+      state.others = others; localSave(); render();
+    }
+  }, err => { setStatus("Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."); });
+})();
+</script>

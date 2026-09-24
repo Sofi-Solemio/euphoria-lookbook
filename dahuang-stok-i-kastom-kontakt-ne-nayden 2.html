@@ -1,0 +1,386 @@
+<title>Лукбук — Dahuang 达煌 — сток и кастом (контакт не найден)</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,215px),1fr));gap:14px;margin-top:16px}
+.card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{min-width:0;overflow-wrap:anywhere;padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.back{text-decoration:none;color:var(--ink);font-size:19px;font-weight:700;padding-right:2px}
+.send{position:relative}
+.send summary{display:inline-block;cursor:pointer;list-style:none;white-space:nowrap}
+.send summary::-webkit-details-marker{display:none}
+.send[open] summary{background:var(--accent);border-color:var(--accent);color:#fff}
+.sendbox{position:absolute;right:0;top:calc(100% + 6px);z-index:30;display:flex;flex-wrap:wrap;gap:6px;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);width:max-content;max-width:min(92vw,420px)}
+#who{min-width:150px}
+dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* телефон: две крупные колонки вместо мелкой сетки, крупнее текст и кнопки */
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 12px 72px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  header.top{padding-block:6px 6px}
+  .brow{gap:4px 8px;flex-wrap:nowrap;align-items:center}
+  .prog{display:none}
+  .brow .sub:first-of-type{display:none}
+  h1{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+  #cnt{white-space:nowrap;font-size:12px}
+  .status{font-size:12px;margin-top:4px}
+  .tools{margin-top:6px}
+  .chip,select,input[type=search]{font-size:14px;padding:7px 12px}
+  input[type=search]{min-width:150px}
+  .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tools::-webkit-scrollbar{display:none}
+  .chip,select,input[type=search]{flex:0 0 auto}
+  h1{font-size:19px}
+  .type{font-size:14px}
+  .art{font-size:12.5px}
+  .fab{font-size:13px}
+  .price{font-size:15px}
+  .meta{padding:10px 12px 0;gap:4px}
+  .acts{padding:10px 12px 12px;gap:8px}
+  .heart,.star{font-size:23px;padding:4px 2px}
+  .stars{gap:3px}
+  .chip,select,input[type=search]{font-size:15px;padding:9px 14px}
+  #who{min-width:130px}
+  .viewer{width:96vw}
+  .nav{width:52px;height:68px;font-size:30px}
+}
+@media (max-width:430px){
+  /* на телефоне всегда две карточки в ряд */
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  h1{font-size:17px}
+  .wrap{padding:0 10px 72px}
+  .meta{padding:8px 9px 0}
+  .acts{padding:8px 9px 10px;gap:4px}
+  .heart,.star{font-size:20px;padding:3px 1px}
+  .stars{gap:0}
+  .fab{font-size:12px}
+  .type{font-size:13px}
+}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brow">
+    <a class="back" href="index.html" title="Все фабрики">←</a>
+    <h1>Dahuang 达煌 — сток и кастом (контакт не найден)</h1>
+    <div class="sub">35 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+    <details class="send">
+      <summary class="chip">Отправить</summary>
+      <div class="sendbox">
+        <input id="who" placeholder="ваше имя" autocomplete="name">
+        <button class="chip" id="send">Отправить Софье</button>
+        <button class="chip" id="copy">Скопировать</button>
+        <button class="chip" id="dl">Скачать файл</button>
+      </div>
+    </details>
+  </div>
+  <div class="status" id="status" hidden></div>
+</header>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
+</div>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
+<script>
+const MODELS = [{"id": "dahuang-11144809", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-11144809.jpg", "frames": 2, "description": "6 | MTSDK01 | 蜜桃速干短裤01款 | S M L XL XXL | (里层)94%聚酯纤维 6%氨纶 (外层)94.5%聚酯纤维5.5%氨纶 | (里层)94%聚酯纤维 6%氨纶 (外层)94.5%聚酯纤维5.5%氨纶 (внутренний слой) 94% полиэстер, 6% эластан (внешний слой) 94,5% полиэстер, 5,5% эластан | 110g | 21.6 | 23.76 | 8 | JYMW146 | 蜜桃绒立领口袋外套 | S M L XL XXL | 外层:聚酯纤维82.5%氨纶17.5% 里层：聚酯纤维94"}, {"id": "dahuang-20f55cbf", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-20f55cbf.jpg", "frames": 2, "description": "JYMB117 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 24 | 26.4 | JYJB027 | 4040双面锦纶单加 80%锦纶，20%氨纶 | 4040 Двусторонний нейлон моно с добавкой 80% нейлон, 20% эластан | 黑色、白色、乌梅紫、透明黄 | Чёрный, белый, тёмно-сливовый, прозрачно-жёлтый | 29.4 | 32.34 | JY"}, {"id": "dahuang-292d1f55", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-292d1f55.jpg", "frames": 2, "description": "JYWA051 | 75D四面弹 94%聚酯纤维，6%氨纶 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | 75D четырёхсторонняя растягивающаяся ткань 94% полиэстер, 6% эластан, Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 星耀黑，白色，蒸馏咖啡，灰湖蓝，酱茄紫 | Звёздно-чёрный, белый, дистиллированный кофе, серо-голубой, тёмно-фиолетовый | 28.8 |"}, {"id": "dahuang-2fff6ade", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "шорты", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-2fff6ade.jpg", "frames": 2, "description": "JYMN263 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 星耀黑、可可色、藕粉、象牙白 | Звёздно-чёрный, какао-коричневый, лотосово-розовый, слоновая кость | 28.2 | 31.02 | JYWA051 | 75D四面弹 94%聚酯纤维，6%氨纶 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | 75D четырёхсторонняя растягивающаяся ткан"}, {"id": "dahuang-30bc1967", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-30bc1967.jpg", "frames": 2, "description": "2 | JYMW060 | 蜜桃线感外套 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 32.4 | 35.64 | 3 | JYMW117 | 蜜桃条纹拼接外套 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 26.4 | 29.04 | 4 | JYMW040 | 蜜桃瑜伽短袖外套 | S M L XL XXL | "}, {"id": "dahuang-333c3a96", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "юбка-шорты", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-333c3a96.jpg", "frames": 2, "description": "OMJT003 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 黑色，咖啡色，牛仔兰、太阳灰 | Чёрный, кофейный, джинсово-синий, солнечно-серый | 40.2 | 44.22 | JYMQ101 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 网纱（文胸里面） 94%聚酯纤维，6%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5%"}, {"id": "dahuang-3887da20", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-3887da20.jpg", "frames": 2, "description": "款号 | 图片 | 面料及成分 | 俄文面料及成分 | 配色 | 俄文配色 | 配色图 | 参考价格（税前） Ориентировочная цена (без НДС) | 参考价格（含税10%） Ориентировочная цена (с НДС 10%) | JYJN059 | 4040双面锦纶单加 80%锦纶，20%氨纶 | 4040 Двусторонний нейлон моно с добавкой 80% нейлон, 20% эластан | 黑色、柔纱粉、透明黄、太阳灰 | Чёрный, нежно-розовый, прозрачно-жёлтый, солне"}, {"id": "dahuang-442b6915", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-442b6915.jpg", "frames": 2, "description": "JYJB027 | 4040双面锦纶单加 80%锦纶，20%氨纶 | 4040 Двусторонний нейлон моно с добавкой 80% нейлон, 20% эластан | 黑色、白色、乌梅紫、透明黄 | Чёрный, белый, тёмно-сливовый, прозрачно-жёлтый | 29.4 | 32.34 | JYMN263 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 星耀黑、可可色、藕粉、象牙白"}, {"id": "dahuang-51d60971", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-51d60971.jpg", "frames": 2, "description": "JYMN245 | 面料：82.5%聚酯纤维，17.5%氨纶 网纱：94%聚酯纤维，6%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан, Сетка: 94% полиэстер, 6% эластан | 星耀黑、浅霜蓝、象牙白、粉钻色 | Звёздно-чёрный, светло-морозно-голубой, слоновая кость, розово-бриллиантовый | 34.8 | 38.28 | JYMN288 | 面料：94%聚酯纤维，6%氨纶 里层：94.5%聚酯纤维，5.5%氨纶 | Ткань: 94% полиэс"}, {"id": "dahuang-5aa31875", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-5aa31875.jpg", "frames": 2, "description": "4 | JYMW040 | 蜜桃瑜伽短袖外套 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 23.4 | 25.74 | 5 | JYMW041 | 蜜桃无袖外套 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 21 | 23.1 | 6 | MTSDK01 | 蜜桃速干短裤01款 | S M L XL XXL | (里"}, {"id": "dahuang-5cf2224d", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-5cf2224d.jpg", "frames": 2, "description": "15 | JYMW083 | 蜜桃人鱼线外套 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 28.8 | 31.68 | 16 | MTWT01 | 蜜桃瑜伽外套 | S M L XL XXL XXXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 25.2 | 27.72 | 17 | MTWXPK01 | 蜜桃排扣文胸01 | S M L XL"}, {"id": "dahuang-5f073cbd", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-5f073cbd.jpg", "frames": 2, "description": "OMMK081 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 黑底白点 | Чёрный фон с белыми точками | 35.4 | 38.94 | JYMN282 | 面料：82.5%聚酯纤维，17.5%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан | 冰融蓝拼白 可可色拼白 海盐灰拼白 香鲸蓝拼白 星耀黑拼白 | Ледяно-голубой комбинированный с белым, "}, {"id": "dahuang-5f8adfe4", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-5f8adfe4.jpg", "frames": 2, "description": "序号 | 货号 Номер изделия | 品名 Название товара (одежда) | 尺码 | 图片 | 齐色图 Цветовая гамма | 成分 | состав одежды | 克重/грамм | 参考价格（税前） Ориентировочная цена (без НДС) | 参考价格（含税10%） Ориентировочная цена (с НДС 10%) | 1 | MTWTP03 | 蜜桃拼接外套03 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 1"}, {"id": "dahuang-61c564f2", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-61c564f2.jpg", "frames": 2, "description": "JYMC210 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 象牙白、白藤紫、云水蓝 星耀黑、可可色 | Слоновая кость, бело-фиолетовый, облачно-голубой, звёздно-чёрный, какао-коричневый | 33 | 36.3 | JYMK285 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% по"}, {"id": "dahuang-621550c1", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "шорты", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-621550c1.jpg", "frames": 2, "description": "5 | JYMW041 | 蜜桃无袖外套 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 21 | 23.1 | 6 | MTSDK01 | 蜜桃速干短裤01款 | S M L XL XXL | (里层)94%聚酯纤维 6%氨纶 (外层)94.5%聚酯纤维5.5%氨纶 | (里层)94%聚酯纤维 6%氨纶 (外层)94.5%聚酯纤维5.5%氨纶 (внутренний слой) 94% полиэстер, 6% эластан (внешний слой"}, {"id": "dahuang-64bd7b13", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "лонгслив", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-64bd7b13.jpg", "frames": 2, "description": "OMMK073 | 面料：82.5%聚酯纤维，17.5%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан | 28.8 | 31.68 | JYMW263 | 星耀黑（白色波点） 菱花白（黑色波点） 蒸馏咖啡（黑色波点） 海岩灰（黑色波点） 柔雾粉（黑色波点） | Звёздно-чёрный (белые горошины), ромбовидно-белый (чёрные горошины), дистиллированный кофе (чёрные горошины), морской скальный серый (чёрные горошины"}, {"id": "dahuang-6f9c77f0", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-6f9c77f0.jpg", "frames": 2, "description": "JYMA161 | 4040双面锦纶单加 80％锦纶，20％氨纶 | 4040 Двусторонний нейлон моно с добавкой 80% нейлон, 20% эластан | 21.6 | 23.76 | OMJT003 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 黑色，咖啡色，牛仔兰、太阳灰 | Чёрный, кофейный, джинсово-синий, солнечно-серый | 40.2 | 44.22"}, {"id": "dahuang-70873c62", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "лонгслив", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-70873c62.jpg", "frames": 2, "description": "8 | JYMW146 | 蜜桃绒立领口袋外套 | S M L XL XXL | 外层:聚酯纤维82.5%氨纶17.5% 里层：聚酯纤维94%氨纶6% | 外层:聚酯纤维82.5%氨纶17.5% 里层：聚酯纤维94%氨纶6% внешний слой: 82,5% полиэстер, 17,5% эластан внутренний слой: 94% полиэстер, 6% эластан | 450g | 45.6 | 50.16 | 9 | JYWC024 | 宽松背网纱长袖 | S M L XL XXL | 聚酯纤维88%氨纶12% | 聚酯纤维88%氨纶12% 88% поли"}, {"id": "dahuang-7ae43546", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-7ae43546.jpg", "frames": 2, "description": "JYWQ015 | 面料：82.5%聚酯纤维，17.5%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан | 黑色、白色、蒸馏咖啡、粉钻色 | Чёрный, белый, дистиллированный кофе, розово-бриллиантовый | 23.4 | 25.74 | JYMB182 | 香鲸蓝撞冰河蓝 浆果紫撞昌荣紫 | Китовый синий в сочетании с ледяно-голубым, ягодно-фиолетовый в сочетании с пурпурно-фиолетовым | 21 | 23."}, {"id": "dahuang-7fd62de3", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "лонгслив", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-7fd62de3.jpg", "frames": 2, "description": "JYMK285 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 星耀黑、卡其色、菱花白 枪灰、蒸馏咖啡 | Звёздно-чёрный, хаки, ромбовидно-белый, оружейно-серый, дистиллированный кофе | 31.8 | 34.98 | JYMN245 | 面料：82.5%聚酯纤维，17.5%氨纶 网纱：94%聚酯纤维，6%氨纶 | Ткань: 82,5% полиэстер, 17,5% э"}, {"id": "dahuang-811ef9d3", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-811ef9d3.jpg", "frames": 2, "description": "JYMA154 | 面料：82.5%聚酯纤维，17.5%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан | 17.4 | 19.14 | OMMB021 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 胸垫网纱 94%聚酯纤维，6%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан, Сетка для бюстгальтера 94% полиэстер, 6% эластан | 星耀黑,白色,蒸馏咖啡,浆果紫,阳光黄 | Звёздно-чёрный, бел"}, {"id": "dahuang-957b5951", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-957b5951.jpg", "frames": 2, "description": "14 | JYMN180 | 蜜桃线形文胸 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 22.2 | 24.42 | 15 | JYMW083 | 蜜桃人鱼线外套 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 28.8 | 31.68 | 16 | MTWT01 | 蜜桃瑜伽外套 | S M L XL XXL XXX"}, {"id": "dahuang-991979f0", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-991979f0.jpg", "frames": 2, "description": "JYMQ135 | TUTU条面料 82.5%聚酯纤维，17.5%氨纶 | Ткань TUTU полосы 82,5% полиэстер, 17,5% эластан | 30.6 | 33.66 | OMTQ001 | 面料：82.5%聚酯纤维，17.5%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан | 星耀黑、宝蓝、蒸馏咖啡 | Звёздно-чёрный, королевский синий, дистиллированный кофе | 42 | 46.2 | JYMB169 | 面料：82.5%聚酯纤维，17.5%氨纶 里层：94.5"}, {"id": "dahuang-a36f1592", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-a36f1592.jpg", "frames": 2, "description": "1 | MTWTP03 | 蜜桃拼接外套03 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 45.6 | 50.16 | 2 | JYMW060 | 蜜桃线感外套 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 32.4 | 35.64 | 3 | JYMW117 | 蜜桃条纹拼接外套 | S M L XL XXL | "}, {"id": "dahuang-b4c55305", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-b4c55305.jpg", "frames": 2, "description": "OMTQ001 | 面料：82.5%聚酯纤维，17.5%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан | 星耀黑、宝蓝、蒸馏咖啡 | Звёздно-чёрный, королевский синий, дистиллированный кофе | 42 | 46.2 | JYMB169 | 面料：82.5%聚酯纤维，17.5%氨纶 里层：94.5%聚酯纤维，5.5%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан, Внутренний слой: 94,5% полиэстер, 5,5% эластан | 柔"}, {"id": "dahuang-b85a7023", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "юбка-шорты", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-b85a7023.jpg", "frames": 2, "description": "JYMK315 | 面料：82.5%聚酯纤维，17.5%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан | 柔雾粉 云水蓝 白藤紫 卡其色 | Мягкий туманно-розовый, облачно-голубой, бело-фиолетовый, хаки | 27 | 29.7 | JYMQ143 | 正面: 82.5%聚酯纤维,17.5%氨纶 反面: 94.5%聚酯纤维,5.5%氨纶 | Лицевая сторона: 82,5% полиэстер, 17,5% эластан, Изнаночная сторона: 94,5% по"}, {"id": "dahuang-ba338cfa", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "лонгслив", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-ba338cfa.jpg", "frames": 2, "description": "OMMA020 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 涤氨网纱 94%聚酯纤维，6%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан, Полиэстер-эластановая сетка 94% полиэстер, 6% эластан | 16.2 | 17.82 | JYMC210 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 象牙白、白藤"}, {"id": "dahuang-ba86feb7", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-ba86feb7.jpg", "frames": 2, "description": "OMMN036 | 面料：82.5%聚酯纤维，17.5%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан | 粉钻色，玫瑰红，菱花白 星耀黑、海岩灰 | Розово-бриллиантовый, розово-красный, ромбовидно-белый, звёздно-чёрный, морской скальный серый | 25.8 | 28.38 | JYMB165 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 染色竹炭 94.5%聚酯纤维5.5%氨纶 | Высокоэластичный полиэстер-эластан 82"}, {"id": "dahuang-c14fe443", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-c14fe443.jpg", "frames": 2, "description": "JYMQ142 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 网纱（文胸里面） 94%聚酯纤维，6%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан, Сетка (внутри бюстгальтера) 94% полиэстер, 6% эластан | 24.6 | 27.06 | OMMN062 | 面料：82.5%聚酯纤维，17.5%氨纶 | Ткань: 82,5% полиэстер, 17,5% эластан | 星耀黑（配色白色） 固色枪灰（配色白色） 固色蒸馏咖啡（配色白色"}, {"id": "dahuang-ca550fde", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "юбка-шорты", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-ca550fde.jpg", "frames": 2, "description": "12 | JYMK148 | 蜜桃线形喇叭裤 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 27 | 29.7 | 13 | JYMK139 | 蜜桃抽皱喇叭裙裤 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 31.92 | 35.11 | 14 | JYMN180 | 蜜桃线形文胸 | S M L XL XXL | "}, {"id": "dahuang-d3a44fc9", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-d3a44fc9.jpg", "frames": 2, "description": "JYJN059 | 4040双面锦纶单加 80%锦纶，20%氨纶 | 4040 Двусторонний нейлон моно с добавкой 80% нейлон, 20% эластан | 黑色、柔纱粉、透明黄、太阳灰 | Чёрный, нежно-розовый, прозрачно-жёлтый, солнечно-серый | 28.2 | 31.02 | JYMA134 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан | 星耀黑+（"}, {"id": "dahuang-ddefabde", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-ddefabde.jpg", "frames": 2, "description": "3 | JYMW117 | 蜜桃条纹拼接外套 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 26.4 | 29.04 | 4 | JYMW040 | 蜜桃瑜伽短袖外套 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 23.4 | 25.74 | 5 | JYMW041 | 蜜桃无袖外套 | S M L XL XXL | "}, {"id": "dahuang-e64bd07d", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-e64bd07d.jpg", "frames": 2, "description": "JYMQ143 | 正面: 82.5%聚酯纤维,17.5%氨纶 反面: 94.5%聚酯纤维,5.5%氨纶 | Лицевая сторона: 82,5% полиэстер, 17,5% эластан, Изнаночная сторона: 94,5% полиэстер, 5,5% эластан | 星耀黑、云水蓝、白色、灰樱粉 | Звёздно-чёрный, облачно-голубой, белый, серо-вишнёво-розовый | 26.4 | 29.04 | OMMK081 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 | Высокоэластичн"}, {"id": "dahuang-edfc2a69", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-edfc2a69.jpg", "frames": 2, "description": "13 | JYMK139 | 蜜桃抽皱喇叭裙裤 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 31.92 | 35.11 | 14 | JYMN180 | 蜜桃线形文胸 | S M L XL XXL | 聚酯纤维82.5%氨纶17.5% | 聚酯纤维82.5%氨纶17.5% 82,5% полиэстер, 17,5% эластан | 220g | 22.2 | 24.42 | 15 | JYMW083 | 蜜桃人鱼线外套 | S M L XL XXL"}, {"id": "dahuang-fc10d512", "factory": "Dahuang 达煌 — сток и кастом (контакт не найден)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/dahuang-fc10d512.jpg", "frames": 2, "description": "JYMQ101 | 涤氨高弹 82.5%聚酯纤维，17.5%氨纶 网纱（文胸里面） 94%聚酯纤维，6%氨纶 | Высокоэластичный полиэстер-эластан 82,5% полиэстер, 17,5% эластан, Сетка (внутри бюстгальтера) 94% полиэстер, 6% эластан | 白色、星耀黑、可可色、贝壳粉 | Белый, звёздно-чёрный, какао-коричневый, ракушечно-розовый | 24.6 | 27.06 | OMMN036 | 面料：82.5%聚酯纤维，17.5"}];
+const PAGE_ID = "dahuang-stok-i-kastom-kontakt-ne-nayden";
+const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
+let db=null, uid=null;
+
+function setStatus(text){
+  const el = document.getElementById("status");
+  el.textContent = text || "";
+  el.hidden = !text;
+}
+const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
+const key = id => id+"__"+(uid||"local");
+
+function localLoad(){ try{ return JSON.parse(localStorage.getItem("votes:"+PAGE_ID)||"{}"); }catch(e){ return {}; } }
+function localSave(){ try{ localStorage.setItem("votes:"+PAGE_ID, JSON.stringify(state.mine)); }catch(e){} }
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.textContent = "";
+  const q = state.q.trim().toLowerCase();
+  let shown = 0;
+  for(const m of MODELS){
+    const v = state.mine[m.id] || {};
+    if(state.filter==="new" && (v.like || v.stars)) continue;
+    if(state.filter==="like" && !v.like) continue;
+    if(state.type && m.type !== state.type) continue;
+    if(q && !((m.item_no+" "+m.fabric+" "+m.description).toLowerCase().includes(q))) continue;
+    grid.appendChild(card(m, v)); shown++;
+  }
+  document.getElementById("empty").hidden = shown>0;
+  const rated = MODELS.filter(m=>{const v=state.mine[m.id]||{}; return v.like||v.stars;}).length;
+  document.getElementById("bar").style.width = (100*rated/MODELS.length).toFixed(1)+"%";
+  document.getElementById("cnt").textContent = `оценено ${rated} из ${MODELS.length}`;
+}
+
+function card(m, v){
+  const c = el("div","card"+(v.like?" liked":""));
+  const ph = el("div","ph"); ph.tabIndex = 0;
+  const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
+  img.src = m.web; img.style.width = (m.frames*100)+"%";
+  const dots = el("div","dots");
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
+  const meta = el("div","meta");
+  meta.appendChild(el("div","type", m.type));
+  if(m.item_no) meta.appendChild(el("div","art", m.item_no));
+  if(m.fabric) meta.appendChild(el("div","fab", m.fabric));
+  if(m.price) meta.appendChild(el("div","price", m.price));
+  const acts = el("div","acts");
+  const heart = el("button","heart"+(v.like?" on":""),"♥");
+  heart.title = "Нравится"; heart.setAttribute("aria-pressed", v.like?"true":"false");
+  heart.onclick = ()=> save(m, {like: !(state.mine[m.id]||{}).like});
+  acts.appendChild(heart);
+  const others = state.others[m.id]||0;
+  if(others) acts.appendChild(el("span","others","+"+others));
+  const stars = el("div","stars");
+  for(let i=1;i<=5;i++){
+    const s = el("button","star"+((v.stars||0)>=i?" on":""),"★");
+    s.title = i+" из 5";
+    s.onclick = ()=> save(m, {stars: (state.mine[m.id]||{}).stars===i ? 0 : i});
+    stars.appendChild(s);
+  }
+  acts.appendChild(stars);
+  c.append(ph, meta, acts);
+  return c;
+}
+
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
+function openBig(m){
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
+}
+document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("dlg").addEventListener("click", e => { if(e.target.id === "dlg") document.getElementById("dlg").close(); });
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+async function save(m, patch){
+  const cur = state.mine[m.id] || {like:false, stars:0};
+  const next = Object.assign({}, cur, patch);
+  state.mine[m.id] = next; localSave(); render();
+  if(!db) return;
+  try{
+    await db.doc("votes/"+key(m.id)).set({
+      model:m.id, page:PAGE_ID, factory:m.factory, type:m.type, item_no:m.item_no||"",
+      like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
+    });
+  }catch(e){
+    setStatus("Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе"));
+  }
+}
+
+function picked(){
+  const out = [];
+  for(const m of MODELS){
+    const v = state.mine[m.id]; if(!v || (!v.like && !v.stars)) continue;
+    out.push({id:m.id, factory:m.factory, type:m.type, item:m.item_no||"", like:!!v.like, stars:v.stars||0});
+  }
+  return {page:PAGE_ID, who:(document.getElementById("who").value||"").trim(), at:new Date().toISOString(), picks:out};
+}
+document.getElementById("who").value = localStorage.getItem("who")||"";
+document.getElementById("who").oninput = e => { try{ localStorage.setItem("who", e.target.value); }catch(err){} };
+document.getElementById("copy").onclick = async ()=>{
+  const data = picked();
+  try{ await navigator.clipboard.writeText(JSON.stringify(data));
+       setStatus(`Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`); }
+  catch(e){ setStatus("Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."); }
+};
+document.getElementById("dl").onclick = ()=>{
+  const data = picked();
+  const blob = new Blob([JSON.stringify(data, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `выбор-dahuang-stok-i-kastom-kontakt-ne-nayden-${data.who||"без-имени"}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setStatus(`Файл сохранён: ${data.picks.length} моделей.`);
+};
+const SEND_URL = "https://formsubmit.co/ajax/privery.prod@euphoria.fit";
+document.getElementById("send").onclick = async () => {
+  const data = picked();
+  if(!data.picks.length){ setStatus("Пока ничего не отмечено — поставьте сердце или звёзды."); return; }
+  const body = (data.who ? data.who + "\n\n" : "") +
+    data.picks.map(p=>`${p.factory} · ${p.type}${p.item ? " " + p.item : ""} — ${p.like ? "нравится" : ""}${p.stars ? " " + p.stars + "/5" : ""}`).join("\n");
+  const lines = data.picks.map(p =>
+    `- ${p.id} · ${p.factory} · ${p.type}${p.item ? " · " + p.item : ""}${p.like ? " · нравится" : ""}${p.stars ? " · " + p.stars + "/5" : ""}`);
+  const text = `Страница: dahuang-stok-i-kastom-kontakt-ne-nayden\nКто отмечал: ${data.who || "не указано"}\nОтмечено моделей: ${data.picks.length}\n\n` + lines.join("\n");
+  const btn = document.getElementById("send");
+  btn.disabled = true;
+  setStatus("Отправляю…");
+  try{
+    const res = await fetch(SEND_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Accept": "application/json"},
+      body: JSON.stringify({
+        _subject: `Выбор моделей: ${data.who || "без имени"} — dahuang-stok-i-kastom-kontakt-ne-nayden`,
+        _template: "table",
+        Кто: data.who || "не указано",
+        Страница: PAGE_ID,
+        Моделей: String(data.picks.length),
+        Выбор: text
+      })
+    });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    setStatus(`Отправлено Софье: ${data.picks.length} моделей. Спасибо!`);
+    try{ localStorage.setItem("sent:" + PAGE_ID, new Date().toISOString()); }catch(e){}
+  }catch(e){
+    try{
+      await navigator.clipboard.writeText(text);
+      setStatus("Не удалось отправить (нет сети?) — выбор скопирован в буфер, пришлите его Софье сообщением.");
+    }catch(err){
+      setStatus("Не удалось отправить — нажмите «Скачать файл выбора» и пришлите файл.");
+    }
+  }finally{ btn.disabled = false; }
+};
+
+document.getElementById("f-all").onclick = ()=> setFilter("all");
+document.getElementById("f-new").onclick = ()=> setFilter("new");
+document.getElementById("f-like").onclick = ()=> setFilter("like");
+function setFilter(f){
+  state.filter=f;
+  for(const [id,val] of [["f-all","all"],["f-new","new"],["f-like","like"]])
+    document.getElementById(id).setAttribute("aria-pressed", String(val===f));
+  render();
+}
+const types = [...new Set(MODELS.map(m=>m.type))].sort();
+const sel = document.getElementById("f-type");
+for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
+sel.onchange = e => { state.type = e.target.value; render(); };
+document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+state.mine = localLoad();
+render();
+
+(async ()=>{
+  const user = await window.claude?.use?.("user");
+  uid = user ? await user.id() : null;
+  db = await window.claude?.use?.("db");
+  if(!db){ setStatus("Общая база недоступна — оценки сохраняются только в этом браузере."); return; }
+  setStatus("Оценки сохраняются автоматически и видны коллегам.");
+  db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
+    const mine={}, others={};
+    for(const d of snap.docs){
+      const v = d.data()||{};
+      if(uid && v.by===uid){ mine[v.model]={like:!!v.like, stars:v.stars||0}; }
+      else if(v.like){ others[v.model]=(others[v.model]||0)+1; }
+    }
+    if(Object.keys(mine).length || Object.keys(others).length){
+      state.mine = Object.keys(mine).length ? mine : state.mine;
+      state.others = others; localSave(); render();
+    }
+  }, err => { setStatus("Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."); });
+})();
+</script>

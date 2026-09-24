@@ -55,12 +55,19 @@ select,input[type=search]{border:1px solid var(--line);background:var(--panel);c
 .empty{padding:40px 0;color:var(--muted);text-align:center}
 .status{font-size:12px;color:var(--muted);margin-top:6px}
 .back{text-decoration:none;color:var(--ink);font-size:19px;font-weight:700;padding-right:2px}
-.send{position:relative}
-.send summary{display:inline-block;cursor:pointer;list-style:none;white-space:nowrap}
-.send summary::-webkit-details-marker{display:none}
-.send[open] summary{background:var(--accent);border-color:var(--accent);color:#fff}
-.sendbox{position:absolute;right:0;top:calc(100% + 6px);z-index:30;display:flex;flex-wrap:wrap;gap:6px;
-  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);width:max-content;max-width:min(92vw,420px)}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;
+  background:var(--accent);color:#fff;border:0;border-radius:99px;padding:14px 20px;font:600 15px/1 "Golos Text",Arial,sans-serif;
+  box-shadow:0 6px 20px rgba(22,33,28,.28);cursor:pointer}
+.sheetbg{position:fixed;inset:0;z-index:41;background:rgba(10,16,13,.45)}
+.sheet{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:42;
+  display:flex;flex-direction:column;gap:8px;background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,.3);max-width:440px;margin:0 auto}
+.sheettitle{font-weight:700;font-size:16px;margin-bottom:2px}
+.sheet .chip{width:100%;padding:13px;font-size:16px;text-align:center}
+.sheet .chip.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.sheet .chip.ghost{border:0;color:var(--muted)}
+.sheet input{width:100%;padding:13px;font-size:16px;border:1px solid var(--line);border-radius:99px;background:var(--bg);color:var(--ink)}
+
 #who{min-width:150px}
 dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 dialog::backdrop{background:rgba(10,16,13,.7)}
@@ -86,15 +93,10 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
   #cnt{white-space:nowrap;font-size:12px}
   .status{font-size:12px;margin-top:4px}
   .tools{margin-top:6px}
-  /* панель отправки — снизу экрана, иначе её обрезает прокручиваемая строка фильтров */
-  .sendbox{position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));top:auto;
-    width:auto;max-width:none;flex-direction:column;align-items:stretch;gap:8px;padding:14px}
-  .sendbox .chip{width:100%;text-align:center;padding:12px;font-size:16px}
-  .sendbox #who{width:100%;padding:12px;font-size:16px}
-  .send[open] summary{position:relative;z-index:31}
+  .fab{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:13px 18px}
   .chip,select,input[type=search]{font-size:14px;padding:7px 12px}
   input[type=search]{min-width:150px}
-  .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;scrollbar-width:none}
   .tools::-webkit-scrollbar{display:none}
   .chip,select,input[type=search]{flex:0 0 auto}
   h1{font-size:19px}
@@ -139,18 +141,19 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
     <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
     <select id="f-type"><option value="">Все типы</option></select>
     <input type="search" id="f-q" placeholder="артикул или ткань">
-    <details class="send">
-      <summary class="chip">Отправить</summary>
-      <div class="sendbox">
-        <input id="who" placeholder="ваше имя" autocomplete="name">
-        <button class="chip" id="send">Отправить Софье</button>
-        <button class="chip" id="copy">Скопировать</button>
-        <button class="chip" id="dl">Скачать файл</button>
-      </div>
-    </details>
   </div>
   <div class="status" id="status" hidden></div>
 </header>
+<button class="fab" id="sendopen">Отправить выбор</button>
+<div class="sheetbg" id="sheetbg" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="sheettitle">Отправить выбор Софье</div>
+  <input id="who" placeholder="ваше имя" autocomplete="name">
+  <button class="chip primary" id="send">Отправить Софье</button>
+  <button class="chip" id="copy">Скопировать выбор</button>
+  <button class="chip" id="dl">Скачать файл выбора</button>
+  <button class="chip ghost" id="sheetclose">Закрыть</button>
+</div>
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
 </div>
@@ -341,6 +344,7 @@ document.getElementById("send").onclick = async () => {
     });
     if(!res.ok) throw new Error("HTTP " + res.status);
     setStatus(`Отправлено Софье: ${data.picks.length} моделей. Спасибо!`);
+    openSheet(false);
     try{ localStorage.setItem("sent:" + PAGE_ID, new Date().toISOString()); }catch(e){}
   }catch(e){
     try{
@@ -366,6 +370,12 @@ const sel = document.getElementById("f-type");
 for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
 sel.onchange = e => { state.type = e.target.value; render(); };
 document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+const sheet = document.getElementById("sheet"), sheetbg = document.getElementById("sheetbg");
+function openSheet(on){ sheet.hidden = !on; sheetbg.hidden = !on; if(on) document.getElementById("who").focus(); }
+document.getElementById("sendopen").onclick = ()=> openSheet(true);
+document.getElementById("sheetclose").onclick = ()=> openSheet(false);
+sheetbg.onclick = ()=> openSheet(false);
 
 state.mine = localLoad();
 render();
