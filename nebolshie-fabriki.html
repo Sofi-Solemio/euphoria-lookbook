@@ -72,7 +72,7 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
 <header class="top">
   <div class="brow">
     <h1>Небольшие фабрики</h1>
-    <div class="sub">10 моделей · каталоги фабрики</div>
+    <div class="sub">6 моделей · каталоги фабрики</div>
     <div class="prog" aria-hidden="true"><i id="bar"></i></div>
     <div class="sub" id="cnt"></div>
   </div>
@@ -89,7 +89,7 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
     <input id="who" placeholder="ваше имя" autocomplete="name">
     <button class="chip" id="copy">Скопировать выбор</button>
     <button class="chip" id="dl">Скачать файл выбора</button>
-    <a class="chip" id="mail" href="#">Отправить Софии</a>
+    <button class="chip" id="mail">Отправить Софии почтой</button>
   </div>
 </header>
 <div class="grid" id="grid"></div>
@@ -105,7 +105,7 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
   <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
 </dialog>
 <script>
-const MODELS = [{"id": "dongguanji-86acb388", "factory": "Dongguan Jiayan", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "", "web": "img/dongguanji-86acb388.jpg", "frames": 1, "description": ""}, {"id": "dongguanji-8d4d56ab", "factory": "Dongguan Jiayan", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "", "web": "img/dongguanji-8d4d56ab.jpg", "frames": 1, "description": ""}, {"id": "dongguanji-bc5b9aa7", "factory": "Dongguan Jiayan", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "", "web": "img/dongguanji-bc5b9aa7.jpg", "frames": 1, "description": ""}, {"id": "dongguanji-ceb9efa9", "factory": "Dongguan Jiayan", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "", "web": "img/dongguanji-ceb9efa9.jpg", "frames": 1, "description": ""}, {"id": "dongguanji-d47d48ad", "factory": "Dongguan Jiayan", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "", "web": "img/dongguanji-d47d48ad.jpg", "frames": 1, "description": ""}, {"id": "aikasports-01ad36c4", "factory": "Aika Sportswear (January)", "type": "брюки", "item_no": "", "fabric": "", "price": "US$23.00", "web": "img/aikasports-01ad36c4.jpg", "frames": 1, "description": "DongGuan AIKA Apparel Co,. Ltd. ADD:Floor 4th, Building B, Yongqin Industrial Zone, Binhai Avenue, Humen Town, Dongguan Tel: +86 18002662175 Email:sale05@aikasportswear.com Web:http://www.aikasportswear.com/ Estimate Bulk Quotation TO EUPHORIA From January Zhang ATTN Sofia Raskevich Date 2026/9/24 T"}, {"id": "aikasports-17a3736e", "factory": "Aika Sportswear (January)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "US$23.00", "web": "img/aikasports-17a3736e.jpg", "frames": 1, "description": "DongGuan AIKA Apparel Co,. Ltd. ADD:Floor 4th, Building B, Yongqin Industrial Zone, Binhai Avenue, Humen Town, Dongguan Tel: +86 18002662175 Email:sale05@aikasportswear.com Web:http://www.aikasportswear.com/ Estimate Bulk Quotation TO EUPHORIA From January Zhang ATTN Sofia Raskevich Date 2026/9/24 T"}, {"id": "aikasports-90ffe767", "factory": "Aika Sportswear (January)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "US$23.00", "web": "img/aikasports-90ffe767.jpg", "frames": 1, "description": "DongGuan AIKA Apparel Co,. Ltd. ADD:Floor 4th, Building B, Yongqin Industrial Zone, Binhai Avenue, Humen Town, Dongguan Tel: +86 18002662175 Email:sale05@aikasportswear.com Web:http://www.aikasportswear.com/ Estimate Bulk Quotation TO EUPHORIA From January Zhang ATTN Sofia Raskevich Date 2026/9/24 T"}, {"id": "aikasports-c3b32d4e", "factory": "Aika Sportswear (January)", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "US$23.00", "web": "img/aikasports-c3b32d4e.jpg", "frames": 1, "description": "DongGuan AIKA Apparel Co,. Ltd. ADD:Floor 4th, Building B, Yongqin Industrial Zone, Binhai Avenue, Humen Town, Dongguan Tel: +86 18002662175 Email:sale05@aikasportswear.com Web:http://www.aikasportswear.com/ Estimate Bulk Quotation TO EUPHORIA From January Zhang ATTN Sofia Raskevich Date 2026/9/24 T"}, {"id": "xinfuactiv-28f11196", "factory": "Xinfu Activewear (Andy)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/xinfuactiv-28f11196.jpg", "frames": 1, "description": ""}];
+const MODELS = [{"id": "aikasports-01ad36c4", "factory": "Aika Sportswear (January)", "type": "брюки", "item_no": "", "fabric": "", "price": "US$23.00", "web": "img/aikasports-01ad36c4.jpg", "frames": 1, "description": "DongGuan AIKA Apparel Co,. Ltd. ADD:Floor 4th, Building B, Yongqin Industrial Zone, Binhai Avenue, Humen Town, Dongguan Tel: +86 18002662175 Email:sale05@aikasportswear.com Web:http://www.aikasportswear.com/ Estimate Bulk Quotation TO EUPHORIA From January Zhang ATTN Sofia Raskevich Date 2026/9/24 T"}, {"id": "aikasports-17a3736e", "factory": "Aika Sportswear (January)", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "US$23.00", "web": "img/aikasports-17a3736e.jpg", "frames": 1, "description": "DongGuan AIKA Apparel Co,. Ltd. ADD:Floor 4th, Building B, Yongqin Industrial Zone, Binhai Avenue, Humen Town, Dongguan Tel: +86 18002662175 Email:sale05@aikasportswear.com Web:http://www.aikasportswear.com/ Estimate Bulk Quotation TO EUPHORIA From January Zhang ATTN Sofia Raskevich Date 2026/9/24 T"}, {"id": "aikasports-5fb34130", "factory": "Aika Sportswear (January)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "US$23.00", "web": "img/aikasports-5fb34130.jpg", "frames": 1, "description": "DongGuan AIKA Apparel Co,. Ltd. ADD:Floor 4th, Building B, Yongqin Industrial Zone, Binhai Avenue, Humen Town, Dongguan Tel: +86 18002662175 Email:sale05@aikasportswear.com Web:http://www.aikasportswear.com/ Estimate Bulk Quotation TO EUPHORIA From January Zhang ATTN Sofia Raskevich Date 2026/9/24 T"}, {"id": "aikasports-90ffe767", "factory": "Aika Sportswear (January)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "US$23.00", "web": "img/aikasports-90ffe767.jpg", "frames": 1, "description": "DongGuan AIKA Apparel Co,. Ltd. ADD:Floor 4th, Building B, Yongqin Industrial Zone, Binhai Avenue, Humen Town, Dongguan Tel: +86 18002662175 Email:sale05@aikasportswear.com Web:http://www.aikasportswear.com/ Estimate Bulk Quotation TO EUPHORIA From January Zhang ATTN Sofia Raskevich Date 2026/9/24 T"}, {"id": "aikasports-c3b32d4e", "factory": "Aika Sportswear (January)", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "US$23.00", "web": "img/aikasports-c3b32d4e.jpg", "frames": 1, "description": "DongGuan AIKA Apparel Co,. Ltd. ADD:Floor 4th, Building B, Yongqin Industrial Zone, Binhai Avenue, Humen Town, Dongguan Tel: +86 18002662175 Email:sale05@aikasportswear.com Web:http://www.aikasportswear.com/ Estimate Bulk Quotation TO EUPHORIA From January Zhang ATTN Sofia Raskevich Date 2026/9/24 T"}, {"id": "xinfuactiv-28f11196", "factory": "Xinfu Activewear (Andy)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/xinfuactiv-28f11196.jpg", "frames": 1, "description": ""}];
 const PAGE_ID = "nebolshie-fabriki";
 const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
 let db=null, uid=null;
@@ -250,11 +250,22 @@ document.getElementById("dl").onclick = ()=>{
   document.body.appendChild(a); a.click(); a.remove();
   document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
 };
-document.getElementById("mail").onclick = e => {
+document.getElementById("mail").onclick = async () => {
   const data = picked();
-  const body = data.picks.map(p=>`${p.factory} · ${p.type} ${p.item} — ${p.like?"нравится":""} ${p.stars?p.stars+"/5":""}`).join("\n");
-  e.currentTarget.href = "mailto:privery.prod@euphoria.fit?subject=" +
-    encodeURIComponent("Выбор моделей: "+PAGE_ID) + "&body=" + encodeURIComponent((data.who?data.who+"\n\n":"")+body);
+  const st = document.getElementById("status");
+  if(!data.picks.length){ st.textContent = "Пока ничего не отмечено — поставьте сердце или звёзды."; return; }
+  const body = (data.who ? data.who + "\n\n" : "") +
+    data.picks.map(p=>`${p.factory} · ${p.type}${p.item ? " " + p.item : ""} — ${p.like ? "нравится" : ""}${p.stars ? " " + p.stars + "/5" : ""}`).join("\n");
+  const url = "mailto:privery.prod@euphoria.fit?subject=" + encodeURIComponent("Выбор моделей: " + PAGE_ID) +
+              "&body=" + encodeURIComponent(body);
+  if(url.length < 1900){
+    window.location.href = url;
+    st.textContent = `Открываю почту: ${data.picks.length} моделей.`;
+    return;
+  }
+  try{ await navigator.clipboard.writeText(body);
+       st.textContent = `Выбор большой (${data.picks.length} моделей) — он скопирован в буфер, вставьте его в письмо или сообщение Софии.`; }
+  catch(e){ st.textContent = "Выбор слишком большой для письма — нажмите «Скачать файл выбора» и пришлите файл."; }
 };
 
 document.getElementById("f-all").onclick = ()=> setFilter("all");

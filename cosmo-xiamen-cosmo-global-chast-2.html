@@ -1,0 +1,308 @@
+<title>Лукбук — Cosmo (Xiamen Cosmo Global) — часть 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:14px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.send{margin-top:8px;align-items:center}
+.send a.chip{text-decoration:none}
+#who{min-width:150px}
+dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:420px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brow">
+    <h1>Cosmo (Xiamen Cosmo Global) — часть 2</h1>
+    <div class="sub">84 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+  </div>
+  <div class="status" id="status">Оценки сохраняются автоматически.</div>
+  <div class="tools send">
+    <a class="chip" href="index.html">← Все фабрики</a>
+    <input id="who" placeholder="ваше имя" autocomplete="name">
+    <button class="chip" id="copy">Скопировать выбор</button>
+    <button class="chip" id="dl">Скачать файл выбора</button>
+    <button class="chip" id="mail">Отправить Софии почтой</button>
+  </div>
+</header>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
+</div>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
+<script>
+const MODELS = [{"id": "cosmoxiame-60ebb58f", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-60ebb58f.jpg", "frames": 2, "description": "p Nylon+Spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-620a24fc", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-620a24fc.jpg", "frames": 2, "description": "p nylon+spandex p size range: S-XL p recycled materials available"}, {"id": "cosmoxiame-63a21930", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-63a21930.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-63d05cda", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-63d05cda.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-645d3ab1", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "90% polyamide+10% elastane ", "price": "", "web": "img/cosmoxiame-645d3ab1.jpg", "frames": 3, "description": "p 90% polyamide+10% elastane p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-64e1ea61", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-64e1ea61.jpg", "frames": 2, "description": "p Nylon+Spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-66ad161b", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-66ad161b.jpg", "frames": 2, "description": "p cotton+polyester p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-670480a7", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-670480a7.jpg", "frames": 2, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-6716985f", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-6716985f.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-68aed97a", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-68aed97a.jpg", "frames": 2, "description": "p nylon+spandex p size range: S-XL p recycled materials available"}, {"id": "cosmoxiame-696675fe", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-696675fe.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-698a822f", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-698a822f.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-6a49b585", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-6a49b585.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-6b308a0d", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "90% polyamide+10% elastane ", "price": "", "web": "img/cosmoxiame-6b308a0d.jpg", "frames": 3, "description": "p 90% polyamide+10% elastane p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-6d5b3f99", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-6d5b3f99.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p any colors available"}, {"id": "cosmoxiame-6df32e76", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-6df32e76.jpg", "frames": 3, "description": "p nylon+polyester+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-6f4b00b4", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "75%nylon+25%spandex ", "price": "", "web": "img/cosmoxiame-6f4b00b4.jpg", "frames": 3, "description": "p 75%nylon+25%spandex p size range: S-L p any color available"}, {"id": "cosmoxiame-6fb558d4", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "90% polyamide+10% elastane ", "price": "", "web": "img/cosmoxiame-6fb558d4.jpg", "frames": 1, "description": "p 90% polyamide+10% elastane p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-70085b3b", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-70085b3b.jpg", "frames": 2, "description": "p cotton+polyester p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-703ed4f9", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-703ed4f9.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-70f3f8e5", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-70f3f8e5.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-7281485e", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-7281485e.jpg", "frames": 3, "description": "p polyester p size range: S-XL p any colors available"}, {"id": "cosmoxiame-731a5511", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-731a5511.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p any colors available"}, {"id": "cosmoxiame-7596ab2f", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-7596ab2f.jpg", "frames": 3, "description": "p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-75c05249", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-75c05249.jpg", "frames": 2, "description": "p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-77783744", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-77783744.jpg", "frames": 2, "description": "p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-7939d882", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "90%Nylon+10%Spandex ", "price": "", "web": "img/cosmoxiame-7939d882.jpg", "frames": 2, "description": "p 90%Nylon+10%Spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-7a283563", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-7a283563.jpg", "frames": 1, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-7c05323f", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-7c05323f.jpg", "frames": 2, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-7c9764a1", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-7c9764a1.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-807e5022", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "90%nylon+10%spandex ", "price": "", "web": "img/cosmoxiame-807e5022.jpg", "frames": 3, "description": "p 90%nylon+10%spandex p size range: S-L p any color available"}, {"id": "cosmoxiame-80894fa1", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-80894fa1.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-8169e408", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-8169e408.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-817ccbb8", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-817ccbb8.jpg", "frames": 2, "description": "p Nylon+Spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-82116aa5", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-82116aa5.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-839d78f3", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-839d78f3.jpg", "frames": 2, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-839f11c3", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-839f11c3.jpg", "frames": 1, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-8429a352", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "95%polyester+5%spandex ", "price": "", "web": "img/cosmoxiame-8429a352.jpg", "frames": 3, "description": "p 95%polyester+5%spandex p size range: S-L p any color available"}, {"id": "cosmoxiame-842b15b5", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-842b15b5.jpg", "frames": 3, "description": "p viscose+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-8518240d", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-8518240d.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-87458832", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-87458832.jpg", "frames": 2, "description": "p Nylon+Spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-88636fa9", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-88636fa9.jpg", "frames": 1, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-8a60606c", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-8a60606c.jpg", "frames": 2, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-8d21b55b", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-8d21b55b.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-8d6ea9e4", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-8d6ea9e4.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-8e69f6a5", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "95%polyester+5%spandex ", "price": "", "web": "img/cosmoxiame-8e69f6a5.jpg", "frames": 3, "description": "p 95%polyester+5%spandex p size range: S-L p any color available"}, {"id": "cosmoxiame-8ecce856", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-8ecce856.jpg", "frames": 3, "description": "p cotton+polyester p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-8ee50194", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-8ee50194.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p recycled materials available"}, {"id": "cosmoxiame-9238a4fa", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-9238a4fa.jpg", "frames": 3, "description": "p nylon+spanedxx p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-929d1d19", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-929d1d19.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-930d3036", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-930d3036.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p any colors available"}, {"id": "cosmoxiame-94099fd4", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-94099fd4.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-942ac027", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-942ac027.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p any colors available"}, {"id": "cosmoxiame-94451089", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-94451089.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-94d0b1ad", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "90%Nylon+10%Spandex ", "price": "", "web": "img/cosmoxiame-94d0b1ad.jpg", "frames": 2, "description": "p 90%Nylon+10%Spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-956ce5ed", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-956ce5ed.jpg", "frames": 3, "description": "p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-99b556c2", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-99b556c2.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-99ce8700", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-99ce8700.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-9bc2454c", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-9bc2454c.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-9da41fc8", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-9da41fc8.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-9edf2cd6", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-9edf2cd6.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-a07309c5", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a07309c5.jpg", "frames": 2, "description": "p nylon+spandex p size range: S-XL p recycled materials available"}, {"id": "cosmoxiame-a08914b2", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a08914b2.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p any colors available"}, {"id": "cosmoxiame-a0b7ce3e", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a0b7ce3e.jpg", "frames": 3, "description": "p nylon+polyester+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-a1e7bdb7", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a1e7bdb7.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-a25d1fea", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a25d1fea.jpg", "frames": 2, "description": "p Nylon+Spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-a268fc08", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a268fc08.jpg", "frames": 3, "description": "p cotton+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-a2c39c46", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a2c39c46.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-a48412b0", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a48412b0.jpg", "frames": 2, "description": "p nylon+spandex p size range: S-XL p recycled materials available"}, {"id": "cosmoxiame-a53700d1", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a53700d1.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p any colors available"}, {"id": "cosmoxiame-a6b54759", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a6b54759.jpg", "frames": 2, "description": "p nylon+spandex p size range: S-XL p recycled materials available"}, {"id": "cosmoxiame-a6e32253", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a6e32253.jpg", "frames": 2, "description": "p nylon+spandex p size range: S-XL p recycled materials available"}, {"id": "cosmoxiame-a7927e12", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-a7927e12.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-a841c3e1", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "90% polyamide+10% elastane ", "price": "", "web": "img/cosmoxiame-a841c3e1.jpg", "frames": 3, "description": "p 90% polyamide+10% elastane p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-ab591b85", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-ab591b85.jpg", "frames": 2, "description": "p Nylon+Spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-abdfc35d", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-abdfc35d.jpg", "frames": 3, "description": "p rayon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-abf70af5", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-abf70af5.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-ad12bd97", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-ad12bd97.jpg", "frames": 3, "description": "p Nylon+Spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-adda277d", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-adda277d.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-L p recycled materials available"}, {"id": "cosmoxiame-ae8ea903", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-ae8ea903.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p any colors available"}, {"id": "cosmoxiame-b1097598", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-b1097598.jpg", "frames": 3, "description": "p nylon+spandex p size range: S-XL p recycled materials available"}, {"id": "cosmoxiame-b13f55d3", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "75%nylon+25%spandex ", "price": "", "web": "img/cosmoxiame-b13f55d3.jpg", "frames": 3, "description": "p 75%nylon+25%spandex p size range: S-L p any color available"}, {"id": "cosmoxiame-b3caf5aa", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "100% cotton ", "price": "", "web": "img/cosmoxiame-b3caf5aa.jpg", "frames": 3, "description": "p 100% cotton p size range: S-XL p recycled materials available"}, {"id": "cosmoxiame-b425d67b", "factory": "Cosmo (Xiamen Cosmo Global)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/cosmoxiame-b425d67b.jpg", "frames": 3, "description": "p size range: S-L p recycled materials available"}];
+const PAGE_ID = "cosmo-xiamen-cosmo-global-chast-2";
+const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
+let db=null, uid=null;
+
+const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
+const key = id => id+"__"+(uid||"local");
+
+function localLoad(){ try{ return JSON.parse(localStorage.getItem("votes:"+PAGE_ID)||"{}"); }catch(e){ return {}; } }
+function localSave(){ try{ localStorage.setItem("votes:"+PAGE_ID, JSON.stringify(state.mine)); }catch(e){} }
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.textContent = "";
+  const q = state.q.trim().toLowerCase();
+  let shown = 0;
+  for(const m of MODELS){
+    const v = state.mine[m.id] || {};
+    if(state.filter==="new" && (v.like || v.stars)) continue;
+    if(state.filter==="like" && !v.like) continue;
+    if(state.type && m.type !== state.type) continue;
+    if(q && !((m.item_no+" "+m.fabric+" "+m.description).toLowerCase().includes(q))) continue;
+    grid.appendChild(card(m, v)); shown++;
+  }
+  document.getElementById("empty").hidden = shown>0;
+  const rated = MODELS.filter(m=>{const v=state.mine[m.id]||{}; return v.like||v.stars;}).length;
+  document.getElementById("bar").style.width = (100*rated/MODELS.length).toFixed(1)+"%";
+  document.getElementById("cnt").textContent = `оценено ${rated} из ${MODELS.length}`;
+}
+
+function card(m, v){
+  const c = el("div","card"+(v.like?" liked":""));
+  const ph = el("div","ph"); ph.tabIndex = 0;
+  const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
+  img.src = m.web; img.style.width = (m.frames*100)+"%";
+  const dots = el("div","dots");
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
+  const meta = el("div","meta");
+  meta.appendChild(el("div","type", m.type));
+  if(m.item_no) meta.appendChild(el("div","art", m.item_no));
+  if(m.fabric) meta.appendChild(el("div","fab", m.fabric));
+  if(m.price) meta.appendChild(el("div","price", m.price));
+  const acts = el("div","acts");
+  const heart = el("button","heart"+(v.like?" on":""),"♥");
+  heart.title = "Нравится"; heart.setAttribute("aria-pressed", v.like?"true":"false");
+  heart.onclick = ()=> save(m, {like: !(state.mine[m.id]||{}).like});
+  acts.appendChild(heart);
+  const others = state.others[m.id]||0;
+  if(others) acts.appendChild(el("span","others","+"+others));
+  const stars = el("div","stars");
+  for(let i=1;i<=5;i++){
+    const s = el("button","star"+((v.stars||0)>=i?" on":""),"★");
+    s.title = i+" из 5";
+    s.onclick = ()=> save(m, {stars: (state.mine[m.id]||{}).stars===i ? 0 : i});
+    stars.appendChild(s);
+  }
+  acts.appendChild(stars);
+  c.append(ph, meta, acts);
+  return c;
+}
+
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
+function openBig(m){
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
+}
+document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("dlg").addEventListener("click", e => { if(e.target.id === "dlg") document.getElementById("dlg").close(); });
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+async function save(m, patch){
+  const cur = state.mine[m.id] || {like:false, stars:0};
+  const next = Object.assign({}, cur, patch);
+  state.mine[m.id] = next; localSave(); render();
+  if(!db) return;
+  try{
+    await db.doc("votes/"+key(m.id)).set({
+      model:m.id, page:PAGE_ID, factory:m.factory, type:m.type, item_no:m.item_no||"",
+      like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
+    });
+  }catch(e){
+    document.getElementById("status").textContent = "Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе");
+  }
+}
+
+function picked(){
+  const out = [];
+  for(const m of MODELS){
+    const v = state.mine[m.id]; if(!v || (!v.like && !v.stars)) continue;
+    out.push({id:m.id, factory:m.factory, type:m.type, item:m.item_no||"", like:!!v.like, stars:v.stars||0});
+  }
+  return {page:PAGE_ID, who:(document.getElementById("who").value||"").trim(), at:new Date().toISOString(), picks:out};
+}
+document.getElementById("who").value = localStorage.getItem("who")||"";
+document.getElementById("who").oninput = e => { try{ localStorage.setItem("who", e.target.value); }catch(err){} };
+document.getElementById("copy").onclick = async ()=>{
+  const data = picked();
+  try{ await navigator.clipboard.writeText(JSON.stringify(data));
+       document.getElementById("status").textContent = `Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`; }
+  catch(e){ document.getElementById("status").textContent = "Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."; }
+};
+document.getElementById("dl").onclick = ()=>{
+  const data = picked();
+  const blob = new Blob([JSON.stringify(data, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `выбор-cosmo-xiamen-cosmo-global-chast-2-${data.who||"без-имени"}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
+};
+document.getElementById("mail").onclick = async () => {
+  const data = picked();
+  const st = document.getElementById("status");
+  if(!data.picks.length){ st.textContent = "Пока ничего не отмечено — поставьте сердце или звёзды."; return; }
+  const body = (data.who ? data.who + "\n\n" : "") +
+    data.picks.map(p=>`${p.factory} · ${p.type}${p.item ? " " + p.item : ""} — ${p.like ? "нравится" : ""}${p.stars ? " " + p.stars + "/5" : ""}`).join("\n");
+  const url = "mailto:privery.prod@euphoria.fit?subject=" + encodeURIComponent("Выбор моделей: " + PAGE_ID) +
+              "&body=" + encodeURIComponent(body);
+  if(url.length < 1900){
+    window.location.href = url;
+    st.textContent = `Открываю почту: ${data.picks.length} моделей.`;
+    return;
+  }
+  try{ await navigator.clipboard.writeText(body);
+       st.textContent = `Выбор большой (${data.picks.length} моделей) — он скопирован в буфер, вставьте его в письмо или сообщение Софии.`; }
+  catch(e){ st.textContent = "Выбор слишком большой для письма — нажмите «Скачать файл выбора» и пришлите файл."; }
+};
+
+document.getElementById("f-all").onclick = ()=> setFilter("all");
+document.getElementById("f-new").onclick = ()=> setFilter("new");
+document.getElementById("f-like").onclick = ()=> setFilter("like");
+function setFilter(f){
+  state.filter=f;
+  for(const [id,val] of [["f-all","all"],["f-new","new"],["f-like","like"]])
+    document.getElementById(id).setAttribute("aria-pressed", String(val===f));
+  render();
+}
+const types = [...new Set(MODELS.map(m=>m.type))].sort();
+const sel = document.getElementById("f-type");
+for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
+sel.onchange = e => { state.type = e.target.value; render(); };
+document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+state.mine = localLoad();
+render();
+
+(async ()=>{
+  const user = await window.claude?.use?.("user");
+  uid = user ? await user.id() : null;
+  db = await window.claude?.use?.("db");
+  if(!db){ document.getElementById("status").textContent = "Общая база недоступна — оценки сохраняются только в этом браузере."; return; }
+  document.getElementById("status").textContent = "Оценки сохраняются автоматически и видны коллегам.";
+  db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
+    const mine={}, others={};
+    for(const d of snap.docs){
+      const v = d.data()||{};
+      if(uid && v.by===uid){ mine[v.model]={like:!!v.like, stars:v.stars||0}; }
+      else if(v.like){ others[v.model]=(others[v.model]||0)+1; }
+    }
+    if(Object.keys(mine).length || Object.keys(others).length){
+      state.mine = Object.keys(mine).length ? mine : state.mine;
+      state.others = others; localSave(); render();
+    }
+  }, err => { document.getElementById("status").textContent = "Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."; });
+})();
+</script>

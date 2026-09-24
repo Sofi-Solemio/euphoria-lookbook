@@ -89,7 +89,7 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
     <input id="who" placeholder="ваше имя" autocomplete="name">
     <button class="chip" id="copy">Скопировать выбор</button>
     <button class="chip" id="dl">Скачать файл выбора</button>
-    <a class="chip" id="mail" href="#">Отправить Софии</a>
+    <button class="chip" id="mail">Отправить Софии почтой</button>
   </div>
 </header>
 <div class="grid" id="grid"></div>
@@ -250,11 +250,22 @@ document.getElementById("dl").onclick = ()=>{
   document.body.appendChild(a); a.click(); a.remove();
   document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
 };
-document.getElementById("mail").onclick = e => {
+document.getElementById("mail").onclick = async () => {
   const data = picked();
-  const body = data.picks.map(p=>`${p.factory} · ${p.type} ${p.item} — ${p.like?"нравится":""} ${p.stars?p.stars+"/5":""}`).join("\n");
-  e.currentTarget.href = "mailto:privery.prod@euphoria.fit?subject=" +
-    encodeURIComponent("Выбор моделей: "+PAGE_ID) + "&body=" + encodeURIComponent((data.who?data.who+"\n\n":"")+body);
+  const st = document.getElementById("status");
+  if(!data.picks.length){ st.textContent = "Пока ничего не отмечено — поставьте сердце или звёзды."; return; }
+  const body = (data.who ? data.who + "\n\n" : "") +
+    data.picks.map(p=>`${p.factory} · ${p.type}${p.item ? " " + p.item : ""} — ${p.like ? "нравится" : ""}${p.stars ? " " + p.stars + "/5" : ""}`).join("\n");
+  const url = "mailto:privery.prod@euphoria.fit?subject=" + encodeURIComponent("Выбор моделей: " + PAGE_ID) +
+              "&body=" + encodeURIComponent(body);
+  if(url.length < 1900){
+    window.location.href = url;
+    st.textContent = `Открываю почту: ${data.picks.length} моделей.`;
+    return;
+  }
+  try{ await navigator.clipboard.writeText(body);
+       st.textContent = `Выбор большой (${data.picks.length} моделей) — он скопирован в буфер, вставьте его в письмо или сообщение Софии.`; }
+  catch(e){ st.textContent = "Выбор слишком большой для письма — нажмите «Скачать файл выбора» и пришлите файл."; }
 };
 
 document.getElementById("f-all").onclick = ()=> setFilter("all");
