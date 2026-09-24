@@ -89,7 +89,7 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
     <input id="who" placeholder="ваше имя" autocomplete="name">
     <button class="chip" id="copy">Скопировать выбор</button>
     <button class="chip" id="dl">Скачать файл выбора</button>
-    <button class="chip" id="mail">Отправить Софии почтой</button>
+    <button class="chip" id="send">Отправить выбор</button>
   </div>
 </header>
 <div class="grid" id="grid"></div>
@@ -250,22 +250,30 @@ document.getElementById("dl").onclick = ()=>{
   document.body.appendChild(a); a.click(); a.remove();
   document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
 };
-document.getElementById("mail").onclick = async () => {
+const REPO = "Sofi-Solemio/euphoria-lookbook";
+document.getElementById("send").onclick = async () => {
   const data = picked();
   const st = document.getElementById("status");
   if(!data.picks.length){ st.textContent = "Пока ничего не отмечено — поставьте сердце или звёзды."; return; }
   const body = (data.who ? data.who + "\n\n" : "") +
     data.picks.map(p=>`${p.factory} · ${p.type}${p.item ? " " + p.item : ""} — ${p.like ? "нравится" : ""}${p.stars ? " " + p.stars + "/5" : ""}`).join("\n");
-  const url = "mailto:privery.prod@euphoria.fit?subject=" + encodeURIComponent("Выбор моделей: " + PAGE_ID) +
-              "&body=" + encodeURIComponent(body);
-  if(url.length < 1900){
-    window.location.href = url;
-    st.textContent = `Открываю почту: ${data.picks.length} моделей.`;
+  const lines = data.picks.map(p =>
+    `- ${p.id} · ${p.factory} · ${p.type}${p.item ? " · " + p.item : ""}${p.like ? " · нравится" : ""}${p.stars ? " · " + p.stars + "/5" : ""}`);
+  const text = `Страница: zch-yoga-harrer-chast-2\nКто отмечал: ${data.who || "не указано"}\nОтмечено моделей: ${data.picks.length}\n\n` + lines.join("\n");
+  const title = `Выбор моделей: ${data.who || "без имени"} — zch-yoga-harrer-chast-2`;
+  const url = `https://github.com/${REPO}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(text)}`;
+  if(url.length < 7000){
+    window.open(url, "_blank", "noopener");
+    st.textContent = `Открыл форму отправки: ${data.picks.length} моделей. Нажмите там зелёную кнопку Submit — и выбор попадёт ко мне.`;
     return;
   }
-  try{ await navigator.clipboard.writeText(body);
-       st.textContent = `Выбор большой (${data.picks.length} моделей) — он скопирован в буфер, вставьте его в письмо или сообщение Софии.`; }
-  catch(e){ st.textContent = "Выбор слишком большой для письма — нажмите «Скачать файл выбора» и пришлите файл."; }
+  try{
+    await navigator.clipboard.writeText(text);
+    window.open(`https://github.com/${REPO}/issues/new?title=${encodeURIComponent(title)}`, "_blank", "noopener");
+    st.textContent = `Выбор большой (${data.picks.length} моделей) — он скопирован в буфер. Вставьте его в открывшуюся форму и нажмите Submit.`;
+  }catch(e){
+    st.textContent = "Выбор слишком большой — нажмите «Скачать файл выбора» и пришлите файл.";
+  }
 };
 
 document.getElementById("f-all").onclick = ()=> setFilter("all");
