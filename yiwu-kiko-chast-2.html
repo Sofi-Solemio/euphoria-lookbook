@@ -1,0 +1,297 @@
+<title>Лукбук — Yiwu Kiko — часть 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:14px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.send{margin-top:8px;align-items:center}
+.send a.chip{text-decoration:none}
+#who{min-width:150px}
+dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:420px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brow">
+    <h1>Yiwu Kiko — часть 2</h1>
+    <div class="sub">64 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+  </div>
+  <div class="status" id="status">Оценки сохраняются автоматически.</div>
+  <div class="tools send">
+    <a class="chip" href="index.html">← Все фабрики</a>
+    <input id="who" placeholder="ваше имя" autocomplete="name">
+    <button class="chip" id="copy">Скопировать выбор</button>
+    <button class="chip" id="dl">Скачать файл выбора</button>
+    <a class="chip" id="mail" href="#">Отправить Софии</a>
+  </div>
+</header>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
+</div>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
+<script>
+const MODELS = [{"id": "yiwukiko-7853f4d5", "factory": "Yiwu Kiko", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-7853f4d5.jpg", "frames": 3, "description": "NGT1394 GP1395 NGT1398 NGP1399"}, {"id": "yiwukiko-7abee042", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-7abee042.jpg", "frames": 1, "description": "T:NGT1152 T:NGT1139 B:NGP1153 B:NGP1140 T:NGT1143 T:NGT1139 B:NGP1144 B:NGP1140 T:NGT1150 T:NGT1145 B:NGP1151 B:NGP1146"}, {"id": "yiwukiko-7f065dd6", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-7f065dd6.jpg", "frames": 3, "description": "NGD1138 LV1880DR-CF-KK T28874 KD33867 SK32665 KJK33828 SK33850"}, {"id": "yiwukiko-8278af48", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-8278af48.jpg", "frames": 2, "description": "NGT1356 NGT1360 NGP1357 NGSH1361 NGT1368 NGT1364 NGP1369 NGP1365 NGD1282 NGD1283"}, {"id": "yiwukiko-8482442f", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-8482442f.jpg", "frames": 3, "description": "NGD1013 BRO-WD88A S-2027 NG1501 NG0715K XH6423"}, {"id": "yiwukiko-89190b70", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-89190b70.jpg", "frames": 3, "description": "NGT1356 NGT1360 NGP1357 NGSH1361 NGT1368 NGT1364 NGP1369 NGP1365 NGD1282 NGD1283"}, {"id": "yiwukiko-892d2fb8", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-892d2fb8.jpg", "frames": 3, "description": "T:NGT1397 T:NGT1304 B:NGP1398 B:NGP1303 NGT1300 NGP1301 NGT1321 NGP1322"}, {"id": "yiwukiko-89817e4a", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-89817e4a.jpg", "frames": 3, "description": "SD2432 FP1580 AL5413 D27197PDL SD1700 D32323"}, {"id": "yiwukiko-8a4f42bd", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-8a4f42bd.jpg", "frames": 3, "description": "KKJT-6234 KKDR-6233 T:NGT1134 T:NGT1154 B:NGSH1135 B:NGSH1155 KKDR-6235 NGD1137"}, {"id": "yiwukiko-8dbab16e", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-8dbab16e.jpg", "frames": 3, "description": "KKJT-6234 KKDR-6233 T:NGT1134 T:NGT1154 B:NGSH1135 B:NGSH1155 KKDR-6235 NGD1137"}, {"id": "yiwukiko-9025bc7f", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-9025bc7f.jpg", "frames": 3, "description": "NGT1382 NGT1384 NGSH1383 NGP1385 NGT1388 NGP1389 NGT1350 NGSH1351 NGT1352 NGT1354 NGP1353 NGP1355"}, {"id": "yiwukiko-9125b1e3", "factory": "Yiwu Kiko", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-9125b1e3.jpg", "frames": 3, "description": "KKJT-6241 KKDR-6242 KKT-6238 KKT-6243 KKSK-6244 KKT-6239 KKJT-6245 KKP-6240 KKSH-6246"}, {"id": "yiwukiko-92593920", "factory": "Yiwu Kiko", "type": "шорты", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-92593920.jpg", "frames": 3, "description": "NGT1209 NGSH1210 NGT1205 NGT1203 NGSH1204"}, {"id": "yiwukiko-928e7b60", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-928e7b60.jpg", "frames": 2, "description": "NGP1188 NGT1187 JD1230 JD1234 AT04271ST-CF-KK SK32330"}, {"id": "yiwukiko-93222004", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-93222004.jpg", "frames": 3, "description": "8806T 8806B 8813 C2257SK02 NGT1190 NGSH1191"}, {"id": "yiwukiko-940d7aff", "factory": "Yiwu Kiko", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-940d7aff.jpg", "frames": 2, "description": "NGT1302 WS2047 WS0126 EOIDR242332 WS20710 XHS25111-T XHS25111-SK"}, {"id": "yiwukiko-97fdb493", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-97fdb493.jpg", "frames": 3, "description": "T:NGT1152 T:NGT1139 B:NGP1153 B:NGP1140 T:NGT1143 T:NGT1139 B:NGP1144 B:NGP1140 T:NGT1150 T:NGT1145 B:NGP1151 B:NGP1146"}, {"id": "yiwukiko-998c69ad", "factory": "Yiwu Kiko", "type": "юбка-шорты", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-998c69ad.jpg", "frames": 1, "description": "XH0010 XH0003 XH0023 Y4064 XH0008 XH0028 XH0016 EP1ST267172"}, {"id": "yiwukiko-99f70cad", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-99f70cad.jpg", "frames": 3, "description": "NGT1230 NGT1215 NGP1231 NGP1216 NGT1312 NGT1313 NGT1219 NGP1221"}, {"id": "yiwukiko-9a06b6a1", "factory": "Yiwu Kiko", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-9a06b6a1.jpg", "frames": 3, "description": "NGD1138 LV1880DR-CF-KK T28874 KD33867 SK32665 KJK33828 SK33850"}, {"id": "yiwukiko-9bb4680d", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-9bb4680d.jpg", "frames": 3, "description": "NGD1138 LV1880DR-CF-KK T28874 KD33867 SK32665 KJK33828 SK33850"}, {"id": "yiwukiko-9fc21a83", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-9fc21a83.jpg", "frames": 2, "description": "XH0004 XH0009 AT04271ST-CF-KK XH109-B F21 XH10165 XH10161 FP640 SH27480PDL 27272PDL"}, {"id": "yiwukiko-a013cd82", "factory": "Yiwu Kiko", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-a013cd82.jpg", "frames": 3, "description": "XH0013 XH0014 NGJK1211 NGP1212 8812-T 8812-B"}, {"id": "yiwukiko-a1b45422", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-a1b45422.jpg", "frames": 1, "description": "NGD1013 BRO-WD88A S-2027 NG1501 NG0715K XH6423"}, {"id": "yiwukiko-a33b6852", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-a33b6852.jpg", "frames": 3, "description": "T:NGT1098 T:NGT1232 B:NGP1099 B:NGP1233 NGJ1325 XHCK802-T XHCK802-B 上衣:NGT1319 上衣:NGT1323 裤子:NGP1320 裤子:NGP1324"}, {"id": "yiwukiko-a53c340d", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-a53c340d.jpg", "frames": 3, "description": "NGD1284 NGD1285 NGD1252 NGD1255 NGR1253 NG1507"}, {"id": "yiwukiko-a7232097", "factory": "Yiwu Kiko", "type": "юбка-шорты", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-a7232097.jpg", "frames": 1, "description": "D32324 D32673 KK-EO1ST252462 D1807 XH0026 KK-MK1748 XH0017 XH0005"}, {"id": "yiwukiko-a7b4a58b", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-a7b4a58b.jpg", "frames": 3, "description": "NGT1259 NGT1261 NGS1260 NGS1262 TV28905 W16541 JRJ90167 XH0930"}, {"id": "yiwukiko-b04aa383", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-b04aa383.jpg", "frames": 3, "description": "NGT1302 WS2047 WS0126 EOIDR242332 WS20710 XHS25111-T XHS25111-SK"}, {"id": "yiwukiko-b0741719", "factory": "Yiwu Kiko", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-b0741719.jpg", "frames": 1, "description": "NGT1372 NGT1370 NGSH1373 NGSH1371 NGJK1374 NGT1376 NGP1375 NGP1377 NGJK1378 NGT1380 NGP1379 NGSH1381"}, {"id": "yiwukiko-b26b7f82", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-b26b7f82.jpg", "frames": 3, "description": "NGT1382 NGT1384 NGSH1383 NGP1385 NGT1388 NGP1389 NGT1350 NGSH1351 NGT1352 NGT1354 NGP1353 NGP1355"}, {"id": "yiwukiko-b30aa5b9", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-b30aa5b9.jpg", "frames": 3, "description": "NGT1232 NGT12222 NGP1233 NGCP1223 XH5530D XH5530D-A NGJ1325 NGT1400"}, {"id": "yiwukiko-b4425e50", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-b4425e50.jpg", "frames": 3, "description": "NGD1284 NGD1285 NGD1252 NGD1255 NGR1253 NG1507"}, {"id": "yiwukiko-b929cb40", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-b929cb40.jpg", "frames": 3, "description": "NGD1013 BRO-WD88A S-2027 NG1501 NG0715K XH6423"}, {"id": "yiwukiko-b9efc60f", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-b9efc60f.jpg", "frames": 2, "description": "SD1701 D32427 XH2423 DLT4001 LS-7525DR2 LS-7525DR"}, {"id": "yiwukiko-ba3b9392", "factory": "Yiwu Kiko", "type": "шорты", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-ba3b9392.jpg", "frames": 3, "description": "NGT1407 NGP1408 NGT1409 NGP1410 KKT6419 NGP1279"}, {"id": "yiwukiko-baf7fd57", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-baf7fd57.jpg", "frames": 3, "description": "SD2432 FP1580 AL5413 D27197PDL SD1700 D32323"}, {"id": "yiwukiko-bbf73cc6", "factory": "Yiwu Kiko", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-bbf73cc6.jpg", "frames": 3, "description": "NGT1407 NGP1408 NGT1409 NGP1410 KKT6419 NGP1279"}, {"id": "yiwukiko-bd036614", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-bd036614.jpg", "frames": 3, "description": "JD718H-T 1124746 JD718H-B 1166837 PSF206841 488T LG063 488B"}, {"id": "yiwukiko-bf0fee36", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-bf0fee36.jpg", "frames": 3, "description": "T:NGT1152 T:NGT1139 B:NGP1153 B:NGP1140 T:NGT1143 T:NGT1139 B:NGP1144 B:NGP1140 T:NGT1150 T:NGT1145 B:NGP1151 B:NGP1146"}, {"id": "yiwukiko-bff6902a", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-bff6902a.jpg", "frames": 3, "description": "JD718H-T 1124746 JD718H-B 1166837 PSF206841 488T LG063 488B"}, {"id": "yiwukiko-c0bfd7b7", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-c0bfd7b7.jpg", "frames": 3, "description": "KKJT-6241 KKDR-6242 KKT-6238 KKT-6243 KKSK-6244 KKT-6239 KKJT-6245 KKP-6240 KKSH-6246"}, {"id": "yiwukiko-c2673af7", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-c2673af7.jpg", "frames": 1, "description": "NGT1382 NGT1384 NGSH1383 NGP1385 NGT1388 NGP1389 NGT1350 NGSH1351 NGT1352 NGT1354 NGP1353 NGP1355"}, {"id": "yiwukiko-c87919ec", "factory": "Yiwu Kiko", "type": "юбка-шорты", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-c87919ec.jpg", "frames": 2, "description": "XH0004 XH0009 AT04271ST-CF-KK XH109-B F21 XH10165 XH10161 FP640 SH27480PDL 27272PDL"}, {"id": "yiwukiko-cb8e8822", "factory": "Yiwu Kiko", "type": "шорты", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-cb8e8822.jpg", "frames": 3, "description": "8806T 8806B 8813 C2257SK02 NGT1190 NGSH1191"}, {"id": "yiwukiko-cd24a463", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-cd24a463.jpg", "frames": 3, "description": "NGT1096 KSS-0528K-T NGP1097 KSS-0528K-B NGT1403 NGP1402 NGT1405 NGP1406"}, {"id": "yiwukiko-cdb51f3c", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-cdb51f3c.jpg", "frames": 3, "description": "NGT1259 NGT1261 NGS1260 NGS1262 TV28905 W16541 JRJ90167 XH0930"}, {"id": "yiwukiko-d1e047a5", "factory": "Yiwu Kiko", "type": "юбка-шорты", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-d1e047a5.jpg", "frames": 3, "description": "8806T 8806B 8813 C2257SK02 NGT1190 NGSH1191"}, {"id": "yiwukiko-d42d77da", "factory": "Yiwu Kiko", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-d42d77da.jpg", "frames": 3, "description": "NGT1394 GP1395 NGT1398 NGP1399"}, {"id": "yiwukiko-e0266d8d", "factory": "Yiwu Kiko", "type": "юбка-шорты", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-e0266d8d.jpg", "frames": 1, "description": "XH0010 XH0003 XH0023 Y4064 XH0008 XH0028 XH0016 EP1ST267172"}, {"id": "yiwukiko-e2cd3a92", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-e2cd3a92.jpg", "frames": 3, "description": "NGT1372 NGT1370 NGSH1373 NGSH1371 NGJK1374 NGT1376 NGP1375 NGP1377 NGJK1378 NGT1380 NGP1379 NGSH1381"}, {"id": "yiwukiko-e460fb6b", "factory": "Yiwu Kiko", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-e460fb6b.jpg", "frames": 3, "description": "NGT1345 NGP1346 XHOY-01 XH0021 XH0037 XH0038 SW01-T MF12515FL01"}, {"id": "yiwukiko-e7afe6c5", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-e7afe6c5.jpg", "frames": 3, "description": "NGT1209 NGSH1210 NGT1205 NGT1203 NGSH1204"}, {"id": "yiwukiko-eaac720f", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-eaac720f.jpg", "frames": 2, "description": "SD1701 D32427 XH2423 DLT4001 LS-7525DR2 LS-7525DR"}, {"id": "yiwukiko-eb13b532", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-eb13b532.jpg", "frames": 1, "description": "NGD1013 BRO-WD88A S-2027 NG1501 NG0715K XH6423"}, {"id": "yiwukiko-ed792cc2", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-ed792cc2.jpg", "frames": 3, "description": "JD718H-T 1124746 JD718H-B 1166837 PSF206841 488T LG063 488B"}, {"id": "yiwukiko-ee933fce", "factory": "Yiwu Kiko", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-ee933fce.jpg", "frames": 3, "description": "NGT1302 WS2047 WS0126 EOIDR242332 WS20710 XHS25111-T XHS25111-SK"}, {"id": "yiwukiko-ef6fc10b", "factory": "Yiwu Kiko", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-ef6fc10b.jpg", "frames": 3, "description": "NGT1096 KSS-0528K-T NGP1097 KSS-0528K-B NGT1403 NGP1402 NGT1405 NGP1406"}, {"id": "yiwukiko-f1c1e150", "factory": "Yiwu Kiko", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-f1c1e150.jpg", "frames": 2, "description": "KKT-6422 KKP-6422 KKT-6424 KKP-6425 KKT-6421 KKP-6422"}, {"id": "yiwukiko-f56ad84e", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-f56ad84e.jpg", "frames": 3, "description": "T：NGT1141 T:NGT1131 B：NGP1142 B:NGS1132 T:LV1180T T:AT04271BA-CF-KK B:LV1180SK B:AT04271SK-CF-KK T：TZ9187BA T:NGT1286 B：TZ9187BA B:NGSK1287"}, {"id": "yiwukiko-f6191355", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-f6191355.jpg", "frames": 3, "description": "NGT1356 NGT1360 NGP1357 NGSH1361 NGT1368 NGT1364 NGP1369 NGP1365 NGD1282 NGD1283"}, {"id": "yiwukiko-fb0e6a1a", "factory": "Yiwu Kiko", "type": "футболка / топ", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-fb0e6a1a.jpg", "frames": 3, "description": "NGT1230 NGT1215 NGP1231 NGP1216 NGT1312 NGT1313 NGT1219 NGP1221"}, {"id": "yiwukiko-fde49d57", "factory": "Yiwu Kiko", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-fde49d57.jpg", "frames": 3, "description": "NGT1382 NGT1384 NGSH1383 NGP1385 NGT1388 NGP1389 NGT1350 NGSH1351 NGT1352 NGT1354 NGP1353 NGP1355"}, {"id": "yiwukiko-fe82d7d3", "factory": "Yiwu Kiko", "type": "юбка-шорты", "item_no": "", "fabric": "", "price": "", "web": "img/yiwukiko-fe82d7d3.jpg", "frames": 2, "description": "D32324 D32673 KK-EO1ST252462 D1807 XH0026 KK-MK1748 XH0017 XH0005"}];
+const PAGE_ID = "yiwu-kiko-chast-2";
+const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
+let db=null, uid=null;
+
+const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
+const key = id => id+"__"+(uid||"local");
+
+function localLoad(){ try{ return JSON.parse(localStorage.getItem("votes:"+PAGE_ID)||"{}"); }catch(e){ return {}; } }
+function localSave(){ try{ localStorage.setItem("votes:"+PAGE_ID, JSON.stringify(state.mine)); }catch(e){} }
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.textContent = "";
+  const q = state.q.trim().toLowerCase();
+  let shown = 0;
+  for(const m of MODELS){
+    const v = state.mine[m.id] || {};
+    if(state.filter==="new" && (v.like || v.stars)) continue;
+    if(state.filter==="like" && !v.like) continue;
+    if(state.type && m.type !== state.type) continue;
+    if(q && !((m.item_no+" "+m.fabric+" "+m.description).toLowerCase().includes(q))) continue;
+    grid.appendChild(card(m, v)); shown++;
+  }
+  document.getElementById("empty").hidden = shown>0;
+  const rated = MODELS.filter(m=>{const v=state.mine[m.id]||{}; return v.like||v.stars;}).length;
+  document.getElementById("bar").style.width = (100*rated/MODELS.length).toFixed(1)+"%";
+  document.getElementById("cnt").textContent = `оценено ${rated} из ${MODELS.length}`;
+}
+
+function card(m, v){
+  const c = el("div","card"+(v.like?" liked":""));
+  const ph = el("div","ph"); ph.tabIndex = 0;
+  const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
+  img.src = m.web; img.style.width = (m.frames*100)+"%";
+  const dots = el("div","dots");
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
+  const meta = el("div","meta");
+  meta.appendChild(el("div","type", m.type));
+  if(m.item_no) meta.appendChild(el("div","art", m.item_no));
+  if(m.fabric) meta.appendChild(el("div","fab", m.fabric));
+  if(m.price) meta.appendChild(el("div","price", m.price));
+  const acts = el("div","acts");
+  const heart = el("button","heart"+(v.like?" on":""),"♥");
+  heart.title = "Нравится"; heart.setAttribute("aria-pressed", v.like?"true":"false");
+  heart.onclick = ()=> save(m, {like: !(state.mine[m.id]||{}).like});
+  acts.appendChild(heart);
+  const others = state.others[m.id]||0;
+  if(others) acts.appendChild(el("span","others","+"+others));
+  const stars = el("div","stars");
+  for(let i=1;i<=5;i++){
+    const s = el("button","star"+((v.stars||0)>=i?" on":""),"★");
+    s.title = i+" из 5";
+    s.onclick = ()=> save(m, {stars: (state.mine[m.id]||{}).stars===i ? 0 : i});
+    stars.appendChild(s);
+  }
+  acts.appendChild(stars);
+  c.append(ph, meta, acts);
+  return c;
+}
+
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
+function openBig(m){
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
+}
+document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("dlg").addEventListener("click", e => { if(e.target.id === "dlg") document.getElementById("dlg").close(); });
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+async function save(m, patch){
+  const cur = state.mine[m.id] || {like:false, stars:0};
+  const next = Object.assign({}, cur, patch);
+  state.mine[m.id] = next; localSave(); render();
+  if(!db) return;
+  try{
+    await db.doc("votes/"+key(m.id)).set({
+      model:m.id, page:PAGE_ID, factory:m.factory, type:m.type, item_no:m.item_no||"",
+      like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
+    });
+  }catch(e){
+    document.getElementById("status").textContent = "Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе");
+  }
+}
+
+function picked(){
+  const out = [];
+  for(const m of MODELS){
+    const v = state.mine[m.id]; if(!v || (!v.like && !v.stars)) continue;
+    out.push({id:m.id, factory:m.factory, type:m.type, item:m.item_no||"", like:!!v.like, stars:v.stars||0});
+  }
+  return {page:PAGE_ID, who:(document.getElementById("who").value||"").trim(), at:new Date().toISOString(), picks:out};
+}
+document.getElementById("who").value = localStorage.getItem("who")||"";
+document.getElementById("who").oninput = e => { try{ localStorage.setItem("who", e.target.value); }catch(err){} };
+document.getElementById("copy").onclick = async ()=>{
+  const data = picked();
+  try{ await navigator.clipboard.writeText(JSON.stringify(data));
+       document.getElementById("status").textContent = `Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`; }
+  catch(e){ document.getElementById("status").textContent = "Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."; }
+};
+document.getElementById("dl").onclick = ()=>{
+  const data = picked();
+  const blob = new Blob([JSON.stringify(data, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `выбор-yiwu-kiko-chast-2-${data.who||"без-имени"}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById("status").textContent = `Файл сохранён: ${data.picks.length} моделей.`;
+};
+document.getElementById("mail").onclick = e => {
+  const data = picked();
+  const body = data.picks.map(p=>`${p.factory} · ${p.type} ${p.item} — ${p.like?"нравится":""} ${p.stars?p.stars+"/5":""}`).join("\n");
+  e.currentTarget.href = "mailto:privery.prod@euphoria.fit?subject=" +
+    encodeURIComponent("Выбор моделей: "+PAGE_ID) + "&body=" + encodeURIComponent((data.who?data.who+"\n\n":"")+body);
+};
+
+document.getElementById("f-all").onclick = ()=> setFilter("all");
+document.getElementById("f-new").onclick = ()=> setFilter("new");
+document.getElementById("f-like").onclick = ()=> setFilter("like");
+function setFilter(f){
+  state.filter=f;
+  for(const [id,val] of [["f-all","all"],["f-new","new"],["f-like","like"]])
+    document.getElementById(id).setAttribute("aria-pressed", String(val===f));
+  render();
+}
+const types = [...new Set(MODELS.map(m=>m.type))].sort();
+const sel = document.getElementById("f-type");
+for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
+sel.onchange = e => { state.type = e.target.value; render(); };
+document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+state.mine = localLoad();
+render();
+
+(async ()=>{
+  const user = await window.claude?.use?.("user");
+  uid = user ? await user.id() : null;
+  db = await window.claude?.use?.("db");
+  if(!db){ document.getElementById("status").textContent = "Общая база недоступна — оценки сохраняются только в этом браузере."; return; }
+  document.getElementById("status").textContent = "Оценки сохраняются автоматически и видны коллегам.";
+  db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
+    const mine={}, others={};
+    for(const d of snap.docs){
+      const v = d.data()||{};
+      if(uid && v.by===uid){ mine[v.model]={like:!!v.like, stars:v.stars||0}; }
+      else if(v.like){ others[v.model]=(others[v.model]||0)+1; }
+    }
+    if(Object.keys(mine).length || Object.keys(others).length){
+      state.mine = Object.keys(mine).length ? mine : state.mine;
+      state.others = others; localSave(); render();
+    }
+  }, err => { document.getElementById("status").textContent = "Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."; });
+})();
+</script>

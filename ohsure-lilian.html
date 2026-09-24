@@ -55,7 +55,7 @@ select,input[type=search]{border:1px solid var(--line);background:var(--panel);c
 .send{margin-top:8px;align-items:center}
 .send a.chip{text-decoration:none}
 #who{min-width:150px}
-dialog{border:0;border-radius:14px;padding:0;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 dialog::backdrop{background:rgba(10,16,13,.7)}
 .viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
 .viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
@@ -72,7 +72,7 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
 <header class="top">
   <div class="brow">
     <h1>Ohsure (Lilian)</h1>
-    <div class="sub">12 моделей · каталоги фабрики</div>
+    <div class="sub">7 моделей · каталоги фабрики</div>
     <div class="prog" aria-hidden="true"><i id="bar"></i></div>
     <div class="sub" id="cnt"></div>
   </div>
@@ -105,7 +105,7 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
   <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
 </dialog>
 <script>
-const MODELS = [{"id": "ohsurelili-0001", "factory": "Ohsure (Lilian)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0001.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0002", "factory": "Ohsure (Lilian)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0002.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0003", "factory": "Ohsure (Lilian)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0003.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0007", "factory": "Ohsure (Lilian)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0007.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0011", "factory": "Ohsure (Lilian)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0011.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0012", "factory": "Ohsure (Lilian)", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0012.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0004", "factory": "Ohsure (Lilian)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0004.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0005", "factory": "Ohsure (Lilian)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0005.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0006", "factory": "Ohsure (Lilian)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0006.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0008", "factory": "Ohsure (Lilian)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0008.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0009", "factory": "Ohsure (Lilian)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0009.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-0010", "factory": "Ohsure (Lilian)", "type": "без типа", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0010.jpg", "frames": 1, "description": ""}];
+const MODELS = [{"id": "ohsurelili-0b2841ae", "factory": "Ohsure (Lilian)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-0b2841ae.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-22637ad9", "factory": "Ohsure (Lilian)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-22637ad9.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-3a0baee1", "factory": "Ohsure (Lilian)", "type": "леггинсы", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-3a0baee1.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-675e1cb3", "factory": "Ohsure (Lilian)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-675e1cb3.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-9bccf157", "factory": "Ohsure (Lilian)", "type": "платье", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-9bccf157.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-afb6af35", "factory": "Ohsure (Lilian)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-afb6af35.jpg", "frames": 1, "description": ""}, {"id": "ohsurelili-b4dafcf4", "factory": "Ohsure (Lilian)", "type": "бра", "item_no": "", "fabric": "", "price": "", "web": "img/ohsurelili-b4dafcf4.jpg", "frames": 1, "description": ""}];
 const PAGE_ID = "ohsure-lilian";
 const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
 let db=null, uid=null;
@@ -192,6 +192,7 @@ function openBig(m){
   document.getElementById("dlg").showModal();
 }
 document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("dlg").addEventListener("click", e => { if(e.target.id === "dlg") document.getElementById("dlg").close(); });
 document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
 document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
 document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
