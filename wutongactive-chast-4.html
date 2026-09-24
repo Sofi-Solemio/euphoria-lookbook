@@ -88,8 +88,15 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
   .nav{width:52px;height:68px;font-size:30px}
 }
 @media (max-width:430px){
-  .grid{grid-template-columns:minmax(0,1fr);gap:14px}
-  .heart,.star{font-size:26px;padding:6px 3px}
+  /* на телефоне всегда две карточки в ряд */
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .wrap{padding:0 10px 72px}
+  .meta{padding:8px 9px 0}
+  .acts{padding:8px 9px 10px;gap:4px}
+  .heart,.star{font-size:20px;padding:3px 1px}
+  .stars{gap:0}
+  .fab{font-size:12px}
+  .type{font-size:13px}
 }
 </style>
 <div class="wrap">
