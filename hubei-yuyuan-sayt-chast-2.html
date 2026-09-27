@@ -1,0 +1,410 @@
+<title>Лукбук — Hubei Yuyuan (сайт) — часть 2</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,215px),1fr));gap:14px;margin-top:16px}
+.card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{min-width:0;overflow-wrap:anywhere;padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.back{text-decoration:none;color:var(--ink);font-size:19px;font-weight:700;padding-right:2px}
+.sendfab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;
+  background:var(--accent);color:#fff;border:0;border-radius:99px;padding:14px 20px;font:600 15px/1 "Golos Text",Arial,sans-serif;
+  box-shadow:0 6px 20px rgba(22,33,28,.28);cursor:pointer}
+.sheetbg{position:fixed;inset:0;z-index:41;background:rgba(10,16,13,.45)}
+.sheet{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:42;
+  display:flex;flex-direction:column;gap:8px;background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,.3);max-width:440px;margin:0 auto}
+.sheettitle{font-weight:700;font-size:16px;margin-bottom:2px}
+.sheet .chip{width:100%;padding:13px;font-size:16px;text-align:center}
+.sheet .chip.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.sheet .chip.ghost{border:0;color:var(--muted)}
+.sheet input{width:100%;padding:13px;font-size:16px;border:1px solid var(--line);border-radius:99px;background:var(--bg);color:var(--ink)}
+
+#who{min-width:150px}
+dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* телефон: две крупные колонки вместо мелкой сетки, крупнее текст и кнопки */
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 12px 72px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  header.top{padding-block:6px 6px}
+  .brow{gap:4px 8px;flex-wrap:nowrap;align-items:center}
+  .prog{display:none}
+  .brow .sub:first-of-type{display:none}
+  h1{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+  #cnt{white-space:nowrap;font-size:12px}
+  .status{font-size:12px;margin-top:4px}
+  .tools{margin-top:6px}
+  .sendfab{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:13px 18px}
+  .chip,select,input[type=search]{font-size:14px;padding:7px 12px}
+  input[type=search]{min-width:150px}
+  .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;scrollbar-width:none}
+  .tools::-webkit-scrollbar{display:none}
+  .chip,select,input[type=search]{flex:0 0 auto}
+  h1{font-size:19px}
+  .type{font-size:14px}
+  .art{font-size:12.5px}
+  .fab{font-size:13px}
+  .price{font-size:15px}
+  .meta{padding:10px 12px 0;gap:4px}
+  .acts{padding:10px 12px 12px;gap:8px}
+  .heart,.star{font-size:23px;padding:4px 2px}
+  .stars{gap:3px}
+  .chip,select,input[type=search]{font-size:15px;padding:9px 14px}
+  #who{min-width:130px}
+  .viewer{width:96vw}
+  .nav{width:52px;height:68px;font-size:30px}
+}
+@media (max-width:430px){
+  /* на телефоне всегда две карточки в ряд */
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  h1{font-size:17px}
+  .wrap{padding:0 10px 72px}
+  .meta{padding:8px 9px 0}
+  .acts{padding:8px 9px 10px;gap:4px}
+  .heart,.star{font-size:20px;padding:3px 1px}
+  .stars{gap:0}
+  .fab{font-size:12px}
+  .type{font-size:13px}
+}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brow">
+    <a class="back" href="index.html" title="Все фабрики">←</a>
+    <h1>Hubei Yuyuan (сайт) — часть 2</h1>
+    <div class="sub">105 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Только нравится</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+  </div>
+  <div class="status" id="status" hidden></div>
+</header>
+<button class="sendfab" id="sendopen">Отправить выбор</button>
+<div class="sheetbg" id="sheetbg" hidden></div>
+<div class="sheet" id="sheet" hidden>
+  <div class="sheettitle">Отправить выбор Софье</div>
+  <input id="who" placeholder="ваше имя" autocomplete="name">
+  <button class="chip primary" id="send">Отправить Софье</button>
+  <button class="chip" id="copy">Скопировать выбор</button>
+  <button class="chip" id="dl">Скачать файл выбора</button>
+  <button class="chip ghost" id="sheetclose">Закрыть</button>
+</div>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Ничего не найдено — снимите фильтры.</div>
+</div>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
+<script>
+const MODELS = [{"id": "hubeiyuyua-3bd0386e", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-3bd0386e.jpg", "frames": 1, "description": "Softshell Hooded Jacket with Reinforced Shoulders and Seamless Pockets ODM OEM · Softshell Jacket"}, {"id": "hubeiyuyua-3d036d94", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-3d036d94.jpg", "frames": 1, "description": "Women Hooded Softshell Jacket Fleece Lined Adjustable Long Parka for Winter · Softshell Jacket"}, {"id": "hubeiyuyua-3d674a83", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-3d674a83.jpg", "frames": 1, "description": "Women Hooded Softshell Jacket for Outdoor Hiking Travel · Softshell Jacket"}, {"id": "hubeiyuyua-3f1108fc", "factory": "Hubei Yuyuan (сайт)", "type": "шорты", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-3f1108fc.jpg", "frames": 1, "description": "BSCI Factory Men s Cargo Shorts Surable Workwear Casual Utility Shorts · Pants"}, {"id": "hubeiyuyua-3f8f37d2", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-3f8f37d2.jpg", "frames": 1, "description": "New Coming Casual Women Overcoat High Quality Windbreaker for Outdoor Working · Waterproof Jacket"}, {"id": "hubeiyuyua-3fe3041a", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-3fe3041a.jpg", "frames": 1, "description": "Women s Fleece Jacket Outerwear Soft Warm Jacket for Outdoor Activities Lightweight Full Zip · Fleece Jacket"}, {"id": "hubeiyuyua-40783dc0", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-40783dc0.jpg", "frames": 1, "description": "Wholesale Custom Lightweight Softshell Jacket Vest for Men Women Windproof Casual Sports Waistcoat Cotton Pattern Outdoor for Hiking Camping · Softshell Jacket"}, {"id": "hubeiyuyua-4090f543", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4090f543.jpg", "frames": 1, "description": "Basic Softshell Vest Thermal Fleece Lined Waterproof Jacket with Full Zip Large Pockets · Softshell Jacket"}, {"id": "hubeiyuyua-40a629cf", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-40a629cf.jpg", "frames": 1, "description": "Women Waterproof Long Parka with Belt Stylish Rain Coat Windbreaker Stripe Hooded PU Coated Protective Jacket for Outdoor Cycling Dog Walking · Waterproof Jacket"}, {"id": "hubeiyuyua-40dc5ce5", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-40dc5ce5.jpg", "frames": 1, "description": "Men Lightweight Full Zip Outwear Hooded Pockets Rain Jackets Coat for Working Fishing · Waterproof Jacket"}, {"id": "hubeiyuyua-41ce56c5", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-41ce56c5.jpg", "frames": 1, "description": "Lightweight Vest Jacket 5 Large Pockets Functional Details Checked Lining for Outdoor · Softshell Jacket"}, {"id": "hubeiyuyua-4251a48a", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4251a48a.jpg", "frames": 1, "description": "Men s Hiking Pants Water Resistant Outdoor Pants Lightweight Softshell Trousers Fishing Work Pants · Pants"}, {"id": "hubeiyuyua-42709353", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-42709353.jpg", "frames": 1, "description": "Mens Outdoor Jacket Government Uniform Tactical Jacket for Technical Softshell Jacket · Softshell Jacket"}, {"id": "hubeiyuyua-42cf28b0", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-42cf28b0.jpg", "frames": 1, "description": "Waterproof Windbreaker Light Weight Jacket Breathable Mesh for Outdoor Hiking Camping Mountain · Waterproof Jacket"}, {"id": "hubeiyuyua-43a13bac", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-43a13bac.jpg", "frames": 1, "description": "Men s Outdoor Windbreaker Jacket Waterproof Lightweight Softshell Fleece Lined Rain Shell Jacket · Softshell Jacket"}, {"id": "hubeiyuyua-44cde64a", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-44cde64a.jpg", "frames": 1, "description": "Men Softshell Vest Light Weight Hooded Jacket 3 Pockets for Outdoor Hiking Working · Softshell Jacket"}, {"id": "hubeiyuyua-45f472e5", "factory": "Hubei Yuyuan (сайт)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-45f472e5.jpg", "frames": 1, "description": "BSCI Factory Make Training Suit Camouflage Hunting Suit Ripstop Outdoor Tactical Uniform Frog Suit · Waterproof Jacket"}, {"id": "hubeiyuyua-467b8d38", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-467b8d38.jpg", "frames": 1, "description": "Hooded Hunting Jacket with Camo Printed Waterproof Tactical Parka for Outdoor · Waterproof Jacket"}, {"id": "hubeiyuyua-4713314c", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4713314c.jpg", "frames": 1, "description": "Men s Windproof Lightweight Vest Outerwear with Pockets Softshell Sleeveless Jacket for Running Hiking Sports · Softshell Jacket"}, {"id": "hubeiyuyua-4724475c", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4724475c.jpg", "frames": 1, "description": "Light Weight Breathable Softshell Vest for Hiking Travel · Softshell Jacket"}, {"id": "hubeiyuyua-4a6eff6a", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4a6eff6a.jpg", "frames": 1, "description": "Men S Camouflage Cargo Overalls Insulated Tactial Pants for Winter Outdoor · Pants"}, {"id": "hubeiyuyua-4b1279bb", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4b1279bb.jpg", "frames": 1, "description": "Functional Waterproof Training Work Pants Zipper Pockets Quick Dry Tactical Cargo Outdoor Work Hiking Pants for Men Overalls · Waterproof Jacket"}, {"id": "hubeiyuyua-4cc78864", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4cc78864.jpg", "frames": 1, "description": "Workwear Shirt Factory Custom Best Price Welded Seams with Zip off Sleeves Large Pockets · Waterproof Jacket"}, {"id": "hubeiyuyua-4d498527", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4d498527.jpg", "frames": 1, "description": "Outdoor Jacket Men s Lightweight Windbreaker Fleece Lined Hooded Water Resistant Winter Hiking Softshell · Softshell Jacket"}, {"id": "hubeiyuyua-4d5552c5", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4d5552c5.jpg", "frames": 1, "description": "Women s Quick Dry Pants with Detachable Legs for Outdoor Hiking · Pants"}, {"id": "hubeiyuyua-4e7fb31c", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4e7fb31c.jpg", "frames": 1, "description": "Men Hooded Jacket Lightweight Parka with Side Slit Half Zip for Outdoor Hunting · Fleece Jacket"}, {"id": "hubeiyuyua-4e94ba85", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4e94ba85.jpg", "frames": 1, "description": "Windproof Recycled Polyster Zipped Pockets Taped Seams Men S Windbreaker Jacket for Hiking Camping Cycling Outdoor Ventures · Waterproof Jacket"}, {"id": "hubeiyuyua-4f77a00d", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-4f77a00d.jpg", "frames": 1, "description": "Factory Price Customized Logo Waterproof Hunting Hiking Pants Men s Outdoor Antipilling Hunting Trousers · Pants"}, {"id": "hubeiyuyua-502fda28", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-502fda28.jpg", "frames": 1, "description": "Women s Trench Coat 3 Layers Windbreaker with Belt for Outdoor Urban City Waterproof Windproof Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-50c24659", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-50c24659.jpg", "frames": 1, "description": "Men S Tactical Jacket 65 Polyester 35 Cotton with Full Print Velcro Patches Outdoor Hunting · Softshell Jacket"}, {"id": "hubeiyuyua-5143b432", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5143b432.jpg", "frames": 1, "description": "OEM China Made Waterproof PU High Frequency Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-5168129d", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5168129d.jpg", "frames": 1, "description": "Factory Direct Supply Work Trousers Low Price Polyester Minimatt Workwear Pants for Printing · Pants"}, {"id": "hubeiyuyua-52854e8f", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-52854e8f.jpg", "frames": 1, "description": "Breathable Spring Jacket with Reflective for Men S Utility Outdoor Jacket ODM OEM · Waterproof Jacket"}, {"id": "hubeiyuyua-5287560d", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5287560d.jpg", "frames": 1, "description": "Men s Work Pants Denims Reflective Safety Construction Cargo Work Wear Trousers Work Pants for Men · Pants"}, {"id": "hubeiyuyua-529730f9", "factory": "Hubei Yuyuan (сайт)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-529730f9.jpg", "frames": 1, "description": "New Coming Hunting Clothes for Men Printed Camo Wear Suits Water Resistant Hunting Duck Deer Hunting Jacket and Pants · Waterproof Jacket"}, {"id": "hubeiyuyua-5303c136", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5303c136.jpg", "frames": 1, "description": "Kids Hoodied Soft Jacket Faux Fur Lined Reflective Warm Coat with Reflective for Winter Outdoor Sport · Softshell Jacket"}, {"id": "hubeiyuyua-5324de69", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5324de69.jpg", "frames": 1, "description": "New Men s Waterproof PU Raincoat Waterproof Jacket Long Windbreaker Outdoor Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-5384e8b7", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5384e8b7.jpg", "frames": 1, "description": "Hunting Clothes for Men Printed Camping Wear Water Resistant Hunting Duck Deer Hunting · Waterproof Jacket"}, {"id": "hubeiyuyua-54522740", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-54522740.jpg", "frames": 1, "description": "Men s Work Pants Denims Reflective Safety Construction Cargo Work Wear Trousers Work Pants for Working Outdoor Job · Pants"}, {"id": "hubeiyuyua-54c07609", "factory": "Hubei Yuyuan (сайт)", "type": "худи / кофта на молнии", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-54c07609.jpg", "frames": 1, "description": "Cheap Outdoor Softshell Jackets Sports Mountaineering Travel · Softshell Jacket"}, {"id": "hubeiyuyua-55e93793", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-55e93793.jpg", "frames": 1, "description": "Waterproof Jacket Thick Warm Windbreaker with Removable Hood and Ventilation Zippers · Waterproof Jacket"}, {"id": "hubeiyuyua-565e2649", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-565e2649.jpg", "frames": 1, "description": "China Professional Supplier Women Business Casual Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-57c7631c", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-57c7631c.jpg", "frames": 1, "description": "China Professional Supplier Women Packable Zipped Pockets Hardshell Padding Business Casual Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-5822fc2c", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5822fc2c.jpg", "frames": 1, "description": "Boys Girls Softshell Jacket Waterproof Hooded Fleece Lined Raincoat Windbreaker for Kids · Softshell Jacket"}, {"id": "hubeiyuyua-58695775", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-58695775.jpg", "frames": 1, "description": "Custom Logo Workwear Uniform Outdoor Waterproof Sports Warm Winter Hooded 3 Layer Bonded Windproof Men s Softshell Jackets · Softshell Jacket"}, {"id": "hubeiyuyua-589c21ec", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-589c21ec.jpg", "frames": 1, "description": "Men s Lightweight Softshell Vest Outerwear Fleece Lined Windproof Sleeveless Jacket for Outdoor · Softshell Jacket"}, {"id": "hubeiyuyua-58ea78c5", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-58ea78c5.jpg", "frames": 1, "description": "New Casual Outerwear Waterproof Fleece Lined Men S Softshell Jackets for Travel · Softshell Jacket"}, {"id": "hubeiyuyua-5906db24", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5906db24.jpg", "frames": 1, "description": "Men Softshell Vest Light Weight Sleeveless Quilted Hooded Jacket 3 Pockets for Outdoor Hiking Working · Softshell Jacket"}, {"id": "hubeiyuyua-59823ae9", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-59823ae9.jpg", "frames": 1, "description": "Water Resistant Hooded Softshell Fleece Lined Jacket Lightweight Windbreaker 3 Zipper Pockets for Outdoor · Softshell Jacket"}, {"id": "hubeiyuyua-5accdfc7", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5accdfc7.jpg", "frames": 1, "description": "Man Softshell Trousers Waterproof Breathable Winter Outdoor Pants Hiking Mountain Functional · Pants"}, {"id": "hubeiyuyua-5d8cc981", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5d8cc981.jpg", "frames": 1, "description": "Breathable Spring Jacket for Men s Utility Outdoor Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-5de211fb", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5de211fb.jpg", "frames": 1, "description": "OEM ODM Basic Sweatshirt Women Casual Long Parka Knit Jacket with Zip Closure · Fleece Jacket"}, {"id": "hubeiyuyua-5ee34831", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5ee34831.jpg", "frames": 1, "description": "Women S Hiking Pants Quick Dry Lightweight Water Resistant Breathable for Outdoor Travel Trousers Mountain ODM · Pants"}, {"id": "hubeiyuyua-5f30eb61", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5f30eb61.jpg", "frames": 1, "description": "Performance Outwear 2 5 Layers Jacket Adjustable Hood amp Waist Light Weight Waterproof Windproof for Outdoor · Waterproof Jacket"}, {"id": "hubeiyuyua-5f459e7d", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-5f459e7d.jpg", "frames": 1, "description": "Breathable Waterproof High Quality Hunting Clothes Custom Logo Deer Hunter s Professional Hunting Wear Tactical Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-6025362e", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6025362e.jpg", "frames": 1, "description": "Men s Tactical Softshell Jacket Fleece Lined Water Resistant Windbreaker Lightweight Coat for Hiking · Softshell Jacket"}, {"id": "hubeiyuyua-60597bf3", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-60597bf3.jpg", "frames": 1, "description": "Mens Windproof Jacket Waterproof Lightweight Mountain Sport Jacket for Outdoor Windbreaker Raincoat · Waterproof Jacket"}, {"id": "hubeiyuyua-629f221a", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-629f221a.jpg", "frames": 1, "description": "Functional Packable Windbreaker Waterproof ODM Outdoor Rainwear for Hinking Golf Running Camping · Waterproof Jacket"}, {"id": "hubeiyuyua-63b583bf", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-63b583bf.jpg", "frames": 1, "description": "Basic Softshell Thick Warm Teddy Lining Soft Hooded Jacket Sweatshirts for Cold · Softshell Jacket"}, {"id": "hubeiyuyua-651b06c3", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-651b06c3.jpg", "frames": 1, "description": "Professional Design 3 Layer Ultra Mesh Cotton Ventilated Bee Keeping Protective Unisex Premium Plus Beekeeping Vented Jacket for Hiking Camping Fishing · Waterproof Jacket"}, {"id": "hubeiyuyua-65bcc512", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-65bcc512.jpg", "frames": 1, "description": "Hooded PU Waterproof Jacket with Fully Welded Seams Stylish Raincoat for Outdoor · Waterproof Jacket"}, {"id": "hubeiyuyua-65bd1739", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-65bd1739.jpg", "frames": 1, "description": "Women Hooded Jacket with Taped Seams Light Weight Windbreaker Slim Fit for Outdoor Wear Working · Waterproof Jacket"}, {"id": "hubeiyuyua-65e08004", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-65e08004.jpg", "frames": 1, "description": "Custom Logo Plain Windproof Waterproof Outdoor Softshell Quilted Hybrid Jacket with Zipper Lightweight · Softshell Jacket"}, {"id": "hubeiyuyua-66e9fbbe", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-66e9fbbe.jpg", "frames": 1, "description": "Womens Jacket for Camping Hiking Sport Running Light Weight Outdoor Jacket Windbreaker with Stretchy Water Repellent High Quality · Waterproof Jacket"}, {"id": "hubeiyuyua-672457bb", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-672457bb.jpg", "frames": 1, "description": "Outdoor Jacket Men s Lightweight Softshell Vest Waterproof Sleeveless Jacket Gilet for Running Hiking Golf · Softshell Jacket"}, {"id": "hubeiyuyua-6797883e", "factory": "Hubei Yuyuan (сайт)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6797883e.jpg", "frames": 1, "description": "Breathable 2025 Customized Hunting Clothes Waterproof Men s Breathable Hunting Suit for Sale · Waterproof Jacket"}, {"id": "hubeiyuyua-692b6470", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-692b6470.jpg", "frames": 1, "description": "Light Weight Windbreaker Waterproof Hooded Jacket Taped Seams with Large Pockets for Outdoor Sports · Waterproof Jacket"}, {"id": "hubeiyuyua-69d084ae", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-69d084ae.jpg", "frames": 1, "description": "2 5L Lightweight Jacket Waterproof Hooded with Taped Seams and Armpit Zippers for Outdoor · Waterproof Jacket"}, {"id": "hubeiyuyua-69db3745", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-69db3745.jpg", "frames": 1, "description": "New Arrival Simple Winter Hooded Custom Softshell Jacket for Men Custom Casual Sports Windproof Outdoor Men S Softshell Jacket ODM OEM · Softshell Jacket"}, {"id": "hubeiyuyua-6aaa26a8", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6aaa26a8.jpg", "frames": 1, "description": "Custom Equestrian Clothing with Filling Light Weight Winter Active Performance Horse Riding Jacket for Women · Waterproof Jacket"}, {"id": "hubeiyuyua-6aeaf300", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6aeaf300.jpg", "frames": 1, "description": "High Quality OEM ODM Custom Technical Fleece Lined Outdoor Wear Manufacturer Waterproof Bonded Jacket · Softshell Jacket"}, {"id": "hubeiyuyua-6b485db5", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6b485db5.jpg", "frames": 1, "description": "New Coming Spring Autumn Wind Jacket Women Custom for Windbreaker Outdoor Fashionable Women Prime OEM ODM · Waterproof Jacket"}, {"id": "hubeiyuyua-6b75490f", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6b75490f.jpg", "frames": 1, "description": "Hiking Wear Uniform Custom Logo Windproof and Warm 100 Polar Fleece Jacket · Fleece Jacket"}, {"id": "hubeiyuyua-6b8747f8", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6b8747f8.jpg", "frames": 1, "description": "Custom Logo Rider Workwear Uniform Bike Riding Waterproof Outdoor Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-6be32dff", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6be32dff.jpg", "frames": 1, "description": "Men Tactical Jackets Waterproof Windproof Softshell Large Pockets for Outdoor · Softshell Jacket"}, {"id": "hubeiyuyua-6c665262", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6c665262.jpg", "frames": 1, "description": "Snow Bib Pants with Pockets Waterproof Insulated Overalls Thick Warm for Skiing · Pants"}, {"id": "hubeiyuyua-6d72ca3a", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6d72ca3a.jpg", "frames": 1, "description": "Fashion Excellent Quality Luxury Horse Riding Coat Water Repellent Jacket Weekend Trail Riding · Waterproof Jacket"}, {"id": "hubeiyuyua-6e6799e1", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6e6799e1.jpg", "frames": 1, "description": "New Arrival Horse Riding Equestrian Show Jacket Fashion Women Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-6ea98299", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6ea98299.jpg", "frames": 1, "description": "High Quality OEM ODM Custom Technical Outewear Manufacturer Waterproof Bonded Jacket · Softshell Jacket"}, {"id": "hubeiyuyua-6f1ff3c4", "factory": "Hubei Yuyuan (сайт)", "type": "комплект", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6f1ff3c4.jpg", "frames": 1, "description": "BSCI Factory Make Training Suit Camouflage Hunting Suit Outdoor Tactical Uniform Frog Suit · Waterproof Jacket"}, {"id": "hubeiyuyua-6ff46df2", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-6ff46df2.jpg", "frames": 1, "description": "Men s Classic Waterproof Textile Riding Jacket Ventilated Motorcycle Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-7178b322", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7178b322.jpg", "frames": 1, "description": "Hiking Pants Women Lightweight Mountain Travel Pants Stretchy Quick Dry Outdoor Trousers · Pants"}, {"id": "hubeiyuyua-72143131", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-72143131.jpg", "frames": 1, "description": "PU Waterproof Rain Jacket Hooded Parka Raincoat Jersey Lined Welded Seams for Outdoor · Waterproof Jacket"}, {"id": "hubeiyuyua-72dc2d65", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-72dc2d65.jpg", "frames": 1, "description": "OEM ODM Service 2025 New Men s Lightweight Casual Jacket · Waterproof Jacket"}, {"id": "hubeiyuyua-732cd075", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-732cd075.jpg", "frames": 1, "description": "Women s Quick Dry Pants with Stretchy Fabric Side Pockets · Pants"}, {"id": "hubeiyuyua-732f4f19", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-732f4f19.jpg", "frames": 1, "description": "Custom Logo Outdoor Work Wear Uniform Soft Shell Waterproof Windproof Windbreaker Polyester Winter Softshell Jacket · Softshell Jacket"}, {"id": "hubeiyuyua-739d74d6", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-739d74d6.jpg", "frames": 1, "description": "2025 Top High Quality Custom Waterproof Softshell Jacket Cheap Plain Breathable Softshell Jacket · Softshell Jacket"}, {"id": "hubeiyuyua-73c2f5ca", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-73c2f5ca.jpg", "frames": 1, "description": "High Quality Reversible Fleece Jacket Zip Outwear for Winter Outdoor Hiking Golf · Fleece Jacket"}, {"id": "hubeiyuyua-7563cc65", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7563cc65.jpg", "frames": 1, "description": "Women Waterproof Jacket Horse Riding Back Slit Taped Seam Anorak for Outdoor · Waterproof Jacket"}, {"id": "hubeiyuyua-75b9c4cb", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-75b9c4cb.jpg", "frames": 1, "description": "Women Softshell Basic Style Stretchy Hooded Jacket Warm Fleece Lined for Outdoor Working · Softshell Jacket"}, {"id": "hubeiyuyua-76565c50", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-76565c50.jpg", "frames": 1, "description": "Men s Hiking Pants Water Resistant Outdoor Pants Lightweight Quick Dry Fishing Work Pants · Pants"}, {"id": "hubeiyuyua-768fb291", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-768fb291.jpg", "frames": 1, "description": "Men Trench Coat Double Breast Taped Seams Windbreaker Waterproof Breathable Jacket for Outwear · Waterproof Jacket"}, {"id": "hubeiyuyua-782dca1f", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-782dca1f.jpg", "frames": 1, "description": "Mens Waterproof Jacket Lightweight Windbreaker Breathable Rain Jacket for Hiking Camping · Waterproof Jacket"}, {"id": "hubeiyuyua-784bdfec", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-784bdfec.jpg", "frames": 1, "description": "Rain Pants PU Waterproof Gear Fluorescent Orange Yellow Reflective Tape for Outdoor Safety Work · Pants"}, {"id": "hubeiyuyua-7a04e033", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7a04e033.jpg", "frames": 1, "description": "Women S Quick Dry Hiking Pants 3 Zippered Pockets for Outdoor Ventures Cycling · Pants"}, {"id": "hubeiyuyua-7a39d7e0", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7a39d7e0.jpg", "frames": 1, "description": "Classic Ladies Competition Show Riding Jacket Equestrian Clothing Wear for Women Horse Riding · Waterproof Jacket"}, {"id": "hubeiyuyua-7a8c00f4", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7a8c00f4.jpg", "frames": 1, "description": "Functional Men s Jacket Waterproof Breathable Recycled Camping Hardshell 3 Layer Thick Warm · Waterproof Jacket"}, {"id": "hubeiyuyua-7bfe4f7d", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7bfe4f7d.jpg", "frames": 1, "description": "Outdoor Jacket Waterproof PU Rain Coat Hooded Welded Seams Hiking Jacket for Women for Fishing Camping · Waterproof Jacket"}, {"id": "hubeiyuyua-7c14a619", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7c14a619.jpg", "frames": 1, "description": "3L Waterproof Jacket with Adjustable Hooded Taped Seams Windbreaker for Outdoor · Waterproof Jacket"}, {"id": "hubeiyuyua-7c53d99d", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7c53d99d.jpg", "frames": 1, "description": "Womens Lightweight Outdoor Rain Jacket Waterproof Windbreaker with Hood for Running Hiking Travel · Waterproof Jacket"}, {"id": "hubeiyuyua-7ca7076a", "factory": "Hubei Yuyuan (сайт)", "type": "брюки", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7ca7076a.jpg", "frames": 1, "description": "Kids Ski Pants Junior Unisex Waterproof Insulated Snow Trousers for Children Ski Outdoor Winter · Pants"}, {"id": "hubeiyuyua-7df15382", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7df15382.jpg", "frames": 1, "description": "Men Waterproof Jacket Hooded Raincoat PU Material Welded Seams Adjustable for Rainy · Waterproof Jacket"}, {"id": "hubeiyuyua-7e71cb5e", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7e71cb5e.jpg", "frames": 1, "description": "Functional Waterproof Vest with Lining Back Vent Adjustable Puffer for Working · Waterproof Jacket"}, {"id": "hubeiyuyua-7eb7ea20", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7eb7ea20.jpg", "frames": 1, "description": "Women Trench Coat with Belt 3 Layers Waterproof Jacket Windbreaker Taped Seams for Outdoor · Waterproof Jacket"}, {"id": "hubeiyuyua-7f410baa", "factory": "Hubei Yuyuan (сайт)", "type": "ветровка / куртка", "item_no": "", "fabric": "", "price": "", "web": "img/hubeiyuyua-7f410baa.jpg", "frames": 1, "description": "Customized Logo Fashion Sports Windproof Waterproof Outdoor Softshell Hunting Jacket for Men · Waterproof Jacket"}];
+const PAGE_ID = "hubei-yuyuan-sayt-chast-2";
+const state = {mine:{}, others:{}, filter:"all", type:"", q:""};
+let db=null, uid=null;
+
+function setStatus(text){
+  const el = document.getElementById("status");
+  el.textContent = text || "";
+  el.hidden = !text;
+}
+const el = (t,c,x)=>{const e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;};
+const key = id => id+"__"+(uid||"local");
+
+function localLoad(){ try{ return JSON.parse(localStorage.getItem("votes:"+PAGE_ID)||"{}"); }catch(e){ return {}; } }
+function localSave(){ try{ localStorage.setItem("votes:"+PAGE_ID, JSON.stringify(state.mine)); }catch(e){} }
+
+function render(){
+  const grid = document.getElementById("grid");
+  grid.textContent = "";
+  const q = state.q.trim().toLowerCase();
+  let shown = 0;
+  for(const m of MODELS){
+    const v = state.mine[m.id] || {};
+    if(state.filter==="new" && (v.like || v.stars)) continue;
+    if(state.filter==="like" && !v.like) continue;
+    if(state.type && m.type !== state.type) continue;
+    if(q && !((m.item_no+" "+m.fabric+" "+m.description).toLowerCase().includes(q))) continue;
+    grid.appendChild(card(m, v)); shown++;
+  }
+  document.getElementById("empty").hidden = shown>0;
+  const rated = MODELS.filter(m=>{const v=state.mine[m.id]||{}; return v.like||v.stars;}).length;
+  document.getElementById("bar").style.width = (100*rated/MODELS.length).toFixed(1)+"%";
+  document.getElementById("cnt").textContent = `оценено ${rated} из ${MODELS.length}`;
+}
+
+function card(m, v){
+  const c = el("div","card"+(v.like?" liked":""));
+  const ph = el("div","ph"); ph.tabIndex = 0;
+  const img = el("img"); img.loading="lazy"; img.alt=m.type+" "+(m.item_no||"");
+  img.src = m.web; img.style.width = (m.frames*100)+"%";
+  const dots = el("div","dots");
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===0)b.className="on"; dots.appendChild(b); }
+  ph.addEventListener("click", ()=> openBig(m));
+  ph.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" ") { e.preventDefault(); openBig(m); } });
+  ph.append(img, dots);
+  const meta = el("div","meta");
+  meta.appendChild(el("div","type", m.type));
+  if(m.item_no) meta.appendChild(el("div","art", m.item_no));
+  if(m.fabric) meta.appendChild(el("div","fab", m.fabric));
+  if(m.price) meta.appendChild(el("div","price", m.price));
+  const acts = el("div","acts");
+  const heart = el("button","heart"+(v.like?" on":""),"♥");
+  heart.title = "Нравится"; heart.setAttribute("aria-pressed", v.like?"true":"false");
+  heart.onclick = ()=> save(m, {like: !(state.mine[m.id]||{}).like});
+  acts.appendChild(heart);
+  const others = state.others[m.id]||0;
+  if(others) acts.appendChild(el("span","others","+"+others));
+  const stars = el("div","stars");
+  for(let i=1;i<=5;i++){
+    const s = el("button","star"+((v.stars||0)>=i?" on":""),"★");
+    s.title = i+" из 5";
+    s.onclick = ()=> save(m, {stars: (state.mine[m.id]||{}).stars===i ? 0 : i});
+    stars.appendChild(s);
+  }
+  acts.appendChild(stars);
+  c.append(ph, meta, acts);
+  return c;
+}
+
+let view = {m:null, frame:0};
+function showFrame(){
+  const {m, frame} = view;
+  const img = document.getElementById("bigimg");
+  img.style.width = (m.frames*100)+"%";
+  img.style.transform = `translateX(${-frame*(100/m.frames)}%)`;
+  const dots = document.getElementById("bigdots");
+  dots.textContent = "";
+  for(let i=0;i<m.frames;i++){ const b=el("b"); if(i===frame) b.className="on"; dots.appendChild(b); }
+  dots.hidden = m.frames < 2;
+  document.getElementById("dlgnum").textContent = m.frames>1 ? `фото ${frame+1} из ${m.frames}` : "";
+  for(const id of ["prev","next"]) document.getElementById(id).hidden = m.frames < 2;
+}
+function step(d){ view.frame = (view.frame + d + view.m.frames) % view.m.frames; showFrame(); }
+function openBig(m){
+  view = {m, frame:0};
+  const img = document.getElementById("bigimg");
+  img.src = m.web;
+  document.getElementById("dlgcap").textContent = [m.factory, m.type, m.item_no, m.fabric, m.price].filter(Boolean).join(" · ");
+  showFrame();
+  document.getElementById("dlg").showModal();
+}
+document.getElementById("dlgclose").onclick = ()=> document.getElementById("dlg").close();
+document.getElementById("dlg").addEventListener("click", e => { if(e.target.id === "dlg") document.getElementById("dlg").close(); });
+document.getElementById("prev").onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById("next").onclick = e => { e.stopPropagation(); step(1); };
+document.getElementById("bigimg").onclick = ()=> { if(view.m && view.m.frames>1) step(1); };
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("dlg").open || !view.m) return;
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
+});
+let touchX = null;
+const viewer = document.getElementById("viewer");
+viewer.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if(touchX === null || !view.m) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+async function save(m, patch){
+  const cur = state.mine[m.id] || {like:false, stars:0};
+  const next = Object.assign({}, cur, patch);
+  state.mine[m.id] = next; localSave(); render();
+  if(!db) return;
+  try{
+    await db.doc("votes/"+key(m.id)).set({
+      model:m.id, page:PAGE_ID, factory:m.factory, type:m.type, item_no:m.item_no||"",
+      like: !!next.like, stars: next.stars||0, by: uid||"", at: new Date().toISOString()
+    });
+  }catch(e){
+    setStatus("Оценка сохранена только на этом устройстве: "+(e.code||e.message||"нет доступа к общей базе"));
+  }
+}
+
+function picked(){
+  const out = [];
+  for(const m of MODELS){
+    const v = state.mine[m.id]; if(!v || (!v.like && !v.stars)) continue;
+    out.push({id:m.id, factory:m.factory, type:m.type, item:m.item_no||"", like:!!v.like, stars:v.stars||0});
+  }
+  return {page:PAGE_ID, who:(document.getElementById("who").value||"").trim(), at:new Date().toISOString(), picks:out};
+}
+document.getElementById("who").value = localStorage.getItem("who")||"";
+document.getElementById("who").oninput = e => { try{ localStorage.setItem("who", e.target.value); }catch(err){} };
+document.getElementById("copy").onclick = async ()=>{
+  const data = picked();
+  try{ await navigator.clipboard.writeText(JSON.stringify(data));
+       setStatus(`Скопировано: ${data.picks.length} моделей. Вставьте текст в сообщение Софии.`); }
+  catch(e){ setStatus("Не удалось скопировать — воспользуйтесь кнопкой «Скачать файл выбора»."); }
+};
+document.getElementById("dl").onclick = ()=>{
+  const data = picked();
+  const blob = new Blob([JSON.stringify(data, null, 1)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `выбор-hubei-yuyuan-sayt-chast-2-${data.who||"без-имени"}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setStatus(`Файл сохранён: ${data.picks.length} моделей.`);
+};
+const SEND_URL = "https://formsubmit.co/ajax/privery.prod@euphoria.fit";
+document.getElementById("send").onclick = async () => {
+  const data = picked();
+  if(!data.picks.length){ setStatus("Пока ничего не отмечено — поставьте сердце или звёзды."); return; }
+  const body = (data.who ? data.who + "\n\n" : "") +
+    data.picks.map(p=>`${p.factory} · ${p.type}${p.item ? " " + p.item : ""} — ${p.like ? "нравится" : ""}${p.stars ? " " + p.stars + "/5" : ""}`).join("\n");
+  const lines = data.picks.map(p =>
+    `- ${p.id} · ${p.factory} · ${p.type}${p.item ? " · " + p.item : ""}${p.like ? " · нравится" : ""}${p.stars ? " · " + p.stars + "/5" : ""}`);
+  const text = `Страница: hubei-yuyuan-sayt-chast-2\nКто отмечал: ${data.who || "не указано"}\nОтмечено моделей: ${data.picks.length}\n\n` + lines.join("\n");
+  const btn = document.getElementById("send");
+  btn.disabled = true;
+  setStatus("Отправляю…");
+  try{
+    const res = await fetch(SEND_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Accept": "application/json"},
+      body: JSON.stringify({
+        _subject: `Выбор моделей: ${data.who || "без имени"} — hubei-yuyuan-sayt-chast-2`,
+        _template: "table",
+        Кто: data.who || "не указано",
+        Страница: PAGE_ID,
+        Моделей: String(data.picks.length),
+        Выбор: text
+      })
+    });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    setStatus(`Отправлено Софье: ${data.picks.length} моделей. Спасибо!`);
+    openSheet(false);
+    try{ localStorage.setItem("sent:" + PAGE_ID, new Date().toISOString()); }catch(e){}
+  }catch(e){
+    try{
+      await navigator.clipboard.writeText(text);
+      setStatus("Не удалось отправить (нет сети?) — выбор скопирован в буфер, пришлите его Софье сообщением.");
+    }catch(err){
+      setStatus("Не удалось отправить — нажмите «Скачать файл выбора» и пришлите файл.");
+    }
+  }finally{ btn.disabled = false; }
+};
+
+document.getElementById("f-all").onclick = ()=> setFilter("all");
+document.getElementById("f-new").onclick = ()=> setFilter("new");
+document.getElementById("f-like").onclick = ()=> setFilter("like");
+function setFilter(f){
+  state.filter=f;
+  for(const [id,val] of [["f-all","all"],["f-new","new"],["f-like","like"]])
+    document.getElementById(id).setAttribute("aria-pressed", String(val===f));
+  render();
+}
+const types = [...new Set(MODELS.map(m=>m.type))].sort();
+const sel = document.getElementById("f-type");
+for(const t of types){ const o=el("option",null,t); o.value=t; sel.appendChild(o); }
+sel.onchange = e => { state.type = e.target.value; render(); };
+document.getElementById("f-q").oninput = e => { state.q = e.target.value; render(); };
+
+const sheet = document.getElementById("sheet"), sheetbg = document.getElementById("sheetbg");
+sheet.style.display = "none"; sheetbg.style.display = "none";
+function openSheet(on){
+  sheet.hidden = !on; sheetbg.hidden = !on;
+  sheet.style.display = on ? "flex" : "none";
+  sheetbg.style.display = on ? "block" : "none";
+  if(on) document.getElementById("who").focus();
+}
+document.addEventListener("keydown", e => { if(e.key === "Escape") openSheet(false); });
+document.getElementById("sendopen").onclick = ()=> openSheet(true);
+document.getElementById("sheetclose").onclick = ()=> openSheet(false);
+sheetbg.onclick = ()=> openSheet(false);
+
+state.mine = localLoad();
+render();
+
+(async ()=>{
+  const user = await window.claude?.use?.("user");
+  uid = user ? await user.id() : null;
+  db = await window.claude?.use?.("db");
+  if(!db){ setStatus("Общая база недоступна — оценки сохраняются только в этом браузере."); return; }
+  setStatus("Оценки сохраняются автоматически и видны коллегам.");
+  db.collection("votes").where("page","==",PAGE_ID).onSnapshot(snap=>{
+    const mine={}, others={};
+    for(const d of snap.docs){
+      const v = d.data()||{};
+      if(uid && v.by===uid){ mine[v.model]={like:!!v.like, stars:v.stars||0}; }
+      else if(v.like){ others[v.model]=(others[v.model]||0)+1; }
+    }
+    if(Object.keys(mine).length || Object.keys(others).length){
+      state.mine = Object.keys(mine).length ? mine : state.mine;
+      state.others = others; localSave(); render();
+    }
+  }, err => { setStatus("Общая база не отвечает ("+(err.code||"ошибка")+") — оценки пока только в этом браузере."); });
+})();
+</script>
