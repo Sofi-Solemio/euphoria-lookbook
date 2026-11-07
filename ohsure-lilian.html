@@ -1,0 +1,174 @@
+<title>Лукбук — Ohsure (Lilian)</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+  --hl:#FFF8E1; --hl-line:#E8B931; --hl-tag:#FFE9A8; --hl-ink:#7A5200;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+    --hl:#2B2615; --hl-line:#B8912A; --hl-tag:#4A3D14; --hl-ink:#F2D68A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  --hl:#2B2615; --hl-line:#B8912A; --hl-tag:#4A3D14; --hl-ink:#F2D68A;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,215px),1fr));gap:14px;margin-top:16px}
+.card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{min-width:0;overflow-wrap:anywhere;padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+/* модели с ценой фабрики: карточка подсвечена, внизу наша расчётная РРЦ */
+.card.priced{background:var(--hl);border:2px solid var(--hl-line)}
+.rrc{font-size:14px;font-weight:700;color:var(--hl-ink);background:var(--hl-tag);border-radius:6px;padding:3px 7px;align-self:flex-start;margin-top:2px}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.back{text-decoration:none;color:var(--ink);font-size:19px;font-weight:700;padding-right:2px}
+.sendfab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;
+  background:var(--accent);color:#fff;border:0;border-radius:99px;padding:14px 20px;font:600 15px/1 "Golos Text",Arial,sans-serif;
+  box-shadow:0 6px 20px rgba(22,33,28,.28);cursor:pointer}
+
+dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* телефон: две крупные колонки вместо мелкой сетки, крупнее текст и кнопки */
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 12px 72px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  header.top{padding-block:6px 6px}
+  .brow{gap:4px 8px;flex-wrap:nowrap;align-items:center}
+  .prog{display:none}
+  .brow .sub:first-of-type{display:none}
+  h1{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+  #cnt{white-space:nowrap;font-size:12px}
+  .status{font-size:12px;margin-top:4px}
+  .tools{margin-top:6px}
+  .sendfab{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:13px 18px}
+  .chip,select,input[type=search]{font-size:14px;padding:7px 12px}
+  input[type=search]{min-width:150px}
+  .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;scrollbar-width:none}
+  .tools::-webkit-scrollbar{display:none}
+  .chip,select,input[type=search]{flex:0 0 auto}
+  h1{font-size:19px}
+  .type{font-size:14px}
+  .art{font-size:12.5px}
+  .fab{font-size:13px}
+  .price{font-size:15px}
+  .meta{padding:10px 12px 0;gap:4px}
+  .acts{padding:10px 12px 12px;gap:8px}
+  .heart,.star{font-size:23px;padding:4px 2px}
+  .stars{gap:3px}
+  .chip,select,input[type=search]{font-size:15px;padding:9px 14px}
+  #who{min-width:130px}
+  .viewer{width:96vw}
+  .nav{width:52px;height:68px;font-size:30px}
+}
+@media (max-width:430px){
+  /* на телефоне всегда две карточки в ряд */
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  h1{font-size:17px}
+  .wrap{padding:0 10px 72px}
+  .meta{padding:8px 9px 0}
+  .acts{padding:8px 9px 10px;gap:4px}
+  .heart,.star{font-size:20px;padding:3px 1px}
+  .stars{gap:0}
+  .fab{font-size:12px}
+  .type{font-size:13px}
+}
+/* выбор: отправленное — зелёным, черновик — пунктиром; цена остаётся жёлтым фоном */
+.card.sent{border:3px solid var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.card.draft{border:2px dashed var(--star)}
+.flag{position:absolute;top:8px;left:8px;font-size:11.5px;font-weight:700;border-radius:99px;padding:3px 9px}
+.sentflag{background:var(--accent);color:#fff}
+.draftflag{background:var(--panel);color:var(--star);border:1px solid var(--star)}
+.team{font-size:12px;color:var(--accent);font-weight:600;line-height:1.35}
+.fac{font-size:11.5px;color:var(--muted);font-weight:600}
+.unpick{background:none;border:1px solid var(--line);border-radius:99px;color:var(--muted);cursor:pointer;font-size:12px;padding:2px 8px}
+.group{grid-column:1/-1;margin:10px 0 0;font-size:16px}
+.sendfab:disabled{background:var(--muted);opacity:.7;cursor:default}
+</style>
+<div class="wrap" id="app" hidden>
+<header class="top">
+  <div class="brow">
+    <a class="back" href="index.html" title="Все фабрики">←</a>
+    <h1>Ohsure (Lilian)</h1>
+    <div class="sub">7 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Нравится</button>
+    <button class="chip" id="f-mine" aria-pressed="false">Мой выбор</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+  </div>
+  <div class="status" id="status" hidden></div>
+</header>
+<button class="sendfab" id="send" disabled>Всё отправлено</button>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden></div>
+</div>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
+<script>
+const PAGE = {id: "ohsure-lilian", kind: "factory"};
+const MODELS = null;
+const ENC = {"iv": "RwRWqc7l/8pJzmt7", "data": "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"};
+</script>
+<script src="app.js?v=98de8156"></script>

@@ -1,0 +1,174 @@
+<title>Лукбук — Небольшие фабрики</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
+  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
+  --hl:#FFF8E1; --hl-line:#E8B931; --hl-tag:#FFE9A8; --hl-ink:#7A5200;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+    --hl:#2B2615; --hl-line:#B8912A; --hl-tag:#4A3D14; --hl-ink:#F2D68A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
+  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
+  --hl:#2B2615; --hl-line:#B8912A; --hl-tag:#4A3D14; --hl-ink:#F2D68A;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
+.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
+.sub{color:var(--muted);font-size:13px}
+.sub a{color:var(--accent)}
+.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,215px),1fr));gap:14px;margin-top:16px}
+.card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
+.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
+.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
+.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
+.dots b.on{background:var(--accent)}
+.meta{min-width:0;overflow-wrap:anywhere;padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
+.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
+.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
+.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
+.price{font-size:13px;font-weight:600}
+/* модели с ценой фабрики: карточка подсвечена, внизу наша расчётная РРЦ */
+.card.priced{background:var(--hl);border:2px solid var(--hl-line)}
+.rrc{font-size:14px;font-weight:700;color:var(--hl-ink);background:var(--hl-tag);border-radius:6px;padding:3px 7px;align-self:flex-start;margin-top:2px}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
+.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.heart.on{color:var(--heart)}
+.stars{display:flex;gap:1px;margin-left:auto}
+.star.on{color:var(--star)}
+.others{font-size:11px;color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.back{text-decoration:none;color:var(--ink);font-size:19px;font-weight:700;padding-right:2px}
+.sendfab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;
+  background:var(--accent);color:#fff;border:0;border-radius:99px;padding:14px 20px;font:600 15px/1 "Golos Text",Arial,sans-serif;
+  box-shadow:0 6px 20px rgba(22,33,28,.28);cursor:pointer}
+
+dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,13,.7)}
+.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
+.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
+.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
+.nav.prev{left:6px} .nav.next{right:6px}
+.dots.big{bottom:10px}
+.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
+.dots.big b.on{background:var(--accent)}
+.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* телефон: две крупные колонки вместо мелкой сетки, крупнее текст и кнопки */
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 12px 72px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  header.top{padding-block:6px 6px}
+  .brow{gap:4px 8px;flex-wrap:nowrap;align-items:center}
+  .prog{display:none}
+  .brow .sub:first-of-type{display:none}
+  h1{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+  #cnt{white-space:nowrap;font-size:12px}
+  .status{font-size:12px;margin-top:4px}
+  .tools{margin-top:6px}
+  .sendfab{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:13px 18px}
+  .chip,select,input[type=search]{font-size:14px;padding:7px 12px}
+  input[type=search]{min-width:150px}
+  .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;scrollbar-width:none}
+  .tools::-webkit-scrollbar{display:none}
+  .chip,select,input[type=search]{flex:0 0 auto}
+  h1{font-size:19px}
+  .type{font-size:14px}
+  .art{font-size:12.5px}
+  .fab{font-size:13px}
+  .price{font-size:15px}
+  .meta{padding:10px 12px 0;gap:4px}
+  .acts{padding:10px 12px 12px;gap:8px}
+  .heart,.star{font-size:23px;padding:4px 2px}
+  .stars{gap:3px}
+  .chip,select,input[type=search]{font-size:15px;padding:9px 14px}
+  #who{min-width:130px}
+  .viewer{width:96vw}
+  .nav{width:52px;height:68px;font-size:30px}
+}
+@media (max-width:430px){
+  /* на телефоне всегда две карточки в ряд */
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  h1{font-size:17px}
+  .wrap{padding:0 10px 72px}
+  .meta{padding:8px 9px 0}
+  .acts{padding:8px 9px 10px;gap:4px}
+  .heart,.star{font-size:20px;padding:3px 1px}
+  .stars{gap:0}
+  .fab{font-size:12px}
+  .type{font-size:13px}
+}
+/* выбор: отправленное — зелёным, черновик — пунктиром; цена остаётся жёлтым фоном */
+.card.sent{border:3px solid var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.card.draft{border:2px dashed var(--star)}
+.flag{position:absolute;top:8px;left:8px;font-size:11.5px;font-weight:700;border-radius:99px;padding:3px 9px}
+.sentflag{background:var(--accent);color:#fff}
+.draftflag{background:var(--panel);color:var(--star);border:1px solid var(--star)}
+.team{font-size:12px;color:var(--accent);font-weight:600;line-height:1.35}
+.fac{font-size:11.5px;color:var(--muted);font-weight:600}
+.unpick{background:none;border:1px solid var(--line);border-radius:99px;color:var(--muted);cursor:pointer;font-size:12px;padding:2px 8px}
+.group{grid-column:1/-1;margin:10px 0 0;font-size:16px}
+.sendfab:disabled{background:var(--muted);opacity:.7;cursor:default}
+</style>
+<div class="wrap" id="app" hidden>
+<header class="top">
+  <div class="brow">
+    <a class="back" href="index.html" title="Все фабрики">←</a>
+    <h1>Небольшие фабрики</h1>
+    <div class="sub">5 моделей · каталоги фабрики</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <div class="sub" id="cnt"></div>
+  </div>
+  <div class="tools">
+    <button class="chip" id="f-all" aria-pressed="true">Все</button>
+    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+    <button class="chip" id="f-like" aria-pressed="false">Нравится</button>
+    <button class="chip" id="f-mine" aria-pressed="false">Мой выбор</button>
+    <select id="f-type"><option value="">Все типы</option></select>
+    <input type="search" id="f-q" placeholder="артикул или ткань">
+  </div>
+  <div class="status" id="status" hidden></div>
+</header>
+<button class="sendfab" id="send" disabled>Всё отправлено</button>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden></div>
+</div>
+<dialog id="dlg">
+  <div class="viewer" id="viewer">
+    <img id="bigimg" alt="">
+    <button class="nav prev" id="prev" aria-label="Предыдущее фото">‹</button>
+    <button class="nav next" id="next" aria-label="Следующее фото">›</button>
+    <div class="dots big" id="bigdots"></div>
+  </div>
+  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+</dialog>
+<script>
+const PAGE = {id: "nebolshie-fabriki", kind: "factory"};
+const MODELS = null;
+const ENC = {"iv": "QPsobBRFMSNCPCMO", "data": "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"};
+</script>
+<script src="app.js?v=98de8156"></script>
