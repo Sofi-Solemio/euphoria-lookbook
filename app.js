@@ -37,35 +37,21 @@ async function decrypt(enc) {
 
 // ---------- вход ----------
 
-function css() {
-  const s = el("style");
-  s.textContent = `
-.gate{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;background:var(--bg)}
-.gate form{width:100%;max-width:360px;display:flex;flex-direction:column;gap:10px;background:var(--panel);border:1px solid var(--line);
-  border-radius:16px;padding:22px;box-shadow:0 12px 40px rgba(0,0,0,.12)}
-.gate h2{margin:0 0 4px;font-size:20px}.gate p{margin:0 0 6px;color:var(--muted);font-size:14px}
-.gate input{width:100%;padding:12px 14px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
-.gate button{padding:12px;font:600 16px/1 inherit;border:0;border-radius:10px;background:var(--accent);color:#fff;cursor:pointer}
-.gate button:disabled{opacity:.6}.gate .err{color:#C2452F;font-size:14px;min-height:18px}
-.userbar{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:13px;color:var(--muted);margin-top:8px}
-.userbar a{color:var(--accent);font-weight:600;text-decoration:none}.userbar a.on{text-decoration:underline}
-.userbar button{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:99px;padding:3px 10px;font:inherit;font-size:12px;cursor:pointer}
-.userbar .me{margin-left:auto}`;
-  document.head.appendChild(s);
-}
-
 function gate(message) {
   let g = $("gate");
   if (!g) {
     g = el("div", "gate"); g.id = "gate";
-    g.innerHTML = '<form id="gform" autocomplete="on"><h2>Лукбук фабрик</h2><p>Войдите, чтобы открыть каталог.</p>' +
-      '<input id="glogin" name="username" autocomplete="username" placeholder="логин" autocapitalize="none" required>' +
-      '<input id="gpass" name="password" type="password" autocomplete="current-password" placeholder="пароль" required>' +
-      '<div class="err" id="gerr"></div><button id="gbtn">Войти</button></form>';
+    g.innerHTML = '<form id="gform" autocomplete="on">' +
+      '<div class="brand-block"><img class="brand-logo" src="brand/logo-white.svg" alt="Euphoria" width="150" height="40"><span class="brand-sub">Лукбук</span></div>' +
+      '<h2>Лукбук фабрик</h2><p>Каталоги фабрик, цены и выбор команды</p>' +
+      '<label for="glogin">Логин</label><input id="glogin" name="username" autocomplete="username" autocapitalize="none" required>' +
+      '<label for="gpass">Пароль</label><input id="gpass" name="password" type="password" autocomplete="current-password" required>' +
+      '<button id="gbtn">Войти</button><div class="err" id="gerr"></div></form>';
     document.body.appendChild(g);
     $("gform").onsubmit = async e => {
       e.preventDefault();
       $("gbtn").disabled = true; $("gbtn").textContent = "Вхожу…";
+      $("gerr").className = "err wait";
       $("gerr").textContent = "Проверяю пароль — первый вход может занять до 10 секунд.";
       try {
         // пароль копируют из файла — пробелы и табуляция по краям не нужны
@@ -75,6 +61,7 @@ function gate(message) {
         await start();
       } catch (err) {
         const m = String(err.message);
+        $("gerr").className = "err";
         $("gerr").textContent = m === "wrong" ? "Неверный логин или пароль." :
           m === "blocked" ? "Слишком много попыток — подождите 10 минут." : `Нет связи с сервером, попробуйте ещё раз (${m}).`;
       } finally { $("gbtn").disabled = false; $("gbtn").textContent = "Войти"; }
@@ -92,15 +79,12 @@ function logout(message) {
 }
 
 function userbar() {
-  if ($("userbar")) return;
-  const bar = el("div", "userbar"); bar.id = "userbar";
-  [["index.html", "Все фабрики"], ["moi-modeli.html", "Мои модели"], ["vybor-komandy.html", "Выбор команды"]].forEach(([href, text]) => {
-    const a = el("a", location.pathname.endsWith("/" + href) ? "on" : "", text); a.href = href; bar.appendChild(a);
+  $("me").textContent = store.get(KEYS.name) || "";
+  $("logout").onclick = () => logout();
+  const here = location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".side nav a").forEach(a => {
+    if (a.getAttribute("href") === here) a.setAttribute("aria-current", "page");
   });
-  bar.appendChild(el("span", "me", store.get(KEYS.name) || ""));
-  const out = el("button", "", "Выйти"); out.onclick = () => logout(); bar.appendChild(out);
-  const header = document.querySelector("header.top");
-  if (header) header.appendChild(bar); else $("app").prepend(bar);
 }
 
 // ---------- состояние выбора ----------
@@ -228,10 +212,10 @@ function card(m) {
     stars.appendChild(s);
   }
   acts.appendChild(stars);
-  if (marked(v)) {
-    const x = el("button", "unpick", "✕"); x.title = "Убрать из выбора";
-    x.onclick = () => mark(m, {like: false, stars: 0});
-    acts.appendChild(x);
+  if (marked(v)) {     // в углу фото: в ряду со звёздами на телефоне не помещается
+    const x = el("button", "unpick", "✕"); x.title = "Убрать из выбора"; x.setAttribute("aria-label", "Убрать из выбора");
+    x.onclick = e => { e.stopPropagation(); mark(m, {like: false, stars: 0}); };
+    ph.appendChild(x);
   }
   c.append(ph, meta, acts);
   return c;
@@ -273,8 +257,9 @@ function render() {
   $("cnt").textContent = PAGE.kind === "team" ? `${S.order.length} моделей выбрано командой` : `ваш выбор: ${rated} из ${all.length}`;
   const n = Object.values(S.mine).filter(dirty).length;
   const btn = $("send");
-  btn.disabled = n === 0;
-  btn.textContent = n ? `Отправить · ${n}` : "Всё отправлено";
+  btn.hidden = n === 0;      // кнопка появляется, только когда есть неотправленные отметки
+  btn.disabled = false;
+  btn.textContent = `Отправить · ${n}`;
 }
 
 // ---------- просмотр фото ----------
@@ -384,6 +369,5 @@ async function start() {
   render();
 }
 
-css();
 start();
 })();

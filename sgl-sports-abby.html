@@ -1,161 +1,40 @@
-<title>Лукбук — SGL Sports (Abby)</title>
+<!doctype html>
+<html lang="ru">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Лукбук — SGL Sports (Abby)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<style>
-:root{
-  --bg:#F2F5F4; --panel:#FFFFFF; --ink:#16211C; --muted:#5D6F66; --line:#DCE5E0;
-  --accent:#2F6B4F; --accent-soft:#E4EFE8; --star:#C98A23; --heart:#C2452F; --shadow:0 1px 2px rgba(22,33,28,.06);
-  --hl:#FFF8E1; --hl-line:#E8B931; --hl-tag:#FFE9A8; --hl-ink:#7A5200;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
-    --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
-    --hl:#2B2615; --hl-line:#B8912A; --hl-tag:#4A3D14; --hl-ink:#F2D68A;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#111714; --panel:#19211D; --ink:#E7EFE9; --muted:#9FB2A8; --line:#2A342E;
-  --accent:#7FC0A0; --accent-soft:#22332B; --star:#E0A94A; --heart:#E2735C; --shadow:0 1px 2px rgba(0,0,0,.4);
-  --hl:#2B2615; --hl-line:#B8912A; --hl-tag:#4A3D14; --hl-ink:#F2D68A;
-}
-*{box-sizing:border-box}
-[hidden]{display:none!important}
-body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font:400 15px/1.45 "Golos Text",-apple-system,"Helvetica Neue",Arial,sans-serif}
-.wrap{padding:0 16px 64px;max-width:1400px;margin:0 auto}
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding-block:12px 10px}
-.brow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
-h1{font-size:19px;font-weight:700;margin:0;letter-spacing:-.2px}
-.sub{color:var(--muted);font-size:13px}
-.sub a{color:var(--accent)}
-.prog{flex:1;min-width:160px;height:6px;border-radius:99px;background:var(--line);overflow:hidden;align-self:center}
-.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
-.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
-select,input[type=search]{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,215px),1fr));gap:14px;margin-top:16px}
-.card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
-.card.liked{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
-.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;cursor:zoom-in}
-.ph img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .15s}
-.dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:4px}
-.dots b{width:5px;height:5px;border-radius:99px;background:rgba(22,33,28,.25)}
-.dots b.on{background:var(--accent)}
-.meta{min-width:0;overflow-wrap:anywhere;padding:8px 10px 0;display:flex;flex-direction:column;gap:3px;flex:1}
-.type{font-size:12px;font-weight:600;color:var(--accent);text-transform:lowercase}
-.art{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);word-break:break-all}
-.fab{font-size:11.5px;color:var(--muted);line-height:1.35}
-.price{font-size:13px;font-weight:600}
-/* модели с ценой фабрики: карточка подсвечена, внизу наша расчётная РРЦ */
-.card.priced{background:var(--hl);border:2px solid var(--hl-line)}
-.rrc{font-size:14px;font-weight:700;color:var(--hl-ink);background:var(--hl-tag);border-radius:6px;padding:3px 7px;align-self:flex-start;margin-top:2px}
-.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 10px;border-top:1px solid var(--line);margin-top:8px}
-.heart,.star{background:none;border:0;padding:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
-.heart.on{color:var(--heart)}
-.stars{display:flex;gap:1px;margin-left:auto}
-.star.on{color:var(--star)}
-.others{font-size:11px;color:var(--muted)}
-.empty{padding:40px 0;color:var(--muted);text-align:center}
-.status{font-size:12px;color:var(--muted);margin-top:6px}
-.back{text-decoration:none;color:var(--ink);font-size:19px;font-weight:700;padding-right:2px}
-.sendfab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;
-  background:var(--accent);color:#fff;border:0;border-radius:99px;padding:14px 20px;font:600 15px/1 "Golos Text",Arial,sans-serif;
-  box-shadow:0 6px 20px rgba(22,33,28,.28);cursor:pointer}
-
-dialog{border:0;border-radius:14px;padding:0;margin:auto;background:var(--panel);color:var(--ink);max-width:min(94vw,900px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
-dialog::backdrop{background:rgba(10,16,13,.7)}
-.viewer{position:relative;overflow:hidden;width:min(92vw,620px);aspect-ratio:3/4;background:#fff;touch-action:pan-y}
-.viewer img{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;transition:transform .18s;cursor:zoom-in}
-.nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(22,33,28,.45);color:#fff;font-size:26px;line-height:1;width:42px;height:56px;cursor:pointer;border-radius:6px}
-.nav.prev{left:6px} .nav.next{right:6px}
-.dots.big{bottom:10px}
-.dots.big b{width:8px;height:8px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,33,28,.25)}
-.dots.big b.on{background:var(--accent)}
-.dlgbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
-button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-/* телефон: две крупные колонки вместо мелкой сетки, крупнее текст и кнопки */
-@media (max-width:760px){
-  body{font-size:16px}
-  .wrap{padding:0 12px 72px}
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  header.top{padding-block:6px 6px}
-  .brow{gap:4px 8px;flex-wrap:nowrap;align-items:center}
-  .prog{display:none}
-  .brow .sub:first-of-type{display:none}
-  h1{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
-  #cnt{white-space:nowrap;font-size:12px}
-  .status{font-size:12px;margin-top:4px}
-  .tools{margin-top:6px}
-  .sendfab{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:13px 18px}
-  .chip,select,input[type=search]{font-size:14px;padding:7px 12px}
-  input[type=search]{min-width:150px}
-  .tools{flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-top:8px;scrollbar-width:none}
-  .tools::-webkit-scrollbar{display:none}
-  .chip,select,input[type=search]{flex:0 0 auto}
-  h1{font-size:19px}
-  .type{font-size:14px}
-  .art{font-size:12.5px}
-  .fab{font-size:13px}
-  .price{font-size:15px}
-  .meta{padding:10px 12px 0;gap:4px}
-  .acts{padding:10px 12px 12px;gap:8px}
-  .heart,.star{font-size:23px;padding:4px 2px}
-  .stars{gap:3px}
-  .chip,select,input[type=search]{font-size:15px;padding:9px 14px}
-  #who{min-width:130px}
-  .viewer{width:96vw}
-  .nav{width:52px;height:68px;font-size:30px}
-}
-@media (max-width:430px){
-  /* на телефоне всегда две карточки в ряд */
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  h1{font-size:17px}
-  .wrap{padding:0 10px 72px}
-  .meta{padding:8px 9px 0}
-  .acts{padding:8px 9px 10px;gap:4px}
-  .heart,.star{font-size:20px;padding:3px 1px}
-  .stars{gap:0}
-  .fab{font-size:12px}
-  .type{font-size:13px}
-}
-/* выбор: отправленное — зелёным, черновик — пунктиром; цена остаётся жёлтым фоном */
-.card.sent{border:3px solid var(--accent);box-shadow:0 0 0 1px var(--accent)}
-.card.draft{border:2px dashed var(--star)}
-.flag{position:absolute;top:8px;left:8px;font-size:11.5px;font-weight:700;border-radius:99px;padding:3px 9px}
-.sentflag{background:var(--accent);color:#fff}
-.draftflag{background:var(--panel);color:var(--star);border:1px solid var(--star)}
-.team{font-size:12px;color:var(--accent);font-weight:600;line-height:1.35}
-.fac{font-size:11.5px;color:var(--muted);font-weight:600}
-.unpick{background:none;border:1px solid var(--line);border-radius:99px;color:var(--muted);cursor:pointer;font-size:12px;padding:2px 8px}
-.group{grid-column:1/-1;margin:10px 0 0;font-size:16px}
-.sendfab:disabled{background:var(--muted);opacity:.7;cursor:default}
-</style>
-<div class="wrap" id="app" hidden>
-<header class="top">
-  <div class="brow">
-    <a class="back" href="index.html" title="Все фабрики">←</a>
-    <h1>SGL Sports (Abby)</h1>
-    <div class="sub">22 моделей · каталоги фабрики</div>
-    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
-    <div class="sub" id="cnt"></div>
-  </div>
-  <div class="tools">
-    <button class="chip" id="f-all" aria-pressed="true">Все</button>
-    <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
-    <button class="chip" id="f-like" aria-pressed="false">Нравится</button>
-    <button class="chip" id="f-mine" aria-pressed="false">Мой выбор</button>
-    <select id="f-type"><option value="">Все типы</option></select>
-    <input type="search" id="f-q" placeholder="артикул или ткань">
-  </div>
-  <div class="status" id="status" hidden></div>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="hub.css?v=bfce1c18">
+<div class="shell" id="app" hidden>
+<aside class="side">
+  <a class="brand-block small" href="index.html" aria-label="Лукбук фабрик, на главную"><img class="brand-logo" src="brand/logo-white.svg" alt="Euphoria" width="104" height="28"><span class="brand-sub">Лукбук</span></a>
+  <div class="side-group">Каталоги фабрик</div>
+  <nav aria-label="Разделы"><a href="index.html">Все фабрики</a><a href="moi-modeli.html">Мои модели</a><a href="vybor-komandy.html">Выбор команды</a></nav>
+  <div class="side-user"><b id="me"></b><button id="logout" type="button">Выйти</button></div>
+</aside>
+<main class="main">
+<header class="page-head">
+  <a class="back" href="index.html">← Все фабрики</a>
+  <h1>SGL Sports (Abby)</h1>
+  <div class="headrow"><span>22 моделей · каталоги фабрики</span><b id="cnt"></b><div class="prog" aria-hidden="true"><i id="bar"></i></div></div>
 </header>
-<button class="sendfab" id="send" disabled>Всё отправлено</button>
+<div class="tools">
+  <button class="chip" id="f-all" aria-pressed="true">Все</button>
+  <button class="chip" id="f-new" aria-pressed="false">Без оценки</button>
+  <button class="chip" id="f-like" aria-pressed="false">Нравится</button>
+  <button class="chip" id="f-mine" aria-pressed="false">Мой выбор</button>
+  <select id="f-type"><option value="">Все типы</option></select>
+  <input type="search" id="f-q" placeholder="артикул или ткань">
+</div>
+<div class="status" id="status" hidden></div>
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty" hidden></div>
+<button class="sendfab" id="send" hidden>Отправить</button>
+</main>
 </div>
 <dialog id="dlg">
   <div class="viewer" id="viewer">
@@ -164,11 +43,11 @@ button:focus-visible,.chip:focus-visible,.ph:focus-visible{outline:2px solid var
     <button class="nav next" id="next" aria-label="Следующее фото">›</button>
     <div class="dots big" id="bigdots"></div>
   </div>
-  <div class="dlgbar"><span class="sub" id="dlgcap"></span><span class="sub" id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
+  <div class="dlgbar"><span id="dlgcap"></span><span id="dlgnum"></span><button class="chip" id="dlgclose" style="margin-left:auto">Закрыть</button></div>
 </dialog>
 <script>
 const PAGE = {id: "sgl-sports-abby", kind: "factory"};
 const MODELS = null;
 const ENC = {"iv": "MviI8/sgckNP5A4x", "data": "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"};
 </script>
-<script src="app.js?v=85b14560"></script>
+<script src="app.js?v=bfce1c18"></script>
