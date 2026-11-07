@@ -65,17 +65,19 @@ function gate(message) {
     document.body.appendChild(g);
     $("gform").onsubmit = async e => {
       e.preventDefault();
-      $("gbtn").disabled = true; $("gerr").textContent = "";
+      $("gbtn").disabled = true; $("gbtn").textContent = "Вхожу…";
+      $("gerr").textContent = "Проверяю пароль — первый вход может занять до 10 секунд.";
       try {
-        const j = await call("login", {login: $("glogin").value.trim(), password: $("gpass").value});
+        // пароль копируют из файла — пробелы и табуляция по краям не нужны
+        const j = await call("login", {login: $("glogin").value.trim(), password: $("gpass").value.trim()});
         store.set(KEYS.token, j.token); store.set(KEYS.key, j.key); store.set(KEYS.name, j.name); store.set(KEYS.login, j.login);
         g.hidden = true;
         await start();
       } catch (err) {
         const m = String(err.message);
         $("gerr").textContent = m === "wrong" ? "Неверный логин или пароль." :
-          m === "blocked" ? "Слишком много попыток — подождите 10 минут." : "Нет связи с сервером, попробуйте ещё раз.";
-      } finally { $("gbtn").disabled = false; }
+          m === "blocked" ? "Слишком много попыток — подождите 10 минут." : `Нет связи с сервером, попробуйте ещё раз (${m}).`;
+      } finally { $("gbtn").disabled = false; $("gbtn").textContent = "Войти"; }
     };
   }
   g.hidden = false;
