@@ -13,7 +13,7 @@ const store = {
   del: k => { try { localStorage.removeItem(k); } catch (e) {} },
 };
 
-const S = {models: [], byId: {}, mine: {}, team: {}, order: [], me: "", filter: "all", type: "", q: "", pending: {}, timer: null};
+const S = {models: [], byId: {}, mine: {}, team: {}, order: [], me: "", filter: "all", type: "", fac: "", q: "", pending: {}, timer: null};
 
 // ---------- сервер ----------
 
@@ -227,24 +227,51 @@ function visible(m) {
   if (S.filter === "like" && !v.like) return false;
   if (S.filter === "mine" && !marked(v) && !sentMarked(v)) return false;
   if (S.type && m.type !== S.type) return false;
+  if (S.fac && m.factory !== S.fac) return false;
   const q = S.q.trim().toLowerCase();
   if (q && !((m.item_no || "") + " " + (m.fabric || "") + " " + (m.description || "") + " " + m.factory).toLowerCase().includes(q)) return false;
   return true;
+}
+
+// [фабрика, модели]: фабрики с большим выбором выше, порядок моделей внутри сохраняется
+function byFactory(items) {
+  const g = new Map();
+  items.forEach(m => { if (!g.has(m.factory)) g.set(m.factory, []); g.get(m.factory).push(m); });
+  return [...g].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+}
+
+// список «Все фабрики» на «Мои модели» и «Выбор команды»: только фабрики из выбора, с числом моделей
+function facOptions() {
+  const fs = $("f-fac");
+  if (!fs) return;
+  const groups = byFactory(S.order);
+  if (S.fac && !groups.some(([f]) => f === S.fac)) S.fac = "";
+  fs.textContent = "";
+  const opt = (v, t) => { const o = el("option", null, t); o.value = v; fs.appendChild(o); };
+  opt("", `Все фабрики · ${S.order.length}`);
+  groups.forEach(([f, ms]) => opt(f, `${f} · ${ms.length}`));
+  fs.value = S.fac;
 }
 
 function render() {
   const grid = $("grid");
   grid.textContent = "";
   let shown = 0;
+  facOptions();
   const list = S.order.filter(visible);
+  const add = (title, items) => {
+    if (!items.length) return;
+    grid.appendChild(el("h2", "group", `${title} · ${items.length}`));
+    items.forEach(m => { grid.appendChild(card(m)); shown++; });
+  };
+  // без выбранной фабрики выбор раскладывается по фабрикам, а не одной лентой
+  const split = (prefix, items) => S.fac ? add(prefix ? `${prefix} · ${S.fac}` : S.fac, items) :
+    byFactory(items).forEach(([f, ms]) => add(prefix ? `${prefix} · ${f}` : f, ms));
   if (PAGE.kind === "mine") {
-    const groups = [["Не отправлено — нажмите «Отправить»", list.filter(m => dirty(S.mine[m.id]))],
-                    ["Отправлено", list.filter(m => !dirty(S.mine[m.id]))]];
-    groups.forEach(([title, items]) => {
-      if (!items.length) return;
-      grid.appendChild(el("h2", "group", `${title} · ${items.length}`));
-      items.forEach(m => { grid.appendChild(card(m)); shown++; });
-    });
+    add("Не отправлено — нажмите «Отправить»", list.filter(m => dirty(S.mine[m.id])));
+    split("Отправлено", list.filter(m => !dirty(S.mine[m.id])));
+  } else if (PAGE.kind === "team") {
+    split("", list);
   } else {
     list.forEach(m => { grid.appendChild(card(m)); shown++; });
   }
@@ -317,6 +344,13 @@ function tools() {
   const sel = $("f-type");
   [...new Set(S.models.map(m => m.type))].sort().forEach(t => { const o = el("option", null, t); o.value = t; sel.appendChild(o); });
   sel.onchange = e => { S.type = e.target.value; render(); };
+  if (PAGE.kind === "mine" || PAGE.kind === "team") {
+    const fs = el("select");
+    fs.id = "f-fac";
+    fs.setAttribute("aria-label", "Фабрика");
+    sel.before(fs);
+    fs.onchange = e => { S.fac = e.target.value; render(); };
+  }
   $("f-q").oninput = e => { S.q = e.target.value; render(); };
   $("send").onclick = send;
   window.addEventListener("beforeunload", e => {
